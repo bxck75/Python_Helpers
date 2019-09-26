@@ -5,6 +5,8 @@ from . import BigHelp
 from . import RepCoList
 from . import custom_functions
 from . import resize
+from . import *
+
 
 def get_hmm():
     """Get a thought."""
