@@ -1,7 +1,7 @@
 # a list of repos for machinelearning
 reps=[
         'divamgupta/ladder_network_keras',
-        'zhixuhao/unet ',
+        'zhixuhao/unet',
         'yihui-he/u-net',
         'alina1021/facial_expression_transfer',
         'shekkizh/FCN',
