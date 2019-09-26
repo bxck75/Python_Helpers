@@ -7,6 +7,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import sample
 
 class main():
-    def __init__():
+    def __init__(self):
         Helper=sample.BigHelp.Helpers
         Zipper=sample.ZipUp
