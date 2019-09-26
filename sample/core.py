@@ -7,7 +7,7 @@ from . import BigHelp
 from . import RepCoList
 from . import custom_functions
 from . import resize
-from . import process
+from . import GdriveD
 
 
 def get_hmm():
