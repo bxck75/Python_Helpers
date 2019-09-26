@@ -10,5 +10,3 @@ class main():
     def __init__():
         Helper=sample.BigHelp.Helpers
         Zipper=sample.ZipUp
-        
-main()
