@@ -15,5 +15,32 @@ def resize(folder):
             outfile=os.path.join(directory, outfilename)
             print(directory+outfile)
             rgb_im.save(directory+outfile)
+            
+def resize_single(src,pad=False,size=256):
+    '''
+        resize(img,pad,size)
+    '''
+    height, width, _ = src.shape
+    dst = src
+    if height != width:
+        if pad:
+            size = max(height, width)
+            # pad to correct ratio
+            oh = (size - height) // 2
+            ow = (size - width) // 2
+            dst = im.pad(image=dst, offset_height=oh, offset_width=ow, target_height=size, target_width=size)
+        else:
+            # crop to correct ratio
+            size = min(height, width)
+            oh = (height - size) // 2
+            ow = (width - size) // 2
+            dst = im.crop(image=dst, offset_height=oh, offset_width=ow, target_height=size, target_width=size)
 
-                
+    assert(dst.shape[0] == dst.shape[1])
+
+    size, _, _ = dst.shape
+    if size > size:
+        dst = im.downscale(images=dst, size=[size, size])
+    elif size < size:
+        dst = im.upscale(images=dst, size=[size, size])
+    return dst 
