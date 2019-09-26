@@ -4,6 +4,7 @@ from . import ZipUp
 from . import BigHelp
 from . import RepCoList
 from . import custom_functions
+from . import resize
 
 def get_hmm():
     """Get a thought."""
