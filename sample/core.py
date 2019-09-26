@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-os.system('pip -q install tfimage')
 from . import helpers
 from . import ZipUp
 from . import BigHelp
