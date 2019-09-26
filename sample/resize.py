@@ -14,3 +14,6 @@ def resize(folder):
             outfilename = '/'+name+'%d.'+ext % int(i + 1)
             outfile=os.path.join(directory, outfilename)
             print(directory+outfile)
+            rgb_im.save(directory+outfile)
+
+                
