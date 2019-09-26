@@ -10,7 +10,7 @@ def resize(folder):
             print(os.path.join(root, name))
             im = Image.open(os.path.join(root, name))
             rgb_im = im.convert('RGB')
-            name, ext = name.split('.'):
+            name, ext = name.split('.')
             outfilename = '/'+name+'%d.'+ext % int(i + 1)
             outfile=os.path.join(directory, outfilename)
             print(directory+outfile)
