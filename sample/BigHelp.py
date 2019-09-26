@@ -247,8 +247,8 @@ class Helpers(object):
 
     # Folder globber
     def _globx(self):
-        import pywildcard as fnmatch, os
         os.system('sudo pip install pywildcard')
+        import pywildcard as fnmatch, os
 #         print(self.args)
         treeroot=self.method_args[0]
         pattern=self.method_args[1]
