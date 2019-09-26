@@ -1,4 +1,4 @@
-def resize(folder):
+def resize_folder(folder):
     '''
         # Example resize('/root/Bureaublad/data/boefjes/front')
     '''
