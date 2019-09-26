@@ -6,6 +6,7 @@ def resize_folder(folder):
     import os,sys,glob
     for root, dirs, files in os.walk(folder, topdown=False):
         print('[Resizing '+str(len(files))+' files]')
+        i=0
         for name in files:
             print(os.path.join(root, name))
             im = Image.open(os.path.join(root, name))
@@ -15,6 +16,7 @@ def resize_folder(folder):
             outfile=os.path.join(directory, outfilename)
             print(directory+outfile)
             rgb_im.save(directory+outfile)
+            i+=1
             
 def resize_single(src,pad=False,size=256):
     '''
