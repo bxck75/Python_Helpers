@@ -6,6 +6,7 @@ from . import RepCoList
 from . import custom_functions
 from . import resize
 from . import GdriveD
+from . import logger
 
 
 def get_hmm():
