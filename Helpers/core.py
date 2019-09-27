@@ -15,9 +15,9 @@ class Core:
         pass
     
     def load_helpers(self):
-        self.C = BigHelp
-        self.help= BigHelp.Helpers()
-        print('here')     
+#         self.C = BigHelp
+        return BigHelp.Helpers()
+          
 
 
 def get_hmm():
