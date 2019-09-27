@@ -132,17 +132,17 @@ class Core:
         '''
         self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
         # see if they are downloaded
-        img_list = self.H.Me(['globx',str(M.root_dirname)+'/images','*.jpg'])
+        img_list = self.H.Me(['globx',str(self.root_dirname)+'/images','*.jpg'])
         print(len(img_list))
         # M.resize.resize_folder(str(M.root_dirname)+'/images')
         i=0
         # self.H.Me(['cml','rm -r '+str(M.root_dirname)+'/images'])
         for img in img_list:
             print(img)
-            self.H.Me(['cml','cp '+img+' '+str(M.root_dirname)+'/images/img_%d.jpg'%(i+1)])
+            self.H.Me(['cml','cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1)])
             i+=1
         print(str(i)+' images copied!')
-        self.H.Me(['cml','rm -r '+str(M.root_dirname)+'/images/flickr'])
+        self.H.Me(['cml','rm -r '+str(self.root_dirname)+'/images/flickr'])
 
 
 def get_hmm():
