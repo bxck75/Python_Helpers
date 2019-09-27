@@ -134,9 +134,9 @@ class Core:
             print(self.flickr_qty)
             print(self.flickr_query)
         '''
-        print(self.flickr_dest)
-        print(self.flickr_qty)
-        print(self.flickr_query)
+ #       print(self.flickr_dest)
+ #       print(self.flickr_qty)
+ #       print(self.flickr_query)
         root='/content'
         self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
         # see if they are downloaded
