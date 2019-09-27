@@ -92,7 +92,9 @@ class Core:
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.flickr_scr = self.flickr_scrape
-        self.H.setmaker = self.set_maker
+        print(self.H.flickr_dest)
+        print(self.H.flickr_qty)
+        print(self.H.flickr_query)
         
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
@@ -138,7 +140,8 @@ class Core:
  #       print(self.flickr_qty)
  #       print(self.flickr_query)
         root='/content'
-        self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
+        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' )
+            self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
         # see if they are downloaded
         img_list = self.H.Me(['globx',str(self.root_dirname)+'/images','*.jpg'])
         print(len(img_list))
