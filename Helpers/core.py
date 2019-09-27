@@ -152,7 +152,7 @@ class Core:
         for img in img_list:
             print(img)
 #             self.H.Me(['cml','cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1)])
-            self.H.Me(['cml','cp '+img+' '+str(root)+'/images/img_%d.jpg'%(i+1)])      
+            self.H.Me(['cml','cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1)])      
             i+=1
         print(str(i)+' images copied!')
         self.H.Me(['cml','rm -r '+str(self.root_dirname)+'/images/flickr'])
