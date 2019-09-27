@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os,sys
 from . import helpers
 from . import ZipUp
 from . import BigHelp
