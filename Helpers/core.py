@@ -11,14 +11,17 @@ from . import logger
 class Core:
     
     def __init__(self):
-        self.load_helpers()
-        pass
+        self.H = self.load_helpers()
+        self.H.zip = self.load_zipper()
     
     def load_helpers(self):
 #         self.C = BigHelp
         return BigHelp.Helpers()
           
-
+    def load_zipper(self):
+#         self.C = BigHelp
+        return ZipUp.ZipUp
+          
 
 def get_hmm():
     """Get a thought."""
