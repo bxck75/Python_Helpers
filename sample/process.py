@@ -14,20 +14,18 @@ import threading
 import time
 import multiprocessing
 
-edge_pool = None
 
-
-# parser = argparse.ArgumentParser()
-# parser.add_argument("--input_dir", required=True, help="path to folder containing images")
-# parser.add_argument("--output_dir", required=True, help="output path")
-# parser.add_argument("--operation", required=True, choices=["grayscale", "resize", "blank", "combine", "edges"])
-# parser.add_argument("--workers", type=int, default=1, help="number of workers")
-# # resize
-# parser.add_argument("--pad", action="store_true", help="pad instead of crop for resize operation")
-# parser.add_argument("--size", type=int, default=256, help="size to use for resize operation")
-# # combine
-# parser.add_argument("--b_dir", type=str, help="path to folder containing B images for combine operation")
-# a = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("--input_dir", required=True, help="path to folder containing images")
+parser.add_argument("--output_dir", required=True, help="output path")
+parser.add_argument("--operation", required=True, choices=["grayscale", "resize", "blank", "combine", "edges"])
+parser.add_argument("--workers", type=int, default=1, help="number of workers")
+# resize
+parser.add_argument("--pad", action="store_true", help="pad instead of crop for resize operation")
+parser.add_argument("--size", type=int, default=256, help="size to use for resize operation")
+# combine
+parser.add_argument("--b_dir", type=str, help="path to folder containing B images for combine operation")
+a = parser.parse_args()
 
 
 def resize(src):
@@ -77,8 +75,10 @@ def combine(src, src_path):
 
     # find corresponding file in b_dir, could have a different extension
     basename, _ = os.path.splitext(os.path.basename(src_path))
+    # print(basename)
     for ext in [".png", ".jpg"]:
         sibling_path = os.path.join(a.b_dir, basename + ext)
+        print(sibling_path)
         if os.path.exists(sibling_path):
             sibling = im.load(sibling_path)
             break
@@ -89,7 +89,7 @@ def combine(src, src_path):
     height, width, _ = src.shape
     if height != sibling.shape[0] or width != sibling.shape[1]:
         raise Exception("differing sizes")
-    
+
     # convert both images to RGB if necessary
     if src.shape[2] == 1:
         src = im.grayscale_to_rgb(images=src)
@@ -128,6 +128,11 @@ def run_caffe(src):
     net.forward()
     return net.blobs["sigmoid-fuse"].data[0][0,:,:]
 
+
+# create the pool before we launch processing threads
+# we must create the pool after run_caffe is defined
+if a.operation == "edges":
+    edge_pool = multiprocessing.Pool(a.workers)
     
 def edges(src):
     # based on https://github.com/phillipi/pix2pix/blob/master/scripts/edges/batch_hed.py
@@ -209,7 +214,7 @@ def process(src_path, dst_path):
 
 
 complete_lock = threading.Lock()
-start = None
+start = time.time()
 num_complete = 0
 total = 0
 
@@ -238,32 +243,16 @@ def main():
     src_paths = []
     dst_paths = []
 
-    skipped = 0
     for src_path in im.find(a.input_dir):
         name, _ = os.path.splitext(os.path.basename(src_path))
         dst_path = os.path.join(a.output_dir, name + ".png")
-        if os.path.exists(dst_path):
-            skipped += 1
-        else:
+        if not os.path.exists(dst_path):
             src_paths.append(src_path)
             dst_paths.append(dst_path)
     
-    print("skipping %d files that already exist" % skipped)
-            
     global total
     total = len(src_paths)
     
-    print("processing %d files" % total)
-
-    global start
-    start = time.time()
-    
-    if a.operation == "edges":
-        # use a multiprocessing pool for this operation so it can use multiple CPUs
-        # create the pool before we launch processing threads
-        global edge_pool
-        edge_pool = multiprocessing.Pool(a.workers)
-
     if a.workers == 1:
         with tf.Session() as sess:
             for src_path, dst_path in zip(src_paths, dst_paths):
@@ -302,4 +291,5 @@ def main():
             except KeyboardInterrupt:
                 coord.request_stop()
                 coord.join(threads)
+
 main()
