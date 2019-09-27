@@ -91,16 +91,35 @@ class Core:
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.flickr_scr = self.flickr_scrape
+        self.H.setmaker = self.set_maker
         
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
 #         self.C = BigHelp
         return BigHelp.Helpers()
-          
+
     def load_zipper(self):
         '''load zipup to gdrive obj'''
 #         self.C = BigHelp
         return ZipUp.ZipUp
+
+     def set_maker(_in_,_mode_,_out_):
+        '''
+           set_maker(_in_,_mode_,_out_):
+        '''
+        #     global r
+        self.H.Me(['cml','python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(self.root_dirname)+'/images_resized'])
+        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(M.root_dirname)+'/images_resized')
+        self.H.Me(['cml','echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation blank --output_dir '+str(self.root_dirname)+'/images_blank'])
+        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation blank --output_dir '+str(M.root_dirname)+'/images_blank')
+        self.H.Me(['cml','echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation edge --output_dir '+str(self.root_dirname)+'/images_edge'])
+        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation edge --output_dir '+str(M.root_dirname)+'/images_edge')
+        if _mode_ != '':
+            self.H.Me(['cml','echo python ' + str(self.root_dirname)+'/tools/process.py --input_dir ' + str(self.root_dirname)+'/images_' + _mode_ +' --operation combine --output_dir ' + str(_out_)])
+        #         os.system('echo python ' + str(M.root_dirname)+'/tools/process.py \
+        #             --input_dir ' + str(M.root_dirname)+'/images_' + _mode_ + ' \
+        #             --operation combine \
+        #             --output_dir ' + str(_out_))
 
     def flickr_scrape(self,search_list,img_dir,qty):
         '''
