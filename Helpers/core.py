@@ -140,7 +140,7 @@ class Core:
  #       print(self.flickr_qty)
  #       print(self.flickr_query)
         root='/content'
-        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' )
+        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
             self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
         # see if they are downloaded
         img_list = self.H.Me(['globx',str(self.root_dirname)+'/images','*.jpg'])
