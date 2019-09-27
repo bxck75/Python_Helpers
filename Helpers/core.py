@@ -10,10 +10,10 @@ from . import logger
 
 class Core:
     
-    __init__(self):
+    def __init__(self):
         pass
     
-    load_helpers(self):
+    def load_helpers(self):
         BH = BigHelp.Helpers()
         print('here')     
 
