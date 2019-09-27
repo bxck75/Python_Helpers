@@ -9,7 +9,6 @@ from . import GdriveD
 from . import logger
 from . import process
 from . import split
-from . import tfimage
 
 def get_hmm():
     """Get a thought."""
