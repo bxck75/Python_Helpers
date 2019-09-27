@@ -8,12 +8,20 @@ from . import resize
 from . import GdriveD
 from . import logger
 
+class Core:
+    
+    __init__(self):
+        pass
+    
+    load_helpers(self):
+        BH = BigHelp.Helpers()
+        print('here')     
+
 
 def get_hmm():
     """Get a thought."""
 #     help(ZipUp)
     return 'hmmm...'
-
 
 def hmm(tool):
     """Contemplation..."""
