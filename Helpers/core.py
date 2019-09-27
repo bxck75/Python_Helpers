@@ -155,7 +155,7 @@ class Core:
             self.H.Me(['cml','cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1)])      
             i+=1
         print(str(i)+' images copied!')
-        self.H.Me(['cml','rm -r '+str(self.flickr_dest)+'/images/flickr'])
+        self.H.Me(['cml','rm -r '+str(self.flickr_dest)+'/flickr'])
 
 
 def get_hmm():
