@@ -103,7 +103,7 @@ class Core:
 #         self.C = BigHelp
         return ZipUp.ZipUp
 
-     def set_maker(_in_,_mode_,_out_):
+    def set_maker(_in_,_mode_,_out_):
         '''
            set_maker(_in_,_mode_,_out_):
         '''
