@@ -132,9 +132,9 @@ class Core:
             qty=10
             search_list = ['portait','face']
             flickr_scrape(self,search_list,img_dir,qty): 
-            print(self.flickr_dest)
-            print(self.flickr_qty)
-            print(self.flickr_query)
+            # print(self.flickr_dest)
+            # print(self.flickr_qty)
+            # print(self.flickr_query)
         '''
  #       print(self.flickr_dest)
  #       print(self.flickr_qty)
