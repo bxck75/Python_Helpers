@@ -354,7 +354,7 @@ class Helpers(object):
         # show imported files
         self.Me(['cml','ls ' +self.path])
         # run custom setups and get other reps
-        self.custom_reps_setup()
+#         self.custom_reps_setup()
 #         if self.sub_repos == True:
 #             self.get_other_reps()
             
