@@ -122,8 +122,9 @@ class Core:
         #             --operation combine \
         #             --output_dir ' + str(_out_))
 
-    def flickr_scrape(self,search_list,img_dir,qty):
+    def flickr_scrape(self):
         '''
+             ,search_list,img_dir,qty
              #get 20 images from flickr
              img_dir='images'
              qty=10
