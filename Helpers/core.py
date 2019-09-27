@@ -124,13 +124,19 @@ class Core:
 
     def flickr_scrape(self):
         '''
-             ,search_list,img_dir,qty
-             #get 20 images from flickr
-             img_dir='images'
-             qty=10
-             search_list = ['portait','face']
-             flickr_scrape(self,search_list,img_dir,qty): 
+            search_list,img_dir,qty
+            #get 20 images from flickr
+            img_dir='images'
+            qty=10
+            search_list = ['portait','face']
+            flickr_scrape(self,search_list,img_dir,qty): 
+            print(self.flickr_dest)
+            print(self.flickr_qty)
+            print(self.flickr_query)
         '''
+        print(self.flickr_dest)
+        print(self.flickr_qty)
+        print(self.flickr_query)
         root='/content'
         self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
         # see if they are downloaded
