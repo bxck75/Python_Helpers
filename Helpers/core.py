@@ -144,7 +144,7 @@ class Core:
         if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
             self.H.Me(['flickr',self.flickr_query,self.flickr_dest, self.flickr_qty])
         # see if they are downloaded
-        img_list = self.H.Me(['globx',str(self.flickr_dest)+'/images','*.jpg'])
+        img_list = self.H.Me(['globx',str(self.flickr_dest),'*.jpg'])
         print(len(img_list))
         # M.resize.resize_folder(str(M.root_dirname)+'/images')
         i=0
