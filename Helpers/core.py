@@ -92,9 +92,9 @@ class Core:
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.flickr_scr = self.flickr_scrape
-        print(self.H.flickr_dest)
-        print(self.H.flickr_qty)
-        print(self.H.flickr_query)
+#         print(self.H.flickr_dest)
+#         print(self.H.flickr_qty)
+#         print(self.H.flickr_query)
         
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
@@ -124,7 +124,7 @@ class Core:
         #             --operation combine \
         #             --output_dir ' + str(_out_))
 
-    def flickr_scrape(self):
+    def flickr_scrape(self,query= ['portrait'],qty=5,dest='/content/images'):
         '''
             search_list,img_dir,qty
             #get 20 images from flickr
@@ -136,12 +136,13 @@ class Core:
             # print(self.flickr_qty)
             # print(self.flickr_query)
         '''
- #       print(self.flickr_dest)
- #       print(self.flickr_qty)
- #       print(self.flickr_query)
+        self.flickr_dest = dest
+        self.flickr_qty = qty
+        self.flickr_query = query
+        
         root='/content'
         if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
-            self.H.Me(['flickr',search_list,str(self.root_dirname)+'/'+img_dir,qty])
+            self.H.Me(['flickr',self.flickr_query,self.flickr_dest, self.flickr_qty])
         # see if they are downloaded
         img_list = self.H.Me(['globx',str(self.root_dirname)+'/images','*.jpg'])
         print(len(img_list))
