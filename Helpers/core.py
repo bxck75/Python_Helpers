@@ -130,8 +130,8 @@ class Core:
         self.H.DS_ROOT='/'+DS_root+'/'
         os.chdir(self.Gdrive_root+self.H.GD_ROOT)
         self.H.Me(['mkd',[DS_root,'models'],self.root_dirname])
-        self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+DS_root])
-        os.chdir(self.root_dirname+DS_root)
+        self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+self.H.DS_ROOT])
+        os.chdir(self.root_dirname+self.H.DS_ROOT)
         self.H.Me(['cml','unzip -q '+pack])
         self.H.Me(['cml','rm -r '+pack])
         os.chdir(self.root_dirname)
