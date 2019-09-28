@@ -14,7 +14,7 @@ def check_dir():
     if not os.path.exists('./logs'):
         os.mkdir('./logs')
 
-if __name__=='__main__':
+def main():
     check_dir()
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.33)
     config = tf.ConfigProto(gpu_options=gpu_options)
@@ -23,4 +23,7 @@ if __name__=='__main__':
         began = BEGAN(input_height=64, input_width=64, input_channels=3, output_height=64, output_width=64, gf_dim=64, input_fname_pattern = '*.jpg', is_grayscale=False, sess = sess)
         began.build_model()
         if FLAGS.is_training:
-            began.train()
+    began.train()
+    
+if __name__=='__main__':
+    main()
