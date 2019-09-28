@@ -9,6 +9,7 @@ from . import resize
 from . import GdriveD
 from . import logger
 from . import INFOGAN
+from . import BEGAN
 
 class Core:
     '''
@@ -119,6 +120,7 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.infogan = INFOGAN
+        self.began = BEGAN
         self.H.flickr_scr = self.flickr_scrape
 #         print(self.H.flickr_dest)
 #         print(self.H.flickr_qty)
