@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import time
 import os
-from ops import *
+from .ops import *
 from glob import glob
 
 class BEGAN:
