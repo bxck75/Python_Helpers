@@ -10,7 +10,7 @@ from . import GdriveD
 from . import logger
 
 from . import INFOGAN
-from . import main_began
+from . import main_all
 #from . import main_wgan
 #from . import main_dcgan
 #from . import main_ebgan
