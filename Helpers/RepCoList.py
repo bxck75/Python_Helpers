@@ -73,3 +73,4 @@ reps=[
         'keras-team/keras-contrib',
         'mnicnc404/CartoonGan-tensorflow',
 ]
+repos_sorted = sorted(hlp.repo_collection)
