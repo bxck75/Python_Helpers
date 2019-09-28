@@ -7,7 +7,7 @@ from .DCGAN import *
 
 flags = tf.app.flags
 flags.DEFINE_bool("is_training", False, "training flag")
-flags.DEFINE_bool("gan", 'BEGAN', "training flag")
+flags.DEFINE_string("gan", 'BEGAN', "training flag")
 FLAGS = flags.FLAGS
 
 def check_dir():
