@@ -1,5 +1,6 @@
 # a list of repos for machinelearning
 reps=[
+        'googlecreativelab/quickdraw-dataset',
         'divamgupta/ladder_network_keras',
         'zhixuhao/unet',
         'yihui-he/u-net',
