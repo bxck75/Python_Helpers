@@ -9,7 +9,7 @@ import tempfile
 import subprocess
 import tensorflow as tf
 import numpy as np
-import .tfimage as im
+from . import tfimage as im
 import threading
 import time
 import multiprocessing
