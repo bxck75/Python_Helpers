@@ -9,14 +9,6 @@ from . import resize
 from . import GdriveD
 from . import logger
 
-from . import INFOGAN
-from . import main_all
-#from . import main_wgan
-#from . import main_dcgan
-#from . import main_ebgan
-#from . import main_lsgan
-#from . import main_vaegan
-#from . import main_wgan_gp
 
 from . import ops
 
