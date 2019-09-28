@@ -1,6 +1,6 @@
 import tensorflow as tf
 import os
-from WGAN_GP import *
+from .WGAN_GP import *
 
 flags = tf.app.flags
 flags.DEFINE_bool("is_training",True, "training flags")
