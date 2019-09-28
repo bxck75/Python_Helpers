@@ -2,9 +2,9 @@ import tensorflow as tf
 import os
 from .DCGAN import *
 
-flags = tf.app.flags
-flags.DEFINE_bool("is_training", False, "training flag")
-FLAGS = flags.FLAGS
+# flags = tf.app.flags
+# flags.DEFINE_bool("is_training", False, "training flag")
+# FLAGS = flags.FLAGS
 
 def check_dir():
     if not os.path.exists('./sample'):
