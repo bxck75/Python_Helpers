@@ -1,6 +1,6 @@
 import tensorflow as tf
 import os
-from EBGAN import *
+from .EBGAN import *
 
 flags = tf.app.flags
 flags.DEFINE_bool("is_training", False, "training flag")
