@@ -23,7 +23,7 @@ def main():
         began = BEGAN(input_height=64, input_width=64, input_channels=3, output_height=64, output_width=64, gf_dim=64, input_fname_pattern = '*.jpg', is_grayscale=False, sess = sess)
         began.build_model()
         if FLAGS.is_training:
-    began.train()
+            began.train()
     
 if __name__=='__main__':
     main()
