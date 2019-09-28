@@ -1,4 +1,4 @@
-began# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os,sys
 from . import helpers
 from . import ZipUp
