@@ -204,7 +204,9 @@ class INFOGAN():
             for j in range(r):
                 axs[j,i].imshow(gen_imgs[j,:,:,0], cmap='gray')
                 axs[j,i].axis('off')
-        fig.savefig("images/%d.png" % epoch)
+                
+        os.makedirs('/content/gan/images', exist_ok=True)
+        fig.savefig("/content/gan/images/%d.jpg" % epoch)
         plt.close()
 
     def save_model(self):
