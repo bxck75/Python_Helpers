@@ -114,13 +114,6 @@ class Core:
 
      ---
     '''
-#     def __init__(self):
-#         '''int objects'''
-#         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
-#         self.H = self.load_helpers()
-#         self.H.zip = self.load_zipper()
-#         self.H.repo_collection = RepCoList
-#         self.H.flickr_scr = self.flickr_scrape
     def __init__(self):
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
@@ -129,6 +122,35 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         
+    def get_gdrive_dataset(self,pack='pail', DS_root='datasets',GD_root='datasets'):
+        import google
+        from google.colab import drive
+        drive.mount('/content/drive', force_remount=True)
+        self.H.GD_ROOT='/'+GD_root+'/'
+        self.H.DS_ROOT='/'+DS_root+'/'
+        os.chdir(self.H.gdrive_root+H.GD_ROOT)
+        self.H.Me(['mkd',[DS_root,'models'],self.root_dirname])
+        self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+DS_root])
+        os.chdir(self.root_dirname+DS_root)
+        self.H.Me(['cml','unzip -q '+pack])
+        self.H.Me(['cml','rm -r '+pack])
+        os.chdir(self.root_dirname)
+
+    def MethHelp(self,libs):
+        os_help=self.H.Me(['vdir',libs])
+        #make a list containing libs values of os_help
+        listOfLibs = [x[0] for x in os_help]
+        #make a list containing libs method values of os_help
+        listOfMethods= [x[1] for x in os_help]
+        # Create a zipped list of tuples from above lists
+        zippedList =  list(zip(listOfLibs, listOfMethods[0:5]))
+        zippedList
+        # request help on method from list
+        return zippedList
+
+    def loadTboard():
+        '''load tensorboard'''
+        import datetime, os ,tensorboard 
         
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
