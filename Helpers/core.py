@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+began# -*- coding: utf-8 -*-
 import os,sys
 from . import helpers
 from . import ZipUp
@@ -129,7 +129,7 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.infogan = INFOGAN
-        self.began = main_began
+        self.began = main_all
         self.H.flickr_scr = self.flickr_scrape
 #         print(self.H.flickr_dest)
 #         print(self.H.flickr_qty)
