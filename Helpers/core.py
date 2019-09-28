@@ -8,7 +8,7 @@ from . import custom_functions
 from . import resize
 from . import GdriveD
 from . import logger
-from . import process
+
 from . import INFOGAN
 from . import main_began
 from . import main_wgan
