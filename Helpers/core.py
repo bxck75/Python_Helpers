@@ -116,7 +116,7 @@ class Core:
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
-        self.H.repo_collection = RepCoList.reps
+        self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
 #         print(self.H.flickr_dest)
 #         print(self.H.flickr_qty)
