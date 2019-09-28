@@ -11,6 +11,31 @@ from . import logger
 
 class Core:
     '''
+                                ['Me',
+                             '_cml',
+                             '_flickr',
+                             '_get_args',
+                             '_get_gpu',
+                             '_globx',
+                             '_inst_reps',
+                             '_methods_of',
+                             '_mkd',
+                             '_pip',
+                             '_vdir',
+                             'args',
+                             'custom_reps_setup',
+                             'flickr_dest',
+                             'flickr_qty',
+                             'flickr_query',
+                             'flickr_scr',
+                             'get_other_reps',
+                             'landmarkdetect',
+                             'landmarkdetecter',
+                             'method',
+                             'method_args',
+                             'no_action',
+                             'root_path',
+                             'zip']
     --- Examples for Colab
         # remove defaults
         !rm -r sample_data
@@ -91,6 +116,7 @@ class Core:
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
+        self.H.repo_collection = RepCoList.reps
         self.H.flickr_scr = self.flickr_scrape
 #         print(self.H.flickr_dest)
 #         print(self.H.flickr_qty)
