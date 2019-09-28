@@ -114,18 +114,21 @@ class Core:
 
      ---
     '''
+#     def __init__(self):
+#         '''int objects'''
+#         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
+#         self.H = self.load_helpers()
+#         self.H.zip = self.load_zipper()
+#         self.H.repo_collection = RepCoList
+#         self.H.flickr_scr = self.flickr_scrape
     def __init__(self):
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
-        self.infogan = INFOGAN
-        self.began = main_all
         self.H.flickr_scr = self.flickr_scrape
-#         print(self.H.flickr_dest)
-#         print(self.H.flickr_qty)
-#         print(self.H.flickr_query)
+        
         
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
