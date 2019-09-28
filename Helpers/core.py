@@ -117,6 +117,7 @@ class Core:
     def __init__(self):
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
+        self.Gdrive_root= '/content/drive/My\ Drive'
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
@@ -128,7 +129,7 @@ class Core:
         drive.mount('/content/drive', force_remount=True)
         self.H.GD_ROOT='/'+GD_root+'/'
         self.H.DS_ROOT='/'+DS_root+'/'
-        os.chdir(self.H.gdrive_root+H.GD_ROOT)
+        os.chdir(self.Gdrive_root+H.GD_ROOT)
         self.H.Me(['mkd',[DS_root,'models'],self.root_dirname])
         self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+DS_root])
         os.chdir(self.root_dirname+DS_root)
