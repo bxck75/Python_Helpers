@@ -10,6 +10,7 @@ from . import GdriveD
 from . import logger
 from . import INFOGAN
 from . import BEGAN
+from . import ops
 
 class Core:
     '''
