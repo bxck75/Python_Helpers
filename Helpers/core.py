@@ -129,7 +129,7 @@ class Core:
         drive.mount('/content/drive', force_remount=True)
         self.H.GD_ROOT='/'+GD_root+'/'
         self.H.DS_ROOT='/'+DS_root+'/'
-        os.chdir(self.Gdrive_root+H.GD_ROOT)
+        os.chdir(self.Gdrive_root+self.H.GD_ROOT)
         self.H.Me(['mkd',[DS_root,'models'],self.root_dirname])
         self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+DS_root])
         os.chdir(self.root_dirname+DS_root)
