@@ -117,6 +117,7 @@ class Core:
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
         self.Gdrive_root= '/content/drive/My Drive'
+        self.Gdownload = GdriveD
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
