@@ -291,5 +291,6 @@ def main():
             except KeyboardInterrupt:
                 coord.request_stop()
                 coord.join(threads)
-
-main()
+                
+if __name__ == '__main__':
+    main()
