@@ -7,6 +7,8 @@ from . import RepCoList
 from . import resize
 from . import GdriveD
 from . import logger
+from . import GoImgScrape
+
 # from . import process
 
 
