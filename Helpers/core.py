@@ -124,6 +124,27 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         
+    def img_rename(self,directory_in,directory_out,file_prefix):    
+        '''
+        Usage:
+            folder_to_rename= '/content/images'
+            folder_renamed_files = 'content/img_renamed'
+            file_name_prefix = "img"
+            img_rename(folder_to_rename,folder_renamed_files,file_name_prefix)
+        '''
+        from PIL import Image
+        import os,sys,glob
+        # directory=sys.argv[1]
+        i=int(0)
+        for infilename in glob.iglob(directory_in+'/*.*g'):
+            im = Image.open(infilename)
+            rgb_im = im.convert('RGB')
+            outfilename = "/"+file_prefix+"_%d.png" % int(i + 1)
+            outfile=os.path.join(directory_out, outfilename)
+            print(directory_out+outfile)
+            rgb_im.save(directory_out+outfile)
+            i += 1
+        
     def get_gdrive_dataset(self,pack='pail', DS_root='datasets',GD_root='datasets'):
         import google
         from google.colab import drive
