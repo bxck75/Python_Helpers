@@ -8,6 +8,7 @@ from . import resize
 from . import GdriveD
 from . import logger
 from . import GoImgScrape
+from . import ColorPrint
 
 # from . import process
 
@@ -145,34 +146,6 @@ class Core:
                 result_folders.append(os.path.join(root, folder_name))            
         # return resulting files and folders lists
         return result_files, result_folders
-
-    def out_color(self, msg, col='BLUE'):
-        '''
-            color output text
-         
-             'AnsiToWin32',
-             'Back',
-             'Cursor',
-             'Fore',
-             'Style',
-             'ansi',
-             'ansitowin32',
-             'colorama_text',
-             'deinit',
-             'init',
-             'initialise',
-             'reinit',
-             'win32',
-             'winterm'
-      
-        '''
-        self.H.Me(['pip','colorama'])
-        import colorama
-        from colorama import Fore, Style
-        
-        color_f = self.into_func('Fore', col)
-        print(color_f + "##-->" + msg)
-    
     
     def cd(self,dir,show=False):
         ''' 
@@ -413,6 +386,7 @@ class Core:
         self.H.Me(['cml','rm -r '+str(self.flickr_dest)+'/flickr'])
 
 
+        
 def get_hmm():
     """Get a thought."""
 #     help(ZipUp)
