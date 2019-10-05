@@ -247,9 +247,10 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    self.out_color("XX$##$" * 20,'RED') 
+                    ColorPrint.print_warn("XX$##$" * 20)
+#                     self.out_color("XX$##$" * 20,'RED') 
                     print(help(submod_func))
-                    self.out_color("XX$##$" * 20,'RED')                    
+#                     self.out_color("XX$##$" * 20,'RED')                    
                     
                 ''' ADD RESULTS OF THE SUB MODULES '''
                 results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
@@ -259,19 +260,20 @@ class Core:
         # return only root as list
         return [mod, self.H.Me([ 'vdir', func])]
 
+    
     def docu(self, mo = 'Helpers',me = 'core'):
         '''
         Get recursive help on modules
         Usage :
             docu(mo = 'Helpers',me = 'core')
         '''
-
         from pprint import pprint as prpr
         import importlib
         mod = importlib.import_module(mo)
         prpr(self.H.Me(['vdir',mod]))
         res = self.explore_mod(mo, me)
         prpr(res)
+        
     
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
