@@ -209,6 +209,7 @@ class Core:
     
     def into_func(self,mod,meth,func=None):
         ''' load a module.meth.func from string '''
+        import importlib
         module=mod
         method=meth
         if func == None:
@@ -242,6 +243,7 @@ class Core:
 
     def explore_mod(self,mod,meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
+        from pprint import pprint as prpr
         if only_root_mod==False:
             results_list = []
             vdir_result = self.H.Me([ 'vdir',self.into_func(mod, meth)])
