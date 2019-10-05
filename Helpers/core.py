@@ -234,7 +234,7 @@ class Core:
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
-                print(submod_func.__name__)
+                print(submod_func)
                 # ADD RESULTS OF THE SUB MODULES
                 results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
                 
