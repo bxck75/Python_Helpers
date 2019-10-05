@@ -195,7 +195,7 @@ class Core:
         else:
             return False
 
-    def check_img_list((self, img_list, ext='png'):
+    def check_img_list(self, img_list, ext='png'):
         '''
             check images list and remove bad files 
                 check_img_list((img_list, ext='png')
