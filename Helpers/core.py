@@ -247,6 +247,7 @@ class Core:
         if only_root_mod==False:
             results_list = []
             vdir_result = self.H.Me([ 'vdir',self.into_func(mod, meth)])
+            results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
                 print(submod_func.__name__)
@@ -255,10 +256,10 @@ class Core:
 #                     prpr(help(submod_func))
 #                 except:
 #                     pass
-                try:    
-                    prpr(self.explore_module(mod,submod_func, True))
-                except:
-                    pass
+#                 try:    
+#                     prpr(self.explore_module(mod,submod_func, True))
+#                 except:
+#                     pass
                 # return as a list
                 results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
             return results_list
