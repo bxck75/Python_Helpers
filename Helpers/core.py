@@ -236,7 +236,7 @@ class Core:
                     prpr(self.explore_mod(mod,submod_func.__name__, True))
                 else:
                     try:
-                        help_results_list.append(help(submod_func))
+                        help_results_list.append(help(self.into_func(submod_func.__name__,vdir_result[i])))
                         prpr(help(submod_func))
                     except:
                         pass
