@@ -15,10 +15,29 @@ from . import ops
 class Core:
     '''
         New help will be made later .......
+        Functions:
+        
+         'MethHelp',
+         'cd',
+         'cdr',
+         'check_img_list',
+         'docu',
+         'explore_mod',
+         'flickr_scrape',
+         'get_gdrive_dataset',
+         'img_batch_rename',
+         'into_func',
+         'loadTboard',
+         'load_helpers',
+         'load_zipper',
+         'rec_walk_folder',
+         'set_maker',
+         'valid_img',
+         'valid_list'
+         
         Examples:
 
             import os
-            
             # remove defaults
             os.system('rm -r sample_data')
             
