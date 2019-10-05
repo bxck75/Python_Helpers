@@ -233,10 +233,10 @@ class Core:
             # ADD RESULTS OF THE MAIN MODULES
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
-                submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
+                submod_func = self.into_func(mod, meth, vdir_result[i])
                 print(submod_func)
                 # ADD RESULTS OF THE SUB MODULES
-                results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+                results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
                 
                 # print func infos
                 # try:
@@ -252,11 +252,7 @@ class Core:
             return results_list
         # return only root as list
         return [mod, self.H.Me([ 'vdir', func])]
-    
-        
-        
-        
-        # return only root info as list
+
 
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
