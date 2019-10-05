@@ -90,6 +90,11 @@ class Core:
         self.print_warn = ColorPrint.ColorPrint.print_warn
         self.print_info = ColorPrint.ColorPrint.print_info
         self.print_bold = ColorPrint.ColorPrint.print_bold
+        # Simple colors
+        # usage: print(self.fg("text", 160))
+        self.fg = lambda text, color: "\33[38;5;" + str(color) + "m" + text + "\33[0m"
+        self.bg = lambda text, color: "\33[48;5;" + str(color) + "m" + text + "\33[0m"
+
                 
     def rec_walk_folder(self, folder, output='files'):
         ''' 
@@ -211,9 +216,10 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    self.print_warn("XX$##$" * 20)
+                    self.print_warn("XX$##$" * 6
 #                     self.out_color("XX$##$" * 20,'RED') 
                     print(help(submod_func))
+                    print(self.fg(help(submod_func), 160))
 #                     self.out_color("XX$##$" * 20,'RED')                    
                     
                 ''' ADD RESULTS OF THE SUB MODULES '''
