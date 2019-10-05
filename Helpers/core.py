@@ -212,7 +212,7 @@ class Core:
         self.dir_rec_list = dir(meth)
         self.recuring_lvls = rec_lvl
         self.dir_list= {}
-        self.dir_list[str(meth)] = self.dir_rec_list
+        self.dir_list[str(meth.__name__)] = self.dir_rec_list
         
         for lvl in range(self.recuring_lvls):
             if self.valid_list(self.dir_rec_list[lvl-1]):
