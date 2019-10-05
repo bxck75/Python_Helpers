@@ -150,6 +150,7 @@ class Core:
         '''color output text'''
         import colorama
         from colorama import Fore, Style
+        self.docu('colorama','Fore')
         color_f = into_func(Fore.__name__,col):
         print(color_f + "##-->" + msg)
     
@@ -230,7 +231,7 @@ class Core:
         return getattr(mod, func_name)
     
     def explore_mod(self, mod, meth, only_root_mod=False):
-        ''' Explore modules and methodsn '''
+        ''' Explore modules and methods '''
         from pprint import pprint as prpr
         func = self.into_func(mod, meth)
         print(func)
@@ -245,7 +246,7 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    self.out_color(help(submod_func))
+                    self.out_color("XX$##$" * 20,RED)
 #                     print(help(submod_func))                    
                     
                 # ADD RESULTS OF THE SUB MODULES
@@ -266,7 +267,21 @@ class Core:
         # return only root as list
         return [mod, self.H.Me([ 'vdir', func])]
 
-
+    def docu(self, mo = 'Helpers',me = 'core'):
+        '''
+        Get recursive help on modules
+        Usage :
+            docu(mo = 'Helpers',me = 'core')
+        '''
+        from pprint import pprint as prpr
+        import importlib
+        mod = importlib.import_module(mo)
+        prpr(self.H.Me(['vdir',mod]))
+        expl_res = Helpers.Core()
+        res = self.explore_mod(mo, me)
+        prpr(res)
+    
+    
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
             Usage:
