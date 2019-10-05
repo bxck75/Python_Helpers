@@ -209,22 +209,24 @@ class Core:
     
     def dir_rec(self, meth, rec_lvl=1):
         '''
-            recusive dir on methods
+            recusive dir on modules to discover methods and sub-methods
                 dir_rec(meth, rec_lvl=1)
         '''
-        self.dir_rec_list = dir(meth)
-        self.recuring_lvls = rec_lvl
-        self.dir_list = {}
-        self.dir_list[str(0)] = {}
-        self.dir_list[str(0)][str(meth.__name__)] = self.dir_rec_list
         
-        for lvl in range(self.recuring_lvls):
-            self.dir_list['lvl : ' + str(i)]={}
-            if self.valid_list(self.dir_list['lvl : ' + str(i)][str(meth.__name__)]):
-               for i in range(len(self.dir_list['lvl : ' + str(i)][str(meth.__name__)])):
-                   if '__' not in self.dir_list['lvl : ' + str(i)][str(meth.__name__)][i-1]:
-                       
-                       self.dir_list['lvl : ' + str(i)][str(self.dir_list['lvl : ' + str(i)][str(meth.__name__)][i-1])] = dir(self.dir_list['lvl : ' + str(i)][str(meth.__name__)][i-1])
+        self.recuring_lvls = rec_lvl
+        
+        '''set root entry in dict'''
+        self.dir_list = {}
+        self.dir_list[str(meth.__name__)]['lvl : ' + str(0)] = {}
+        self.dir_list[str(meth.__name__)]['lvl : ' + str(0)] = dir(meth)
+        
+        for lvl in range(1,self.recuring_lvls):            
+            if self.valid_list(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)]):
+               for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)])):
+                   if '__' not in self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1]:
+                       child_meth.__name__ = str(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
+                       self.dir_list[str(meth.__name__)]['lvl : ' + str(lvl-1)][child_meth.__name__]={}
+                       self.dir_list[str(meth.__name__)]['lvl : ' + str(lvl-1)][child_meth.__name__]['lvl : ' + str(lvl-1)] = dir(self.dir_list[str(meth.__name__)]['lvl : ' + str(lvl-1)][child_meth.__name__])
             else:
                 print('not a valid list')
             
