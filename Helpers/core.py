@@ -10,38 +10,37 @@ from . import logger
 from . import GoImgScrape
 from . import ColorPrint
 
-# from . import process
-
-
 from . import ops
 
 class Core:
     '''
-                                ['Me',
-                             '_cml',
-                             '_flickr',
-                             '_get_args',
-                             '_get_gpu',
-                             '_globx',
-                             '_inst_reps',
-                             '_methods_of',
-                             '_mkd',
-                             '_pip',
-                             '_vdir',
-                             'args',
-                             'custom_reps_setup',
-                             'flickr_dest',
-                             'flickr_qty',
-                             'flickr_query',
-                             'flickr_scr',
-                             'get_other_reps',
-                             'landmarkdetect',
-                             'landmarkdetecter',
-                             'method',
-                             'method_args',
-                             'no_action',
-                             'root_path',
-                             'zip']
+            ['Me',
+         '_cml',
+         '_flickr',
+         '_get_args',
+         '_get_gpu',
+         '_globx',
+         '_inst_reps',
+         '_methods_of',
+         '_mkd',
+         '_pip',
+         '_vdir',
+         'args',
+         'custom_reps_setup',
+         'flickr_dest',
+         'flickr_qty',
+         'flickr_query',
+         'flickr_scr',
+         'get_other_reps',
+         'landmarkdetect',
+         'landmarkdetecter',
+         'method',
+         'method_args',
+         'no_action',
+         'root_path',
+         'zip']
+         
+         
     --- Examples for Colab
         # remove defaults
         !rm -r sample_data
