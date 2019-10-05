@@ -170,7 +170,7 @@ class Core:
         import colorama
         from colorama import Fore, Style
         
-        color_f = into_func(Fore.__name__,col)
+        color_f = self.into_func(Fore.__name__,col)
         print(color_f + "##-->" + msg)
     
     
