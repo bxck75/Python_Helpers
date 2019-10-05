@@ -218,15 +218,8 @@ class Core:
                for i in range(len(self.dir_rec_list[lvl-1])):
                    self.dir_list[self.dir_rec_list[i-1]] = dir(self.dir_rec_list[i-1])
                    self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i-1]])
-        self.dir_rec_list              
-#         self.dir_list     
-                
-#         for i in range(self.recuring_lvls):
-#             self.dir_list_total = []
-#             list_total.append(recur())
-            
-                
-            
+        return self.dir_rec_list              
+      
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
             Usage:
