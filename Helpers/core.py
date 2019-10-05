@@ -147,11 +147,29 @@ class Core:
         return result_files, result_folders
 
     def out_color(self, msg, col='BLUE'):
-        '''color output text'''
+        '''
+            color output text
+         
+             'AnsiToWin32',
+             'Back',
+             'Cursor',
+             'Fore',
+             'Style',
+             'ansi',
+             'ansitowin32',
+             'colorama_text',
+             'deinit',
+             'init',
+             'initialise',
+             'reinit',
+             'win32',
+             'winterm'
+      
+        '''
         self.H.Me(['pip','colorama'])
         import colorama
         from colorama import Fore, Style
-        self.docu('colorama','Style')
+        
         color_f = into_func(Fore.__name__,col)
         print(color_f + "##-->" + msg)
     
@@ -217,18 +235,26 @@ class Core:
                     os.remove(f)      
         
     def into_func(self,mod,meth,func=None):
-        ''' load a module.meth.func from string '''
+        ''' 
+            load a module.meth.func from string
+            
+        '''
         import importlib
         module=mod
         method=meth
         if func == None:
+            print(module + '.' + method+' <-- Is now a function from string')
             function_string = module + '.' + method  # 'IPython.display.Audio'
         else:
             function=func
-            function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio' 
-
+            print(module + '.' + method+'.' + function+' <-- Is now a function from string')
+            function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio'
+            
+        ''' split the string '''
         mod_name, func_name = function_string.rsplit('.',1)
+        ''' load module '''
         mod = importlib.import_module(mod_name)
+        ''' return the attributes of the modules function '''
         return getattr(mod, func_name)
     
     def explore_mod(self, mod, meth, only_root_mod=False):
