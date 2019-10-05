@@ -216,7 +216,7 @@ class Core:
         self.recuring_lvls = rec_lvl
         
         '''set root entry in dict'''
-        if self.count =< self.recuring_lvls:
+        if self.count <= self.recuring_lvls:
             if self.count = 0
                 self.dir_list = {}
         
