@@ -220,7 +220,7 @@ class Core:
         for lvl in range(self.recuring_lvls):
             if self.valid_list(self.dir_rec_list[lvl-1]):
                for i in range(len(self.dir_rec_list[lvl-1])):
-                   if '__' not in self.dir_rec_list[i-1].__name__:
+                   if '__' not in self.dir_rec_list[i-1]:
                        self.dir_list[str(self.dir_rec_list[i-1])] = dir(self.dir_rec_list[i-1])
             else:
                 print('not a valid list')
