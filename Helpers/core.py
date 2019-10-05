@@ -217,7 +217,7 @@ class Core:
         
         '''set root entry in dict'''
         if self.count <= self.recuring_lvls:
-            if self.count = 0
+            if self.count == 0
                 self.dir_list = {}
         
             self.dir_list[str(meth.__name__)] = {}  
@@ -231,6 +231,7 @@ class Core:
                for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)])):
                    print(i)
                    print(count)
+                    print(len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)]))
                    child_meth = self.dir_list[str(meth.__name__)]['lvl_' + str(count)][i-1]
                    self.dir_list[meth.__name__]['lvl_' + str(lvl+1)][child_meth]={}
                    self.dir_list[meth.__name__]['lvl_' + str(lvl+1)][child_meth]['lvl_' + str(0)] = self.H.Me(['vdir', meth.__name__ + '.' + child_meth])                       
