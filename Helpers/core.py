@@ -230,11 +230,12 @@ class Core:
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]={}
 
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = dir(meth.__name__ + '.' + child_meth)
-                       
-                    
-                       sys_cmd_indexes = self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)].index('__', [0, [len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)])]])   
-                       print(sys_cmd_indexes)
-                    # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
+                       full_method = name=meth + '.' + child_meth
+                       print(full_method)
+                       help(full_method)   
+                       dir(full_method)
+
+                       # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
             else:
                 print('not a valid list')
             
