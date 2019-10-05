@@ -218,10 +218,10 @@ class Core:
         self.dir_list[str(meth.__name__)] = self.dir_rec_list
         
         for lvl in range(self.recuring_lvls):
-            if self.valid_list(self.dir_rec_list[lvl-1]):
-               for i in range(len(self.dir_rec_list[lvl-1])):
-                   if '__' not in self.dir_rec_list[i-1]:
-                       self.dir_list[str(self.dir_rec_list[i-1])] = dir(self.dir_rec_list[i-1])
+            if self.valid_list(self.dir_list[str(meth.__name__)]):
+               for i in range(len(self.dir_list[str(meth.__name__)])):
+                   if '__' not in self.dir_list[str(meth.__name__)][i-1]:
+                       self.dir_list[str(self.dir_list[str(meth.__name__)][i-1])] = dir(self.dir_list[str(meth.__name__)][i-1])
             else:
                 print('not a valid list')
             
