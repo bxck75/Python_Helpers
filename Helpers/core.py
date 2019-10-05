@@ -217,7 +217,7 @@ class Core:
         
         '''set root entry in dict'''
         if self.count <= self.recuring_lvls:
-            if self.count == 0
+            if self.count == 0:
                 self.dir_list = {}
         
             self.dir_list[str(meth.__name__)] = {}  
