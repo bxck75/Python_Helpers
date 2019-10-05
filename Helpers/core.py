@@ -212,7 +212,7 @@ class Core:
             recusive dir on modules to discover methods and sub-methods
                 dir_rec(meth, rec_lvl=1)
         '''
-        L.index('__', [0, [len(L)]])
+
         self.recuring_lvls = rec_lvl
         
         '''set root entry in dict'''
