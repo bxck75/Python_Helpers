@@ -220,16 +220,17 @@ class Core:
         mod = importlib.import_module(mod_name)
         return getattr(mod, meth_str, func_name)
 
-    def explore_mod(self,mod,meth, only_root_mod=False):
+    def explore_mod(self, mod, meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
         from pprint import pprint as prpr
         if only_root_mod==False:
             results_list = []
-            vdir_result = self.H.Me([ 'vdir',self.into_func(mod, meth)])
+            main_func = self.into_func(mod, meth)
+            vdir_result = self.H.Me([ 'vdir',main_func])
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 help_results_list=[]
-                submod_func = self.into_func(mod, meth, vdir_result[i]) 
+                submod_func = self.into_func(main_func.__name__, vdir_result[i]) 
                 print(submod_func.__name__)
                 # print func infos    
                 if self.valid_list(self.explore_mod(mod,submod_func.__name__, True)):   
