@@ -258,8 +258,9 @@ class Core:
                 except:
                     pass
                 # return as a list
-                return results_list.append([submod_func.__name__, hlp.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
-        # retrurn only root as list
+                results_list.append([submod_func.__name__, hlp.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+            return results_list
+                # retrurn only root as list
         return [mod, hlp.Me([ 'vdir', self.into_func(mod, meth) ])]
     
       
