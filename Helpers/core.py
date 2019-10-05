@@ -301,7 +301,7 @@ class Core:
         '''load BigHelp to gdrive obj'''
 #         self.C = BigHelp
         return BigHelp.Helpers()
-IPython
+
     def load_zipper(self):
         '''load zipup to gdrive obj'''
 #         self.C = BigHelp
