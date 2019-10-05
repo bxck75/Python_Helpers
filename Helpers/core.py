@@ -207,21 +207,19 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)
     
-    
-    
     def dir_rec(self, meth, rec_lvl=1):
         '''recusive dir on methods'''
         self.dir_rec_list = dir(meth)
         self.recuring_lvls = rec_lvl
         self.dir_list= {}
         self.dir_list[meth] = self.dir_rec_list
-                       
-        if self.valid_list(self.dir_rec_list):
-           for i in range(len(self.dir_rec_list)):
-               self.dir_list[self.dir_rec_list[i]] = dir(self.dir_rec_list[i])
-#                self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i]])
-                       
-        self.dir_list     
+        for lvl in range(self.recuring_lvls):
+            if self.valid_list(self.dir_rec_list[lvl-1]):
+               for i in range(len(self.dir_rec_list[lvl-1])):
+                   self.dir_list[self.dir_rec_list[i-1]] = dir(self.dir_rec_list[i-1])
+                   self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i-1]])
+        self.dir_rec_list              
+#         self.dir_list     
                 
 #         for i in range(self.recuring_lvls):
 #             self.dir_list_total = []
