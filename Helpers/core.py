@@ -214,12 +214,11 @@ class Core:
             function_string = mod_str + '.' + meth_str # 'IPython.display.Audio'
         else:
             function_string = mod_str + '.' + meth_str + '.' + func_str # 'IPython.display.Audio' 
-
         mod_name, func_name = function_string.rsplit('.',1)
         print(mod_name)
         print(func_name)
         mod = importlib.import_module(mod_name)
-        return getattr(mod, meth, func_name)
+        return getattr(mod, meth_str, func_name)
 
     def explore_mod(self,mod,meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
