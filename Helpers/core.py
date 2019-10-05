@@ -221,7 +221,7 @@ class Core:
                self.dir_list[self.dir_rec_list[i]] = dir(self.dir_rec_list[i])
 #                self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i]])
                        
-        print(self.dir_list)        
+        self.dir_list     
                 
 #         for i in range(self.recuring_lvls):
 #             self.dir_list_total = []
