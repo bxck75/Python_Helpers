@@ -142,11 +142,18 @@ class Core:
             # folders
             for folder_name in folders:
 #                 print(os.path.join(root, folder_name))
-                result_folders.append(os.path.join(root, folder_name))
-                
+                result_folders.append(os.path.join(root, folder_name))            
         # return resulting files and folders lists
         return result_files, result_folders
 
+    def out_color(self, msg, col='BLUE'):
+        '''color output text'''
+        import colorama
+        from colorama import Fore, Style
+        color_f = into_func(Fore.__name__,col):
+        print(color_f + "##-->" + msg)
+    
+    
     def cd(self,dir,show=False):
         ''' 
             change dir and show 
@@ -238,7 +245,8 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    print(help(submod_func))                    
+                    self.out_color(help(submod_func))
+#                     print(help(submod_func))                    
                     
                 # ADD RESULTS OF THE SUB MODULES
                 results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
