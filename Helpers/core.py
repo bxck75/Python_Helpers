@@ -216,8 +216,10 @@ class Core:
             function_string = mod_str + '.' + meth_str + '.' + func_str # 'IPython.display.Audio' 
 
         mod_name, func_name = function_string.rsplit('.',1)
+        print(mod_name)
+        print(func_name)
         mod = importlib.import_module(mod_name)
-        return getattr(mod, func_name)
+        return getattr(mod, meth, func_name)
 
     def explore_mod(self,mod,meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
@@ -229,7 +231,7 @@ class Core:
             for i in range(len(vdir_result)-1):
                 help_results_list=[]
                 submod_func = self.into_func(mod, meth, vdir_result[i]) 
-#                 print(submod_func.__name__)
+                print(submod_func.__name__)
                 # print func infos    
                 if self.valid_list(self.explore_mod(mod,submod_func.__name__, True)):   
                     prpr(self.explore_mod(mod,submod_func.__name__, True))
