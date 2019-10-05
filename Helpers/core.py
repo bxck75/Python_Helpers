@@ -215,13 +215,13 @@ class Core:
         self.dir_rec_list = dir(meth)
         self.recuring_lvls = rec_lvl
         self.dir_list = {}
-        self.dir_list[0][str(meth.__name__)] = self.dir_rec_list
+        self.dir_list[str(0)][str(meth.__name__)] = self.dir_rec_list
         
         for lvl in range(self.recuring_lvls):
             if self.valid_list(self.dir_list[str(meth.__name__)]):
                for i in range(len(self.dir_list[str(meth.__name__)])):
                    if '__' not in self.dir_list[str(meth.__name__)][i-1]:
-                       self.dir_list[i][str(self.dir_list[str(meth.__name__)][i-1])] = dir(self.dir_list[str(meth.__name__)][i-1])
+                       self.dir_list[str(i)][str(self.dir_list[str(meth.__name__)][i-1])] = dir(self.dir_list[str(meth.__name__)][i-1])
             else:
                 print('not a valid list')
             
