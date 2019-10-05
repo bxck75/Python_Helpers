@@ -1,5 +1,20 @@
 class ColorPrint:
+    '''
+        @staticmethod
+        def print_fail(message, end = '\n'):
 
+        @staticmethod
+        def print_pass(message, end = '\n'):
+            
+        @staticmethod
+        def print_warn(message, end = '\n'):
+            
+        @staticmethod
+        def print_info(message, end = '\n'):
+            
+        @staticmethod
+        def print_bold(message, end = '\n'):           
+    '''
     @staticmethod
     def print_fail(message, end = '\n'):
         sys.stderr.write('\x1b[1;31m' + message.strip() + '\x1b[0m' + end)
