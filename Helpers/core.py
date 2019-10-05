@@ -125,14 +125,117 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
-        
-    def img_rename(self,directory_in,directory_out,file_prefix):    
+                
+    def rec_walk_folder(self, folder, output='files'):
+        ''' 
+            recursive print contents of folder 
+                rec_walk_folder(folder)
         '''
-        Usage:
-            folder_to_rename= '/content/images'
-            folder_renamed_files = 'content/img_renamed'
-            file_name_prefix = "img"
-            img_rename(folder_to_rename,folder_renamed_files,file_name_prefix)
+        result_files = []
+        result_folders = []
+        # list all recursive
+        for root, folders, files in os.walk(folder, topdown=False):
+            # files 
+            for file_name in files:
+#                 print(os.path.join(root, file_name))
+                result_files.append(os.path.join(root, file_name))
+            # folders
+            for folder_name in folders:
+#                 print(os.path.join(root, folder_name))
+                result_folders.append(os.path.join(root, folder_name))
+                
+        # return resulting files and folders lists
+        return result_files, result_folders
+
+    def cd(self,dir,show=False):
+        ''' 
+            change dir and show 
+                cd(dir,show=True) 
+        '''
+        os.chdir(dir)
+        if show == False:
+            return dir
+        else:       
+            return rec_walk_folder(dir)
+
+    def cdr(self,ls=False, root='/content'):
+        ''' 
+            change dir to root [ or other ] 
+                cdr(ls=True, root='/content')
+        '''
+        return cd(root,ls)
+
+    def valid_img(self, filename, type_img='png'):
+        '''
+            validate jpg or png files
+                valid_img(filename, type_img='png')
+        '''
+        try:
+        i=Image.open(filename)
+        if type_img == 'jpg'
+            if i.format =='JPEG':
+                return True
+        elif type_img == 'png'
+            if i.format =='PNG':
+                return True
+        else:
+          print('deleting '+ i.format)
+          os.remove(filename)
+          return False
+    
+        except IOError:
+        print('deleting '+ i.format)
+        os.remove(filename)
+        return False
+
+    def valid_list(self, lst):
+        ''' validate list if not empty'''
+        if len(lst) > 0:
+            return True
+        else:
+            return False
+
+    def check_img_list((self, img_list, ext='png'):
+        '''
+            check images list and remove bad files 
+                check_img_list((img_list, ext='png')
+        '''
+        img_list = sorted(img_list)
+        print('[checking images list')
+        if valid_list(img_list):
+            for f in img_list:
+                if not valid_img(f,ext):
+                    os.remove(f)
+    
+    
+    
+    def dir_rec(self, meth, rec_lvl=1):
+        '''recusive dir on methods'''
+        self.dir_rec_list = dir(meth)
+        self.recuring_lvls = rec_lvl
+        self.dir_list= {}
+        self.dir_list[meth] = self.dir_rec_list
+                       
+        if self.valid_list(self.dir_rec_list):
+           for i in range(len(self.dir_rec_list)):
+               self.dir_list[self.dir_rec_list[i]] = dir(self.dir_rec_list[i])
+#                self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i]])
+                       
+        print(self.dir_list)        
+                
+#         for i in range(self.recuring_lvls):
+#             self.dir_list_total = []
+#             list_total.append(recur())
+            
+                
+            
+    def img_batch_rename(self,directory_in,directory_out,file_prefix):    
+        '''
+            Usage:
+                folder_to_rename= '/content/images'
+                folder_renamed_files = 'content/img_renamed'
+                file_name_prefix = "img"
+                img_batch_rename(folder_to_rename,folder_renamed_files,file_name_prefix)
         '''
         from PIL import Image
         import os,sys,glob
