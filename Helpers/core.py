@@ -220,21 +220,21 @@ class Core:
             if self.count == 0:
                 self.dir_list = {}
         
-            self.dir_list[str(meth.__name__)] = {}  
-            self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = {}
-            self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = self.H.Me(['vdir',meth])
+            self.dir_list[str(meth)] = {}  
+            self.dir_list[str(meth)]['lvl_' + str(0)] = {}
+            self.dir_list[str(meth)]['lvl_' + str(0)] = self.H.Me(['vdir',meth])
         
             self.count += 1
 #         for lvl in range(1,self.recuring_lvls):   
-            self.dir_list[str(meth.__name__)]['lvl_' + str(count+1)] = {}
-            if self.valid_list(self.dir_list[str(meth.__name__)]['lvl_' + str(count)]):
-               for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)])):
+            self.dir_list[str(meth)]['lvl_' + str(count+1)] = {}
+            if self.valid_list(self.dir_list[str(meth)]['lvl_' + str(count)]):
+               for i in range(1,len(self.dir_list[str(meth)]['lvl_' + str(count)])):
                    print(i)
                    print(count)
-                   print(len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)]))
-                   child_meth = self.dir_list[str(meth.__name__)]['lvl_' + str(count)][i-1]
+                   print(len(self.dir_list[str(meth]['lvl_' + str(count)]))
+                   child_meth = self.dir_list[str(meth)]['lvl_' + str(count)][i-1]
                    print(child_meth)
-                   self.dir_rec(meth.__name__+'.'+child_meth,count=self.count)
+                   self.dir_rec(meth+'.'+child_meth,count=self.count)
 #                    self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]={}
 #                    self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]['lvl_' + str(0)] = self.H.Me(['vdir', (meth.__name__).(child_meth)])                       
                    
