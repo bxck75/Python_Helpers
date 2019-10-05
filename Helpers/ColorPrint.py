@@ -1,3 +1,4 @@
+import sys
 class ColorPrint:
     '''
         @staticmethod
@@ -15,7 +16,7 @@ class ColorPrint:
         @staticmethod
         def print_bold(message, end = '\n'):           
     '''
-    import sys
+
     @staticmethod
     def print_fail(message, end = '\n'):
         sys.stderr.write('\x1b[1;31m' + message.strip() + '\x1b[0m' + end)
