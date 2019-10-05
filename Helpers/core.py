@@ -229,7 +229,7 @@ class Core:
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 help_results_list=[]
-                submod_func = self.into_func(mod+'.'+meth, vdir_result[i]) 
+                submod_func = self.into_func(mod, meth, vdir_result[i]) 
                 print(submod_func.__name__)
                 # print func infos    
                 if self.valid_list(self.explore_mod(mod,submod_func.__name__, True)):   
@@ -237,7 +237,7 @@ class Core:
                 else:
                     try:
                         help_results_list.append(help(submod_func))
-#                         prpr(help(submod_func))
+                        prpr(help(submod_func))
                     except:
                         pass
                     pass
