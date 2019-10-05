@@ -208,7 +208,10 @@ class Core:
                     os.remove(f)
     
     def dir_rec(self, meth, rec_lvl=1):
-        '''recusive dir on methods'''
+        '''
+            recusive dir on methods
+                dir_rec(meth, rec_lvl=1)
+        '''
         self.dir_rec_list = dir(meth)
         self.recuring_lvls = rec_lvl
         self.dir_list= {}
@@ -217,11 +220,13 @@ class Core:
         for lvl in range(self.recuring_lvls):
             if self.valid_list(self.dir_rec_list[lvl-1]):
                for i in range(len(self.dir_rec_list[lvl-1])):
-                   self.dir_list[str(self.dir_rec_list[i-1])] = dir(self.dir_rec_list[i-1])
+                   if '__' not in self.dir_rec_list[i-1].__name__:
+                       self.dir_list[str(self.dir_rec_list[i-1])] = dir(self.dir_rec_list[i-1])
             else:
-                print('not valid list')
+                print('not a valid list')
             
-        return self.dir_list              
+        return self.dir_list
+    
       
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
