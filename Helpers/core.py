@@ -237,8 +237,8 @@ class Core:
                    child_meth = self.dir_list[str(meth)]['lvl_' + str(count)][i-1]
                    print(child_meth)
 
-                   self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]={}
-                   self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]['lvl_' + str(0)] = self.H.Me([ 'vdir', meth+'.'+child_meth ])                       
+                   self.dir_list[meth]['lvl_' + str(count+1)][child_meth]={}
+                   self.dir_list[meth]['lvl_' + str(count+1)][child_meth]['lvl_' + str(0)] = self.H.Me([ 'vdir', meth+'.'+child_meth ])                       
                    self.dir_rec(meth+'.'+child_meth,count=self.count)    
             else:
                 print('not a valid list')
