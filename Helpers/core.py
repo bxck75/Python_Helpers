@@ -254,7 +254,7 @@ class Core:
     
       
         
-        def into_func(self,mod,meth,func=None):
+    def into_func(self,mod,meth,func=None):
         ''' load a module.meth.func from string '''
         import importlib
         module=mod
