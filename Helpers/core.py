@@ -244,7 +244,7 @@ class Core:
         ''' Explore modules and methodsn '''
         if only_root_mod==False:
             results_list = []
-            vdir_result = hlp.Me([ 'vdir',self.into_func(mod, meth)])
+            vdir_result = self.H.Me([ 'vdir',self.into_func(mod, meth)])
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
                 print(submod_func.__name__)
@@ -258,10 +258,10 @@ class Core:
                 except:
                     pass
                 # return as a list
-                results_list.append([submod_func.__name__, hlp.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+                results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
             return results_list
                 # retrurn only root as list
-        return [mod, hlp.Me([ 'vdir', self.into_func(mod, meth) ])]
+        return [mod, self.H.Me([ 'vdir', self.into_func(mod, meth) ])]
     
       
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
