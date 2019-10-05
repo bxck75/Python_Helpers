@@ -231,8 +231,8 @@ class Core:
                 submod_func = self.into_func(mod, meth, vdir_result[i]) 
 #                 print(submod_func.__name__)
                 # print func infos    
-                if self.valid_list(self.explore_module(mod,submod_func, True)):   
-                    prpr(self.explore_module(mod,submod_func, True))
+                if self.valid_list(self.explore_mod(mod,submod_func, True)):   
+                    prpr(self.explore_mod(mod,submod_func, True))
                 else:
                     try:
                         help_results_list.append(help(submod_func))
