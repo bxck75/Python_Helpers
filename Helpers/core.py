@@ -207,30 +207,34 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)
     
-    def dir_rec(self, meth, rec_lvl=1):
+    def dir_rec(self, meth, rec_lvl=1,count=0):
         '''
             recusive dir on modules to discover methods and sub-methods
                 dir_rec(meth, rec_lvl=1)
         '''
-
+        self.count=count
         self.recuring_lvls = rec_lvl
         
         '''set root entry in dict'''
-        self.dir_list = {}
-        self.dir_list[str(meth.__name__)] = {}
-        self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = {}
-        self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = self.H.Me(['vdir',meth])
+        if self.count =< self.recuring_lvls:
+            if self.count = 0
+                self.dir_list = {}
         
-        for lvl in range(1,self.recuring_lvls):   
-            self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)] = {}
-            if self.valid_list(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)]):
-               for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)])):
+            self.dir_list[str(meth.__name__)] = {}  
+            self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = {}
+            self.dir_list[str(meth.__name__)]['lvl_' + str(0)] = self.H.Me(['vdir',meth])
+        
+            self.count += 1
+#         for lvl in range(1,self.recuring_lvls):   
+            self.dir_list[str(meth.__name__)]['lvl_' + str(count+1)] = {}
+            if self.valid_list(self.dir_list[str(meth.__name__)]['lvl_' + str(count)]):
+               for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)])):
                    print(i)
-                   print(lvl)
-                   child_meth = self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1]
-                   self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]={}
-                   self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = self.H.Me(['vdir', meth.__name__ + '.' + child_meth])                       
-
+                   print(count)
+                   child_meth = self.dir_list[str(meth.__name__)]['lvl_' + str(count)][i-1]
+                   self.dir_list[meth.__name__]['lvl_' + str(lvl+1)][child_meth]={}
+                   self.dir_list[meth.__name__]['lvl_' + str(lvl+1)][child_meth]['lvl_' + str(0)] = self.H.Me(['vdir', meth.__name__ + '.' + child_meth])                       
+                   
             else:
                 print('not a valid list')
             
