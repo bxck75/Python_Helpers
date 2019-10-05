@@ -211,9 +211,9 @@ class Core:
         ''' load a module.meth.func from string '''
         import importlib
         if function == None:
-            function_string = str(module) + '.' + str(method)  # 'IPython.display.Audio'
+            function_string = str(module) + '.' + str(method.__name__)  # 'IPython.display.Audio'
         else:
-            function_string = str(module) + '.' + str(method) + '.' + str(function) # 'IPython.display.Audio' 
+            function_string = str(module) + '.' + str(method.__name__) + '.' + str(function) # 'IPython.display.Audio' 
 
         mod_name, func_name = function_string.rsplit('.',1)
         mod = importlib.import_module(mod_name)
