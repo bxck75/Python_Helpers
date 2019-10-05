@@ -14,106 +14,46 @@ from . import ops
 
 class Core:
     '''
-            ['Me',
-         '_cml',
-         '_flickr',
-         '_get_args',
-         '_get_gpu',
-         '_globx',
-         '_inst_reps',
-         '_methods_of',
-         '_mkd',
-         '_pip',
-         '_vdir',
-         'args',
-         'custom_reps_setup',
-         'flickr_dest',
-         'flickr_qty',
-         'flickr_query',
-         'flickr_scr',
-         'get_other_reps',
-         'landmarkdetect',
-         'landmarkdetecter',
-         'method',
-         'method_args',
-         'no_action',
-         'root_path',
-         'zip']
-         
-         
-    --- Examples for Colab
-        # remove defaults
-        !rm -r sample_data
-        # Clone the frame
-        !git clone https://github.com/bxck75/Python_Helpers.git
-        # Change dir
-        %cd /content/Python_Helpers
-        # install
-        !python setup.py install
-        import main
-        import os
-        import sys
-        import IPython
-        from IPython.display import clear_output
-        # Load the core helper object
-        D=main.Helpers.core.Core()
-        clear_output()
-     ---
-     ---
-        # x=dir(D)
-        D.landmark_face = D.H.landmarkdetect
-        D.H.Me(['vdir',[D.H.landmarkdetect]])
-        D.H.Me(['flickr',['portrait'],'images',10])
-        # dir(D.H.landmarkdetect)
-        # print(x)
-     ---
-     ---
-        # random demo of some functionality
-        M=main
-        M.root_dirname, M.root_filename = os.path.split(os.path.abspath(M.__file__))
-        M.help = M.Helpers.BigHelp.Helpers()
-        M.logger = M.Helpers.logger
-        M.zip_to_drive = M.Helpers.ZipUp
-        M.all_repos = M.Helpers.RepCoList
-        M.download_gdrive_file = M.Helpers.GdriveD
-        M.resize_folder = M.Helpers.resize.resize_folder
-        # M.image_process = M.Helpers.process
+        New help will be made later .......
+        Examples:
 
-        # logger
-        M.logger.get_logger('Debug_Log',str(M.root_dirname)+'/debug_log.txt',True)
-        M.logger.logging.basicConfig()
-        M.logger.logging.log(1,'TestLog')
+            import os
+            
+            # remove defaults
+            os.system('rm -r sample_data')
+            
+            # Clone the repo
+            os.system('git clone https://github.com/bxck75/Python_Helpers.git')
 
-        # M.training_set_builder 
-        M.reps_to_install=['bxck75/piss-ant-pix2pix','affinelayer/pix2pix-tensorflow']
-        M.help.Me(['inst_reps',M.reps_to_install,str(M.root_dirname)+'/pix2pix_repos',False,True])
-        # M.help.Me(['inst_reps',M.all_repos.reps,'/content/all_ml_repos',True,True])
-     ---
-     ---
+            # Change dir
+            os.chdir('/content/Python_Helpers')
+            
+            # install
+            os.system('python setup.py install')
 
-                 def setmaker(_in_,_mode_,_out_):
-        #     global r
-            M.help.Me(['cml','python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(M.root_dirname)+'/images_resized'])
-        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(M.root_dirname)+'/images_resized')
-            M.help.Me(['cml','echo python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation blank --output_dir '+str(M.root_dirname)+'/images_blank'])
-        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation blank --output_dir '+str(M.root_dirname)+'/images_blank')
-            M.help.Me(['cml','echo python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation edge --output_dir '+str(M.root_dirname)+'/images_edge'])
-        #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation edge --output_dir '+str(M.root_dirname)+'/images_edge')
-
-            if _mode_ != '':
-                M.help.Me(['cml','echo python ' + str(M.root_dirname)+'/tools/process.py --input_dir ' + str(M.root_dirname)+'/images_' + _mode_ +' --operation combine --output_dir ' + str(_out_)])
-        #         os.system('echo python ' + str(M.root_dirname)+'/tools/process.py \
-        #             --input_dir ' + str(M.root_dirname)+'/images_' + _mode_ + ' \
-        #             --operation combine \
-        #             --output_dir ' + str(_out_))
-
-        M.setmaker = setmaker
-        # M.setmaker.mode_type = 'edge' # blank
-        # M.setmaker.img_dir = str(M.root_dirname)+'/images'
-        # M.setmaker.final_set_dir = str(M.root_dirname)+'/images_set'
-        # print(M.setmaker)
-        M.setmaker(str(M.root_dirname)+'/images', 'edge', str(M.root_dirname)+'/images_set')
-
+            from IPython.display import clear_output
+            from PIL import Image
+            import main
+            import sys
+            import IPython
+            import Helpers
+            
+            # set few helper objects
+            P=Helpers.core.Core()
+            hlp=P.H
+            os.chdir('/content/')
+            hlp.repolist= hlp.repo_collection
+            repos_sorted = hlp.repo_collection.repos_sorted
+            
+            # get pix2pix repo
+            A1=['bxck75/piss-ant-pix2pix']
+            hlp.Me(['inst_reps',A1,'/content/installed_repos',False,True])
+            
+            # Dir Module
+            hlp.Me(['vdir',Helpers])
+            # Explore modules classes and functions
+            Helpers.Core().docu('os','system')
+            
      ---
     '''
     def __init__(self):
@@ -125,7 +65,12 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
+        ''' set color output '''
+        self.print_fail = ColorPrint.ColorPrint.print_fail
+        self.print_pass = ColorPrint.ColorPrint.print_pass
         self.print_warn = ColorPrint.ColorPrint.print_warn
+        self.print_info = ColorPrint.ColorPrint.print_info
+        self.print_bold = ColorPrint.ColorPrint.print_bold
                 
     def rec_walk_folder(self, folder, output='files'):
         ''' 
