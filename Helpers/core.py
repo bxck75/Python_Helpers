@@ -235,8 +235,8 @@ class Core:
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i])
                 
-                ''' Help for functions '''
-                if str(submod_func).split(' ')[0] == '<function':
+                ''' Help for functions and classes '''
+                if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
                     print(help(submod_func))                    
                     
