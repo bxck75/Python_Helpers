@@ -216,9 +216,10 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-#                     self.print_warn("XX$##$" * 6)
-#                     self.out_color("XX$##$" * 20,'RED') 
-                    print(help(submod_func))
+                    sub_func = help(submod_func)
+                    for line in sub_func:
+                        print(self.fg(line, 160))
+                
                     print(self.fg(help(submod_func), 160))
 #                     self.out_color("XX$##$" * 20,'RED')                    
                     
