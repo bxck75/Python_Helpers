@@ -212,16 +212,16 @@ class Core:
         self.dir_rec_list = dir(meth)
         self.recuring_lvls = rec_lvl
         self.dir_list= {}
-        self.dir_list[meth] = self.dir_rec_list
+        self.dir_list[str(meth)] = self.dir_rec_list
+        
         for lvl in range(self.recuring_lvls):
             if self.valid_list(self.dir_rec_list[lvl-1]):
                for i in range(len(self.dir_rec_list[lvl-1])):
-                   self.dir_list[self.dir_rec_list[i-1]] = dir(self.dir_rec_list[i-1])
-#                    self.dir_rec_list.append(self.dir_list[self.dir_rec_list[i-1]])
+                   self.dir_list[str(self.dir_rec_list[i-1])] = dir(self.dir_rec_list[i-1])
             else:
                 print('not valid list')
             
-        print(self.dir_list)              
+        return self.dir_list              
       
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
         '''
