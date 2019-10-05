@@ -171,22 +171,22 @@ class Core:
                 valid_img(filename, type_img='png')
         '''
         try:
-        i=Image.open(filename)
-        if type_img == 'jpg'
-            if i.format =='JPEG':
-                return True
-        elif type_img == 'png'
-            if i.format =='PNG':
-                return True
-        else:
-          print('deleting '+ i.format)
-          os.remove(filename)
-          return False
+            i=Image.open(filename)
+            if type_img == 'jpg'
+                if i.format =='JPEG':
+                    return True
+            elif type_img == 'png'
+                if i.format =='PNG':
+                    return True
+            else:
+              print('deleting '+ i.format)
+              os.remove(filename)
+              return False
     
         except IOError:
-        print('deleting '+ i.format)
-        os.remove(filename)
-        return False
+            print('deleting '+ i.format)
+            os.remove(filename)
+            return False
 
     def valid_list(self, lst):
         ''' validate list if not empty'''
