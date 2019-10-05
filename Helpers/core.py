@@ -207,13 +207,13 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)
     
-    def into_func(self,module,method,function=None):
+    def into_func(self,mod_str, meth_str, func_str=None):
         ''' load a module.meth.func from string '''
         import importlib
         if function == None:
-            function_string = str(module) + '.' + str(method.__name__)  # 'IPython.display.Audio'
+            function_string = mod_str + '.' + meth_str # 'IPython.display.Audio'
         else:
-            function_string = str(module) + '.' + str(method.__name__) + '.' + str(function) # 'IPython.display.Audio' 
+            function_string = mod_str + '.' + meth_str + '.' + func_str # 'IPython.display.Audio' 
 
         mod_name, func_name = function_string.rsplit('.',1)
         mod = importlib.import_module(mod_name)
@@ -231,8 +231,8 @@ class Core:
                 submod_func = self.into_func(mod, meth, vdir_result[i]) 
 #                 print(submod_func.__name__)
                 # print func infos    
-                if self.valid_list(self.explore_mod(mod,submod_func, True)):   
-                    prpr(self.explore_mod(mod,submod_func, True))
+                if self.valid_list(self.explore_mod(mod,submod_func.__name__, True)):   
+                    prpr(self.explore_mod(mod,submod_func.__name__, True))
                 else:
                     try:
                         help_results_list.append(help(submod_func))
