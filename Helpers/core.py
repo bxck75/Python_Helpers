@@ -172,10 +172,10 @@ class Core:
         '''
         try:
             i=Image.open(filename)
-            if type_img == 'jpg'
+            if type_img == 'jpg':
                 if i.format =='JPEG':
                     return True
-            elif type_img == 'png'
+            elif type_img == 'png':
                 if i.format =='PNG':
                     return True
             else:
