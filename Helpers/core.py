@@ -229,7 +229,7 @@ class Core:
                        full_meth = meth.__name__ +'.'+ child_meth
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)] = {}
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][full_meth]={}
-                       self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][full_meth]['lvl_' + str(lvl-1)] = self.H.Me(['vdir',full_method])                       
+                       self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][full_meth]['lvl_' + str(lvl-1)] = self.H.Me(['vdir',full_meth])                       
 
             else:
                 print('not a valid list')
