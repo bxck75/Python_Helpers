@@ -228,8 +228,10 @@ class Core:
                        child_meth = str(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)] = {}
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]={}
-                    dir_list_cleaned = .index('__', [0, [len(L)]])
+
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = dir(meth.__name__ + '.' + child_meth)
+                       
+                    
                        sys_cmd_indexes = self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)].index('__', [0, [len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)])]])   
                        print(sys_cmd_indexes)
                     # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
