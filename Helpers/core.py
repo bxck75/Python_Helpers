@@ -210,7 +210,7 @@ class Core:
     def into_func(self,module,method,function=None):
         ''' load a module.meth.func from string '''
         import importlib
-        if func == None:
+        if function == None:
             function_string = module + '.' + method  # 'IPython.display.Audio'
         else:
             function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio' 
