@@ -238,7 +238,8 @@ class Core:
         if only_root_mod==False:
             results_list = []
             vdir_result = self.H.Me([ 'vdir',func])
-            # ADD RESULTS OF THE MAIN MODULES
+            
+            ''' ADD RESULTS OF THE MAIN MODULES '''
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i])
@@ -246,23 +247,14 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    self.out_color("XX$##$" * 20,RED)
-#                     print(help(submod_func))                    
+                    self.out_color("XX$##$" * 20,RED) 
+                    print(help(submod_func))
+                    self.out_color("XX$##$" * 20,RED)                    
                     
-                # ADD RESULTS OF THE SUB MODULES
+                ''' ADD RESULTS OF THE SUB MODULES '''
                 results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
                 
-                # print func infos
-                # try:
-                #   prpr(help(submod_func))
-                # except:
-                #   pass
-                # try:    
-                #   prpr(self.explore_module(mod,submod_func, True))
-                # except:
-                #   pass
-                
-            # return as a list
+            ''' return as a list '''
             return results_list
         # return only root as list
         return [mod, self.H.Me([ 'vdir', func])]
@@ -277,7 +269,6 @@ class Core:
         import importlib
         mod = importlib.import_module(mo)
         prpr(self.H.Me(['vdir',mod]))
-        expl_res = Helpers.Core()
         res = self.explore_mod(mo, me)
         prpr(res)
     
