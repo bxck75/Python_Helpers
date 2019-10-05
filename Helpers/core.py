@@ -217,7 +217,7 @@ class Core:
         
         '''set root entry in dict'''
         self.dir_list = {}
-         self.dir_list[str(meth.__name__)] = {}
+        self.dir_list[str(meth.__name__)] = {}
         self.dir_list[str(meth.__name__)]['lvl : ' + str(0)] = {}
         self.dir_list[str(meth.__name__)]['lvl : ' + str(0)] = dir(meth)
         
