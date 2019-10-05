@@ -207,39 +207,17 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)
     
-    def into_func(self,mod,meth,func=None):
+    def into_func(self,module,method,function=None):
         ''' load a module.meth.func from string '''
         import importlib
-        module=mod
-        method=meth
         if func == None:
             function_string = module + '.' + method  # 'IPython.display.Audio'
         else:
-            function=func
             function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio' 
 
         mod_name, func_name = function_string.rsplit('.',1)
         mod = importlib.import_module(mod_name)
         return getattr(mod, func_name)
-    
-        ''' org working idea of the function '''
-        # call method by string name
-        # len_list = len(explore_module(getattr(__import__(module), method)))
-        # prpr(len_list-1)
-        # function_string = module + '.' + method + '.' + explore_module(getattr(__import__(module), method))[29]  # 'IPython.display.Audio'
-        # mod_name, func_name = function_string.rsplit('.',1)
-        # mod = importlib.import_module(mod_name)
-        # # get the mods functions into the final func var
-        # func = getattr(mod, func_name)
-        # return func
-        # try:
-        #     help(func)
-        # except:
-        #     pass
-        # try:    
-        #     prpr(explore_module(func))
-        # except:
-        #     pass
 
     def explore_mod(self,mod,meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
@@ -249,22 +227,30 @@ class Core:
             vdir_result = self.H.Me([ 'vdir',self.into_func(mod, meth)])
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
-                submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
-                print(submod_func.__name__)
-                # print func infos
-#                 try:
-#                     prpr(help(submod_func))
-#                 except:
-#                     pass
-#                 try:    
-#                     prpr(self.explore_module(mod,submod_func, True))
-#                 except:
-#                     pass
+                help_results_list=[]
+                submod_func = self.into_func(mod, meth, vdir_result[i]) 
+#                 print(submod_func.__name__)
+                # print func infos    
+                if self.valid_list(self.explore_module(mod,submod_func, True)):   
+                    prpr(self.explore_module(mod,submod_func, True))
+                else:
+                    try:
+                        help_results_list.append(help(submod_func))
+#                         prpr(help(submod_func))
+                    except:
+                        pass
+                    pass
                 # return as a list
-                results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+                results_list.append([
+                                    mod + '.' + meth + '.' + submod_func.__name__, 
+                                    self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i])] ), 
+                                    help_results_list
+                                    ])
             return results_list
-                # retrurn only root as list
-        return [mod, self.H.Me([ 'vdir', self.into_func(mod, meth) ])]
+        
+        # return only root info as list
+        func = self.into_func(mod, meth)
+        return [mod, self.H.Me([ 'vdir', func ]), help(func)]
     
       
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
