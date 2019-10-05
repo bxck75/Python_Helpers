@@ -151,7 +151,7 @@ class Core:
         self.H.Me(['pip','colorama'])
         import colorama
         from colorama import Fore, Style
-        self.docu('Fore','__name__')
+        self.docu('colorama','Style')
         color_f = into_func(Fore.__name__,col)
         print(color_f + "##-->" + msg)
     
