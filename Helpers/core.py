@@ -212,7 +212,7 @@ class Core:
             recusive dir on modules to discover methods and sub-methods
                 dir_rec(meth, rec_lvl=1)
         '''
-        
+        L.index('__', [0, [len(L)]])
         self.recuring_lvls = rec_lvl
         
         '''set root entry in dict'''
@@ -228,8 +228,11 @@ class Core:
                        child_meth = str(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)] = {}
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]={}
+                    dir_list_cleaned = .index('__', [0, [len(L)]])
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = dir(meth.__name__ + '.' + child_meth)
-                       # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
+                       sys_cmd_indexes = self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)].index('__', [0, [len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)])]])   
+                       print(sys_cmd_indexes)
+                    # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
             else:
                 print('not a valid list')
             
