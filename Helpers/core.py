@@ -116,6 +116,7 @@ class Core:
         # return resulting files and folders lists
         return result_files, result_folders
     
+    
     def cd(self,dir,show=False):
         ''' 
             change dir and show 
@@ -127,6 +128,7 @@ class Core:
         else:       
             return rec_walk_folder(dir)
 
+        
     def cdr(self,ls=False, root='/content'):
         ''' 
             change dir to root [ or other ] 
@@ -134,6 +136,7 @@ class Core:
         '''
         return cd(root,ls)
 
+    
     def valid_img(self, filename, type_img='png'):
         '''
             validate jpg or png files
@@ -157,6 +160,7 @@ class Core:
             os.remove(filename)
             return False
 
+        
     def valid_list(self, lst):
         ''' validate list if not empty'''
         if len(lst) > 0:
@@ -164,6 +168,7 @@ class Core:
         else:
             return False
 
+        
     def check_img_list(self, img_list, ext='png'):
         '''
             check images list and remove bad files 
@@ -175,7 +180,8 @@ class Core:
             for f in img_list:
                 if not valid_img(f,ext):
                     os.remove(f)      
-        
+     
+    
     def into_func(self,mod,meth,func=None):
         ''' 
             load a module.meth.func from string
@@ -199,33 +205,29 @@ class Core:
         ''' return the attributes of the modules function '''
         return getattr(mod, func_name)
     
+    
     def explore_mod(self, mod, meth, only_root_mod=False):
         ''' Explore modules and methods '''
         from pprint import pprint as prpr
         func = self.into_func(mod, meth)
-        print(func)
         if only_root_mod==False:
             results_list = []
-            vdir_result = self.H.Me([ 'vdir',func])
-            
+            vdir_result = self.H.Me([ 'vdir',func])            
             ''' ADD RESULTS OF THE MAIN MODULES '''
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
-                submod_func = self.into_func(mod, meth, vdir_result[i])
-                
+                submod_func = self.into_func(mod, meth, vdir_result[i])                
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
                     print(self.fg('#' * 20, 100)) 
                     sub_func = help(submod_func)
-                    print(self.fg('#' * 20, 160))                  
-                    
+                    print(self.fg('#' * 20, 160))                                      
                 ''' ADD RESULTS OF THE SUB MODULES '''
-                results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
-                
+                results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )]) 
             ''' return as a list '''
             return results_list
-        # return only root as list
+        ''' return root as list '''
         return [mod, self.H.Me([ 'vdir', func])]
 
     
