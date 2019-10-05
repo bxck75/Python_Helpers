@@ -231,7 +231,7 @@ class Core:
                for i in range(1,len(self.dir_list[str(meth)]['lvl_' + str(count)])):
                    print(i)
                    print(count)
-                   print(len(self.dir_list[str(meth]['lvl_' + str(count)]))
+                   print(len(self.dir_list[str(meth)]['lvl_' + str(count)]))
                    child_meth = self.dir_list[str(meth)]['lvl_' + str(count)][i-1]
                    print(child_meth)
                    self.dir_rec(meth+'.'+child_meth,count=self.count)
