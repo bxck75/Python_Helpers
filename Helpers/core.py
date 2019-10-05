@@ -207,43 +207,60 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)
     
-    def dir_rec(self, meth, rec_lvl=1,count=0):
-        '''
-            recusive dir on modules to discover methods and sub-methods
-                dir_rec(meth, rec_lvl=1)
-        '''
-        self.count=count
-        self.recuring_lvls = rec_lvl
-        
-        '''set root entry in dict'''
-        if self.count <= self.recuring_lvls:
-            if self.count == 0:
-                self.dir_list = {}
-#             else:
-#                 self.dir_list = self.dir_list
-        
-            self.dir_list[str(meth)] = {}  
-            self.dir_list[str(meth)]['lvl_' + str(0)] = {}
-            self.dir_list[str(meth)]['lvl_' + str(0)] = self.H.Me(['vdir',meth])
-        
-            self.count += 1
-#         for lvl in range(1,self.recuring_lvls):   
-            self.dir_list[str(meth)]['lvl_' + str(count+1)] = {}
-            if self.valid_list(self.dir_list[str(meth)]['lvl_' + str(count)]):
-               for i in range(1,len(self.dir_list[str(meth)]['lvl_' + str(count)])):
-                   print(i)
-                   print(count)
-                   print(len(self.dir_list[str(meth)]['lvl_' + str(count)]))
-                   child_meth = self.dir_list[str(meth)]['lvl_' + str(count)][i-1]
-                   print(child_meth)
+    def into_func(self,mod,meth,func=None):
+        ''' load a module.meth.func from string '''
+        module=mod
+        method=meth
+        if func == None:
+            function_string = module + '.' + method  # 'IPython.display.Audio'
+        else:
+            function=func
+            function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio' 
 
-                   self.dir_list[meth]['lvl_' + str(count+1)][child_meth]={}
-                   self.dir_list[meth]['lvl_' + str(count+1)][child_meth]['lvl_' + str(0)] = self.H.Me([ 'vdir', meth+'.'+child_meth ])                       
-                   self.dir_rec(meth+'.'+child_meth,count=self.count)    
-            else:
-                print('not a valid list')
-            
-        return self.dir_list
+        mod_name, func_name = function_string.rsplit('.',1)
+        mod = importlib.import_module(mod_name)
+        return getattr(mod, func_name)
+    
+        ''' org working idea of the function '''
+        # call method by string name
+        # len_list = len(explore_module(getattr(__import__(module), method)))
+        # prpr(len_list-1)
+        # function_string = module + '.' + method + '.' + explore_module(getattr(__import__(module), method))[29]  # 'IPython.display.Audio'
+        # mod_name, func_name = function_string.rsplit('.',1)
+        # mod = importlib.import_module(mod_name)
+        # # get the mods functions into the final func var
+        # func = getattr(mod, func_name)
+        # return func
+        # try:
+        #     help(func)
+        # except:
+        #     pass
+        # try:    
+        #     prpr(explore_module(func))
+        # except:
+        #     pass
+
+    def explore_mod(self,mod,meth, only_root_mod=False):
+        ''' Explore modules and methodsn '''
+        if only_root_mod==False:
+            results_list = []
+            vdir_result = hlp.Me([ 'vdir',self.into_func(mod, meth)])
+            for i in range(len(vdir_result)-1):
+                submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
+                print(submod_func.__name__)
+                # print func infos
+#                 try:
+#                     prpr(help(submod_func))
+#                 except:
+#                     pass
+                try:    
+                    prpr(self.explore_module(mod,submod_func, True))
+                except:
+                    pass
+                # return as a list
+                return results_list.append([submod_func.__name__, hlp.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+        # retrurn only root as list
+        return [mod, hlp.Me([ 'vdir', self.into_func(mod, meth) ])]
     
       
     def img_batch_rename(self,directory_in,directory_out,file_prefix):    
