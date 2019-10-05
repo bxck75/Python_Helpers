@@ -226,7 +226,7 @@ class Core:
         ''' Explore modules and methodsn '''
         from pprint import pprint as prpr
         func = self.into_func(mod, meth)
-#         print(func.__name__)
+        print(func)
         if only_root_mod==False:
             results_list = []
             vdir_result = self.H.Me([ 'vdir',func])
