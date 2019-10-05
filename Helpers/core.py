@@ -148,6 +148,7 @@ class Core:
 
     def out_color(self, msg, col='BLUE'):
         '''color output text'''
+        self.H.Me(['pip','colorama'])
         import colorama
         from colorama import Fore, Style
         self.docu('colorama','Fore')
@@ -265,6 +266,7 @@ class Core:
         Usage :
             docu(mo = 'Helpers',me = 'core')
         '''
+
         from pprint import pprint as prpr
         import importlib
         mod = importlib.import_module(mo)
