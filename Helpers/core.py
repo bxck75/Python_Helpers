@@ -205,54 +205,7 @@ class Core:
         if valid_list(img_list):
             for f in img_list:
                 if not valid_img(f,ext):
-                    os.remove(f)
-    
-#     def into_func(self,mod_str, meth_str, func_str=None):
-#         ''' load a module.meth.func from string '''
-#         import importlib
-#         if func_str == None:
-#             function_string = mod_str + '.' + meth_str # 'IPython.display.Audio'
-#         else:
-#             function_string = mod_str + '.' + meth_str + '.' + func_str # 'IPython.display.Audio' 
-#         mod_name, func_name = function_string.rsplit('.',1)
-#         print(mod_name)
-#         print(func_name)
-#         mod = importlib.import_module(mod_name)
-#         return getattr(mod, meth_str, func_name)
-
-#     def explore_mod(self, mod, meth, only_root_mod=False):
-#         ''' Explore modules and methodsn '''
-#         from pprint import pprint as prpr
-#         func = self.into_func(mod, meth)
-#         if only_root_mod==False:
-#             results_list = []
-#             vdir_result = self.H.Me([ 'vdir',func])
-#             results_list.append([mod, vdir_result])
-#             for i in range(len(vdir_result)-1):
-#                 help_results_list=[]
-#                 submod_func = self.into_func(main_func.__name__, vdir_result[i]) 
-#                 print(submod_func.__name__)
-#                 # print func infos    
-#                 if self.valid_list(self.explore_mod(mod,submod_func.__name__, True)):   
-#                     prpr(self.explore_mod(mod,submod_func.__name__, True))
-#                 else:
-#                     try:
-#                         help_results_list.append(help(self.into_func(submod_func.__name__,vdir_result[i])))
-#                         prpr(help(submod_func))
-#                     except:
-#                         pass
-#                     pass
-#                 # return as a list
-#                 results_list.append([
-#                                     mod + '.' + meth + '.' + submod_func.__name__, 
-#                                     self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i])] ), 
-#                                     help_results_list
-#                                     ])
-#             return results_list
-        
-#         return [mod, self.H.Me([ 'vdir', func ]), help(func)]
-    
-      
+                    os.remove(f)      
         
     def into_func(self,mod,meth,func=None):
         ''' load a module.meth.func from string '''
@@ -269,50 +222,35 @@ class Core:
         mod = importlib.import_module(mod_name)
         return getattr(mod, func_name)
     
-        ''' org working idea of the function '''
-        # call method by string name
-        # len_list = len(explore_module(getattr(__import__(module), method)))
-        # prpr(len_list-1)
-        # function_string = module + '.' + method + '.' + explore_module(getattr(__import__(module), method))[29]  # 'IPython.display.Audio'
-        # mod_name, func_name = function_string.rsplit('.',1)
-        # mod = importlib.import_module(mod_name)
-        # # get the mods functions into the final func var
-        # func = getattr(mod, func_name)
-        # return func
-        # try:
-        #     help(func)
-        # except:
-        #     pass
-        # try:    
-        #     prpr(explore_module(func))
-        # except:
-        #     pass
-
-    def explore_mod(self,mod,meth, only_root_mod=False):
+    def explore_mod(self, mod, meth, only_root_mod=False):
         ''' Explore modules and methodsn '''
         from pprint import pprint as prpr
         func = self.into_func(mod, meth)
-        print(func.__name__)
+#         print(func.__name__)
         if only_root_mod==False:
             results_list = []
             vdir_result = self.H.Me([ 'vdir',func])
+            # ADD RESULTS OF THE MAIN MODULES
             results_list.append([mod, vdir_result])
             for i in range(len(vdir_result)-1):
                 submod_func = self.into_func(mod, meth, vdir_result[i]) #str(mod.__name__+'.'+vdir_result[i])
                 print(submod_func.__name__)
-                # print func infos
-#                 try:
-#                     prpr(help(submod_func))
-#                 except:
-#                     pass
-#                 try:    
-#                     prpr(self.explore_module(mod,submod_func, True))
-#                 except:
-#                     pass
-                # return as a list
+                # ADD RESULTS OF THE SUB MODULES
                 results_list.append([submod_func.__name__, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )])
+                
+                # print func infos
+                # try:
+                #   prpr(help(submod_func))
+                # except:
+                #   pass
+                # try:    
+                #   prpr(self.explore_module(mod,submod_func, True))
+                # except:
+                #   pass
+                
+            # return as a list
             return results_list
-                # retrurn only root as list
+        # return only root as list
         return [mod, self.H.Me([ 'vdir', func])]
     
         
