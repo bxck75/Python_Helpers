@@ -231,10 +231,7 @@ class Core:
 
                        self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = dir(meth.__name__ + '.' + child_meth)
                        full_method = meth.__name__ +'.'+ child_meth
-                       full_method
-                       print(full_method)
-                       help(full_method)   
-                       dir(full_method)
+                       os_help=self.H.Me(['vdir',full_method])
 
                        # = dir(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
             else:
