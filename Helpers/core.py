@@ -126,6 +126,7 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
+        self.print_warn = ColorPrint.ColorPrint.print_warn
                 
     def rec_walk_folder(self, folder, output='files'):
         ''' 
@@ -247,7 +248,7 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    ColorPrint.print_warn("XX$##$" * 20)
+                    self.print_warn("XX$##$" * 20)
 #                     self.out_color("XX$##$" * 20,'RED') 
                     print(help(submod_func))
 #                     self.out_color("XX$##$" * 20,'RED')                    
