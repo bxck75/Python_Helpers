@@ -225,10 +225,9 @@ class Core:
             self.dir_list[str(meth.__name__)]['lvl_' + str(lvl)] = {}
             if self.valid_list(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)]):
                for i in range(1,len(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)])):
-                   if '__' not in self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1]:
-                       child_meth = str(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
-                       self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]={}
-                       self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = self.H.Me(['vdir', meth.__name__ + '.' + child_meth])                       
+                   child_meth = str(self.dir_list[str(meth.__name__)]['lvl_' + str(lvl-1)][i-1])
+                   self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]={}
+                   self.dir_list[meth.__name__]['lvl_' + str(lvl)][child_meth]['lvl_' + str(lvl-1)] = self.H.Me(['vdir', meth.__name__ + '.' + child_meth])                       
 
             else:
                 print('not a valid list')
