@@ -234,7 +234,7 @@ class Core:
                    print(len(self.dir_list[str(meth.__name__)]['lvl_' + str(count)]))
                    child_meth = self.dir_list[str(meth.__name__)]['lvl_' + str(count)][i-1]
                    print(child_meth)
-                   self.dir_rec(meth+'.'+child_meth,count=self.count)
+                   self.dir_rec(meth.__name__+'.'+child_meth,count=self.count)
 #                    self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]={}
 #                    self.dir_list[meth.__name__]['lvl_' + str(count+1)][child_meth]['lvl_' + str(0)] = self.H.Me(['vdir', (meth.__name__).(child_meth)])                       
                    
