@@ -42,8 +42,8 @@ def main(args):
 	        f.write(raw_img)
 	        f.close()
 	    except Exception as e:
-	        print "could not load : "+img
-	        print e
+	        print("could not load : "+img)
+	        print(e)
 
 if __name__ == '__main__':
     from sys import argv
