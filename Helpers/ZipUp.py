@@ -10,7 +10,15 @@ import os
 import sys
 
 class ZipUp:
-
+    '''
+        Example:
+            # Load zipper
+            Zipper = Helpers.Core.load_zipper()
+            # Zip folder
+            result=Zipper.ZipUp(zip_file_name,gdrive_folder_to_copy_to,folder_of_files_to_zip)
+            # Print Resulting hash
+            print(result)
+    '''
     def __init__(self, zipname, foldername, target_dir):
         ''' init the details for the zip and push'''
         self.zipname = zipname
