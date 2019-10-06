@@ -203,7 +203,7 @@ class Core:
                 # keepers list  
                 latest = img_list[-keep:]    
                 # show the keepers list
-                for i in range(n):
+                for i in range(keep):
                     print("Keeping " + latest[i] )
                     img = dlib.load_rgb_image(latest[i]) 
                     plt.imshow(img)
