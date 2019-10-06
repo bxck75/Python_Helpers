@@ -15,7 +15,7 @@ class ZipUp:
             # Load zipper
             Zipper = Helpers.Core.load_zipper()
             # Zip folder
-            result=Zipper.ZipUp(zip_file_name,gdrive_folder_to_copy_to,folder_of_files_to_zip)
+            result=Zipper(images_set_name,gdrive_folder,folder_to_zip).ZipUp
             # Print Resulting hash
             print(result)
     '''
