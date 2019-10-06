@@ -182,6 +182,36 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)      
      
+    def cleanup_files(keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
+        '''
+        Example:
+            cleanup_files(keep=16, cleanup_path='/content/test', search_pattern='*.*g', , show_keepers=True)
+        '''
+        import dlib
+        import matplotlib.pyplot as plt
+        # clean up images
+        img_list=self.H.Me(['globx', cleanup_path, search_pattern])
+        img_list = sorted(img_list)
+        print(img_list)
+        if len(img_list) > keep:
+            if show_keepers == True:  
+                # keepers list  
+                latest = img_list[-keep:]    
+                # show the keepers list
+                for i in range(n):
+                    print("Keeping " + latest[i] )
+                    img = dlib.load_rgb_image(latest[i]) 
+                    plt.imshow(img)
+                    plt.show()
+
+            # delete keepers from the image list
+            del img_list[-keep:]
+            # delete the imageslist
+            for i_file in img_list:
+                img = dlib.load_rgb_image(i_file) 
+                print('deleting : ' + i_file)
+                os.system('rm -r '+ i_file)
+
     
     def into_func(self,mod,meth,func=None):
         ''' 
