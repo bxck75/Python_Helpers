@@ -6,11 +6,17 @@ import os
 import argparse
 import sys
 import json
-
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
+	
 # adapted from http://stackoverflow.com/questions/20716842/python-download-images-from-google-image-search
 
 def get_soup(url,header):
-    return BeautifulSoup(urllib2.urlopen(urllib2.Request(url,headers=header)),'html.parser')
+    return BeautifulSoup(urlopen(urllib.request(url,headers=header)),'html.parser')
 
 def main(args):
 	parser = argparse.ArgumentParser(description='Scrape Google images')
@@ -33,8 +39,8 @@ def main(args):
 	    ActualImages.append((link,Type))
 	for i , (img , Type) in enumerate( ActualImages[0:max_images]):
 	    try:
-	        req = urllib2.Request(img, headers={'User-Agent' : header})
-	        raw_img = urllib2.urlopen(req).read()
+	        req = urllib.request(img, headers={'User-Agent' : header})
+	        raw_img = urlopen(req).read()
 	        if len(Type)==0:
 	            f = open(os.path.join(save_directory , "img" + "_"+ str(i)+".jpg"), 'wb')
 	        else :
