@@ -185,7 +185,12 @@ class Core:
     def cleanup_files(keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
         '''
         Example:
-            cleanup_files(keep=16, cleanup_path='/content/test', search_pattern='*.*g', , show_keepers=True)
+            cleanup_files(
+                        keep=16,
+                        cleanup_path='/content/test',
+                        search_pattern='*.*g',
+                        show_keepers=True
+                        )
         '''
         import dlib
         import matplotlib.pyplot as plt
@@ -210,7 +215,7 @@ class Core:
             for i_file in img_list:
                 img = dlib.load_rgb_image(i_file) 
                 print('deleting : ' + i_file)
-                os.system('rm -r '+ i_file)
+                os.remove(i_file)
 
     
     def into_func(self,mod,meth,func=None):
