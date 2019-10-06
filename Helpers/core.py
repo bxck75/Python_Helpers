@@ -143,6 +143,7 @@ class Core:
             validate jpg or png files
                 valid_img(filename, type_img='png')
         '''
+        from PIL import Image
         try:
             i=Image.open(filename)
             if type_img == 'jpg':
