@@ -177,9 +177,9 @@ class Core:
         '''
         img_list = sorted(img_list)
         print('[checking images list')
-        if valid_list(img_list):
+        if self.valid_list(img_list):
             for f in img_list:
-                if not valid_img(f,ext):
+                if not self.valid_img(f,ext):
                     os.remove(f)      
      
     def cleanup_files(self, keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
