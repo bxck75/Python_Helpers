@@ -182,7 +182,7 @@ class Core:
                 if not valid_img(f,ext):
                     os.remove(f)      
      
-    def cleanup_files(keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
+    def cleanup_files(self, keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
         '''
         Example:
             cleanup_files(
