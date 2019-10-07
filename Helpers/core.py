@@ -45,6 +45,7 @@ class Core:
             # Clone the repo
             os.system('git clone https://github.com/bxck75/Python_Helpers.git')
 
+
             # Change dir
             os.chdir('/content/Python_Helpers')
             
@@ -177,7 +178,7 @@ class Core:
                 check_img_list((img_list, ext='png')
         '''
         img_list = sorted(img_list)
-        print('[checking images list')
+        print('checking images list')
         if self.valid_list(img_list):
             for f in img_list:
                 if not self.valid_img(f,ext):
@@ -196,7 +197,7 @@ class Core:
         import dlib
         import matplotlib.pyplot as plt
         # clean up images
-        img_list=self.H.Me(['globx', cleanup_path, search_pattern])
+        img_list = self.H.Me(['globx', cleanup_path, search_pattern])
         img_list = sorted(img_list)
         print(img_list)
         if len(img_list) > keep:
