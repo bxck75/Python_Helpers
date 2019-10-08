@@ -120,7 +120,7 @@ class Core:
         '''
         import subprocess
         # log 
-        self.sys_log('[subprocess]-> ' + self.Sys_Cmd[:] )
+        self.sys_log('[subprocess]-> ' + str(self.Sys_Cmd).strip('[]'))
         
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
