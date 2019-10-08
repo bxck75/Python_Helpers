@@ -5,8 +5,6 @@ class main:
     
     def __init__(self):
         
-)
-
         ''' set root paths '''
         root = '/content'
         gdrive_root = '/content/drive/My Drive'
@@ -23,7 +21,7 @@ class main:
 
         ''' Better chdir '''
         c_d = Helpers_Core.cd
-        c_d(root
+        c_d(root)
         
         ''' scraper install '''
         c_d(root)
