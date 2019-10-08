@@ -2,9 +2,8 @@ import os, sys, inspect
 import Helpers
 
 class main:
-    
+    ''' This and the core.py file are the main frontier of development '''
     def __init__(self):
-        
         ''' set root paths '''
         self.root = '/content'
         self.gdrive_root = '/content/drive/My Drive'
@@ -49,7 +48,8 @@ class main:
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
         import pydrive
-
+        self.pydr= pydrive
+        
         ''' google shared wrapper '''
         self.Sys_Exec('cp ' + self.helpers_root + '/Helpers/google-drive-list-shared/google-drive-list-shared.py ' + self.helpers_root + '/Helpers/gdrive_shared.py')
         self.Sys_Exec('rm -r ' + self.helpers_root + '/Helpers/google-drive-list-shared')
@@ -61,7 +61,7 @@ class main:
         self.HelpMe(['inst_reps',self.pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
-        self.sorted_repos = Helpers.RepCoList.repos_sorted
+        self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
         
         ''' handpicked repos '''
         self.handpicked_repos = self.sorted_repos[:8]
