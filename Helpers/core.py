@@ -99,7 +99,7 @@ class Core:
     
     def runProcess(self):    
         p = subprocess.Popen(self.command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-#         results = []
+        # results = []
         while(True):
             # returns None while subprocess is running
             retcode = p.poll() 
@@ -109,14 +109,16 @@ class Core:
             
             if retcode is not None:
                 break
-#             results.append([retcode,line])
-#         return results
+        # results.append([retcode,line])
+        # return results
                 
     def sys_com(self,execute_command='ls -l'):
         results = []
+        # set the cmd
         self.command_to_exec = execute_command
-        for line in self.runProcess( self.command_to_exec.split() ):
+        for line in self.runProcess( ):
             print(line)
+            # append the line to results list
             results.append(line)
             
         return results
