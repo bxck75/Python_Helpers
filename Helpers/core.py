@@ -118,11 +118,11 @@ class Core:
         if self.if_exists(self.system_log_file):
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-            fh.write(b'[ ' + msg.encode('utf-8')+" ]\n")
+            fh.write('[ ' + msg.encode('utf-8')+" ]\n")
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write(b'[ ' + log_name + ' logfile'+" ]\n")
+            fh.write('[ ' + log_name + ' logfile'+" ]\n")
             fh.close()
                    
     def runProcess(self):
@@ -132,7 +132,7 @@ class Core:
         import subprocess
         # log 
         this_funcs_name = self.insp()
-        self.sys_log(b'[' + this_funcs_name + ']-> ' + str(self.Sys_Cmd) + '\n')
+        self.sys_log('[' + this_funcs_name + ']-> ' + str(self.Sys_Cmd) + '\n')
         
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
@@ -159,11 +159,12 @@ class Core:
             sys_com(cmd)
         '''  
         # log 
-        this_funcs_name = self.insp()
-        self.Sys_Cmd = cmd.split(' ')
-        self.sys_log('[' + this_funcs_name + ']->[' + cmd + ']\n')
+        log_msg = cmd
+        self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]) + '\n')
+        
         results = []
         #  for lines in output of the subprocess
+        self.Sys_Cmd = cmd.split(' ')
         for line in self.runProcess():
             # if decoded line is not empty
             if line.decode('utf-8') != '':
