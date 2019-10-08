@@ -28,8 +28,8 @@ class main:
         # In_helpers/helpers/ map 
         inst_dir=self.helpers_root+'/Helpers'
         repos=['bxck75/piss_ant_pix2pix','bxck75/opencv','bxck75/dosage']
-        self.Helpers.install_repos(repos, inst_dir)
-        
+        self.Helpers_Core.install_repos(repos, inst_dir)
+#         Helpers_Core
         ''' cv2 and distro install '''
         cv_repos=[
             'bxck75/opencv_contrib',
