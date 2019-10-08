@@ -24,7 +24,7 @@ class main:
         
         ''' scraper install '''
         self.c_d(self.root)
-#         self.HelpMe(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
+#         self.hlp(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
         
         ''' cv2 and distro install '''
         cv_repos=[
@@ -33,14 +33,14 @@ class main:
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
-        self.HelpMe(['inst_reps', cv_repos,  self.helpers_root+'/Helpers', False, True])
+#         self.HelpMe(['inst_reps', cv_repos,  self.helpers_root+'/Helpers', False, True])
 
         ''' needed gdrive repos '''
         gdrive_rps=[
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-        self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
+#         self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
 
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -53,15 +53,15 @@ class main:
 
         ''' pix2pix repos '''
         pix2pix_rps=['bxck75/piss-ant-pix2pix']
-        self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
+#         self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
         self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
         
         ''' handpicked repos '''
-        self.handpicked_repos = self.sorted_repos[:8]
+        handpicked_repos = self.sorted_repos[:8]
         print(self.handpicked_repos)
-        self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
+#         self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
 
         ''' zipper init '''
         self.Zipper = self.Helpers_Core.load_zipper()
