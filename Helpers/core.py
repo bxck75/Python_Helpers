@@ -82,7 +82,39 @@ class Core:
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
 
-    
+        
+    def install_repos(self, repos, inst_dir, sub_repos=False, chdir=False):
+        '''
+        Example:
+            inst_dir='/content/images'
+            repos=['bxck75/piss_ant_pix2pix','bxck75/opencv']
+            install_repos(repos, inst_dir)
+            
+        '''
+        self.repo_list=self.method_args[0]      
+        self.git_install_root=self.method_args[1]
+        self.sub_repos=self.method_args[2]
+        self.chadir=self.method_args[3]
+        self.sys_com('mkdir -p '+self.git_install_root)
+#         print(self.git_install_root)
+        for rep in self.repo_list:
+            self.rep=rep.split('/')
+            # change folder check
+            if self.chadir == True:
+                #Switch to path
+                os.chdir(self.git_install_root)
+                # pull the git repo
+                self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
+                # Set the return value for rep rootpath
+                self.path=self.git_install_root+'/'+self.rep[1]
+        # show imported files
+        self.sys_com('ls ' +self.path)
+        # run custom setups and get other reps
+#         self.custom_reps_setup()
+#         if self.sub_repos == True:
+#             self.get_other_reps()
+        
+
     def cprint(self, msg, style='info'):
         ''' set color output '''
         dir(ColorPrint)
