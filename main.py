@@ -52,7 +52,7 @@ class main:
         self.HelpMe(['inst_reps',self.pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
-        self.Helpers.RepCoList.repos_sorted
+        self. sorted_repos = Helpers.RepCoList.repos_sorted
 
         ''' zipper init '''
         self.Zipper = self.Helpers_Core.load_zipper()
@@ -61,6 +61,6 @@ class main:
         self.Gdrive_download = self.Helpers_Core.Gdownload.GdriveD
 
         ''' image crawler init'''
-        self.ImgCrawler = self.Helpers.core.GoImgScrape.GoogleImageCrawler()
+        self.ImgCrawler = Helpers.core.GoImgScrape.GoogleImageCrawler()
         
 M = main()
