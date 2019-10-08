@@ -97,7 +97,13 @@ class Core:
         self.print_warn = ColorPrint.ColorPrint.print_warn
         self.print_info = ColorPrint.ColorPrint.print_info
         self.print_bold = ColorPrint.ColorPrint.print_bold
-        
+    
+
+    def insp(self):
+        import inspect
+        print(inspect.stack()[0])
+        return inspect.stack()[0][3]
+    
     def file_from_list(self, list_to_write, file_name):
         ''' list of items into a txt file '''
         for line in list_to_write:
@@ -125,7 +131,8 @@ class Core:
         '''
         import subprocess
         # log 
-        self.sys_log('['+self.__name__+']-> ' + str(self.Sys_Cmd).strip('[]'))
+        this_funcs_name = self.insp()
+        self.sys_log(b'[' + this_funcs_name + ']-> ' + str(self.Sys_Cmd) + '\n')
         
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
@@ -150,9 +157,11 @@ class Core:
             Execute system command and get output 
             cmd = 'ls'
             sys_com(cmd)
-        '''           
+        '''  
+        # log 
+        this_funcs_name = self.insp()
         self.Sys_Cmd = cmd.split(' ')
-        self.sys_log('[' + self.__name__ + ']->' + cmd)
+        self.sys_log('[' + this_funcs_name + ']->[' + cmd + ']\n')
         results = []
         #  for lines in output of the subprocess
         for line in self.runProcess():
