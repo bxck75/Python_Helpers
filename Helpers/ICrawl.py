@@ -8,12 +8,14 @@ class ICrawl():
         self.max_qty = max_qty
         self.min_wh = min_wh
         self.max_wh = max_wh
-        
-        self.google_crawler = GoogleImageCrawler(feeder_threads=1,parser_threads=1,downloader_threads=4, storage={'/content' : out_dir})
+        path = '/content/crawled'.split('/')[len('/content/crawled'.split('/'))-1]
+        print(path)
+        self.google_crawler = GoogleImageCrawler(feeder_threads=1,parser_threads=1,downloader_threads=4, storage={})
         
         self.filters = dict(size='large', color='orange', license='commercial,modify', date=((2019, 1, 1), (2019, 6, 30)))
         
-        self.google_crawler.crawl(keyword=self.keyword, filters=self.filters, offset=0, max_num=self.max_qty,
+        def run(self):
+            self.google_crawler.crawl(keyword=self.keyword, filters=self.filters, offset=0, max_num=self.max_qty,
                                         min_size=self.min_wh, max_size=self.max_wh, file_idx_offset=0)
 
         
