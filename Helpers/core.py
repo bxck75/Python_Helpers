@@ -59,7 +59,7 @@ class Core:
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
         
-    def install_repos(self, repos, inst_dir, sub_repos=False, chdir=False):
+    def install_repos(self, repos, inst_dir, sub_repos=False, chadir=False):
         '''
         Example:
             inst_dir='/content/images'
