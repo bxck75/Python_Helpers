@@ -138,11 +138,11 @@ class Core:
 
         if self.if_exists(self.system_log_file):
             fh = open(self.system_log_file, 'a+' )
-            fh.write(str(msg.encode("utf-8")))
+            fh.write(str(msg)+"\n")
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write(str(log_name ,'logfile').encode('utf-8'))
+            fh.write(str(log_name ,'logfile')+"\n")
             fh.close()
                    
     def runProcess(self):
