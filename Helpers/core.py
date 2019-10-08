@@ -112,11 +112,11 @@ class Core:
         if self.if_exists(self.system_log_file):
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-            fh.write(msg+"\n")
+            fh.write(b'[ ' + msg.encode('utf-8')+" ]\n")
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write('[ ' + log_name + ' logfile ]')
+            fh.write(b'[ ' + log_name + ' logfile'+" ]\n")
             fh.close()
                    
     def runProcess(self):
@@ -125,7 +125,7 @@ class Core:
         '''
         import subprocess
         # log 
-        self.sys_log('[subprocess]-> ' + str(self.Sys_Cmd).strip('[]'))
+        self.sys_log('['+self.__name__+']-> ' + str(self.Sys_Cmd).strip('[]'))
         
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
@@ -152,7 +152,7 @@ class Core:
             sys_com(cmd)
         '''           
         self.Sys_Cmd = cmd.split(' ')
-        self.sys_log('[system_command]->' + cmd)
+        self.sys_log('[' + self.__name__ + ']->' + cmd)
         results = []
         #  for lines in output of the subprocess
         for line in self.runProcess():
