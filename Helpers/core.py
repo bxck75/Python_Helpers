@@ -14,6 +14,7 @@ from . import GoImgScrape
 from . import ColorPrint
 from . import gscrape
 from . import ops
+from . import ICrawl
 # from . import Scraper
 
 class Core:
