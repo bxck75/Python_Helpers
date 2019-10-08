@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import os,sys
+import os, sys, inspect
+
 from . import helpers
 from . import ZipUp
 from . import BigHelp
@@ -10,7 +11,6 @@ from . import logger
 from . import GoImgScrape
 from . import ColorPrint
 from . import gscrape
-
 from . import ops
 
 class Core:
@@ -100,7 +100,7 @@ class Core:
     
 
     def insp(self):
-        import inspect
+
         print(inspect.stack()[0][3])
         return inspect.stack()[0][3]
     
