@@ -81,7 +81,7 @@ class Core:
         self.Sys_Exec = self.sys_com
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
-        self.icrawl = ICrawl.ICrawl
+
     
     def cprint(self, msg, style='info'):
         ''' set color output '''
