@@ -75,7 +75,7 @@ class Core:
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'  
         self.Gdownload = GdriveD
         self.H = self.load_helpers()
-        self.H.zip = self.load_zipper()
+#         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
@@ -468,7 +468,7 @@ class Core:
     def load_helpers(self):
         '''load BigHelp to gdrive obj'''
 #         self.C = BigHelp
-        return BigHelp.Helpers()
+#         return BigHelp.Helpers()
 
     def load_zipper(self):
         '''load zipup to gdrive obj'''
