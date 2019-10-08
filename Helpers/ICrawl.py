@@ -1,4 +1,5 @@
 from icrawler.builtin import BaiduImageCrawler, BingImageCrawler, GoogleImageCrawler
+
 class ICrawl():
     def __init__(self, keyword, max_qty=10, out_dir='icrawl_loot_images', min_wh=(200,200), max_wh=(800,800)):
         self.out_dir = out_dir
@@ -12,7 +13,7 @@ class ICrawl():
                                                     downloader_threads=4,
                                                     storage={'/content' : out_dir})
         
-        self.filters = dict(size='large', color='orange', license='commercial,modify', date=((2019, 1, 1), (2019, 06, 30)))
+        self.filters = dict(size='large', color='orange', license='commercial,modify', date=((2019, 1, 1), (2019, 6, 30)))
         
         
         self.google_crawler.crawl(keyword=self.keyword, filters=self.filters, offset=0, max_num=self.max_qty,
