@@ -126,7 +126,7 @@ class Core:
         for line in self.runProcess():
             print(line)
             # append the line to results list
-            results.append(line)
+            results.append(line.decode('utf-8'))
             
         return results
             
