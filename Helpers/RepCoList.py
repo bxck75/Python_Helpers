@@ -1,5 +1,6 @@
 # a list of repos for machinelearning
 reps=[
+        'bxck75/face-recognition',
         'bxck75/dosage',
         'bxck75/opencv',
         'bxck75/opencv_contrib',
