@@ -12,7 +12,7 @@ from . import GoImgScrape
 from . import ColorPrint
 from . import gscrape
 from . import ops
-from . import scraper
+from . import Scraper
 
 class Core:
     '''
