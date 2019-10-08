@@ -1,5 +1,8 @@
 # a list of repos for machinelearning
 reps=[
+        'bxck75/dosage',
+        'bxck75/opencv',
+        'bxck75/Face_Zoo',
         'googlecreativelab/quickdraw-dataset',
         'divamgupta/ladder_network_keras',
         'zhixuhao/unet',
@@ -44,7 +47,7 @@ reps=[
         'eriklindernoren/Keras-GAN',
         'junyanz/CycleGAN',
         'junyanz/pytorch-CycleGAN-and-pix2pix',
-        'junyanz/iGAN', #----> !wget http://efrosgans.eecs.berkeley.edu/iGAN/datasets/church_64.zip <----dataset outdoor_128.zip 	handbag_128.zip !!!
+        'junyanz/iGAN',
         'martinarjovsky/WassersteinGAN',
         'shaoanlu/faceswap-GAN',
         'LantaoYu/SeqGAN',
