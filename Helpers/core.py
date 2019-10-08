@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
+os.system('pip install colorama')
 import colorama
 
 from . import helpers
