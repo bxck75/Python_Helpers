@@ -87,7 +87,7 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
-        self.Sys_Exec.CMD
+        self.Sys_Exec.CMD = None
         
         ''' set color output '''
         self.print_fail = ColorPrint.ColorPrint.print_fail
