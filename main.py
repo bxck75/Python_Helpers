@@ -14,8 +14,8 @@ class main:
         
         ''' start helper core and system commands '''
         self.Helpers_Core=Helpers.Core() # new helper class
-        self.hlp=self.Helpers_Core.H  # old  module helpers
-        self.HelpMe = self.Helpers_Core.H.Me # build in system commands old  module helpers
+        self.hlp=Helpers.BigHelp.H  # old  module helpers
+        self.HelpMe = Helpers.BigHelp.H.Me # build in system commands old  module helpers
         self.Sys_Exec = self.Helpers_Core.Sys_Exec
 
         ''' Better chdir '''
