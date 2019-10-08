@@ -552,7 +552,7 @@ class Core:
         
         root='/content'
         if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
-            print(self.flickr_query + self.flickr_dest + self.flickr_qty)
+            print(self.flickr_query + self.flickr_dest + str(self.flickr_qty))
             self._flickr()
                 
         # see if they are downloaded
