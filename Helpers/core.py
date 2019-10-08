@@ -99,12 +99,12 @@ class Core:
     def cprint(self, msg, style='info'):
         ''' set color output '''
         dir(ColorPrint)
-        mod, meth, func = 'ColorPrint','ColorPrint','print_'+style
-        c_p_f = __import__(mod+'.'+meth+'.'+func, globals(), locals(), ['msg', 'style'], -1)
-        print(c_p_f.__name__)
-        self.msg = eggs = c_p_f.msg
-        self.style= c_p_f.style
-#         
+#         mod, meth, func = 'ColorPrint','ColorPrint','print_'+style
+#         c_p_f = __import__(mod+'.'+meth+'.'+func, globals(), locals(), ['msg', 'style'], -1)
+#         print(c_p_f.__name__)
+#         self.msg = c_p_f.msg
+#         self.style= c_p_f.style
+# #         
 #         cprint_func = self.into_func(mod, meth, func)
 #         cprint_func(msg)
 #         self.print_fail = ColorPrint.ColorPrint.print_fail
