@@ -2,6 +2,7 @@
 reps=[
         'bxck75/dosage',
         'bxck75/opencv',
+        'bxck75/opencv_contrib',
         'bxck75/Face_Zoo',
         'googlecreativelab/quickdraw-dataset',
         'divamgupta/ladder_network_keras',
