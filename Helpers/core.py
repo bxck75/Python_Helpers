@@ -88,7 +88,7 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
-
+        self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
     
         ''' set color output '''
@@ -113,6 +113,10 @@ class Core:
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
             fh.write(msg)
+            fh.close()
+        else:
+            fh = open(self.system_log_file, 'w' )
+            fh.write('[ ' + log_name +' '+ log+' ]')
             fh.close()
                    
     def runProcess(self):
