@@ -99,7 +99,7 @@ class Core:
     def cprint(self, msg, style='info'):
         ''' set color output '''
         mod, meth, func = 'ColorPrint','ColorPrint','print_'+style
-        cprint_func = self.info_func(mod, meth, func)
+        cprint_func = self.into_func(mod, meth, func)
         cprint(msg)
 #         self.print_fail = ColorPrint.ColorPrint.print_fail
 #         self.print_pass = ColorPrint.ColorPrint.print_pass
