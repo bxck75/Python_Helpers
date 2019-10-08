@@ -77,7 +77,7 @@ class Core:
         self.BigHelp = BigHelp
         self.zip = ZipUp.ZipUp
         self.repo_collection = RepCoList
-        self.flickr_scr = self.flickr_scrape
+        self.FlickrS = self.flickr_scrape
         self.Sys_Exec = self.sys_com
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
@@ -148,20 +148,59 @@ class Core:
         print(Sheisterhaufen)
         return Sheisterhaufen
     
-    
-#         log_msg =  'Searching  ' + str(path) + ' for  ' + pattern
-#         func_name=inspect.stack()[0][3]
-#         self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
+
+    def flickr_scrape(self,query= ['portrait'],qty=5,dest='/content/images'):
+        '''
+            Example:
+                search_list,img_dir,qty = ['portait','face'], 'images', 21
+                flickr_scrape(search_list,qty,img_dir)
+        '''
+        self.flickr_dest = dest
+        self.flickr_qty = qty
+        self.flickr_query = query
+        root='/content'
+        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
+            ''' Let the scapers scrape! '''
+#             self._flickr()
+        ''' Scraping '''
+        os.system('sudo pip install gallery-dl')
+        if isinstance(self.flickr_query, list):
+            for s in self.flickr_query:
+                keyword=s.replace(' ', '+')
+                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+        else: 
+            keyword=str(self.flickr_query.replace(' ', '+'))
+            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+
+        ''' see if they are downloaded '''
+        img_list = self.GlobX(str(self.flickr_dest),'*.jpg')
+        print(len(img_list))
+        i=0 # iterator for filename
+        for img in img_list:
+            print(img)
+#             self.sys_com('cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1))
+            self.sys_com('cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1))      
+            i+=1 # up iterator
+        print(str(i)+' images copied!')
+        ''' Remove flickr folder when images are moved and renamed'''
+        self.sys_com('rm -r '+str(self.flickr_dest)+'/flickr')
         
-#         glob = self.H.Me
-#         cmd = ['globx', path, pattern]
-#         self.cprint("GlobGloBGloB....",'warn')
-#         self.sys_log(func_name + ' <~[LOGGED]~> ' + "GlobGloBGloB...." + path + '/' + pattern)
-#         self.cprint("Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt",'pass')
-#         self.sys_log(func_name + ' <~[LOGGED]~> ' + "Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt")
-#         return glob(cmd)
         
-        
+#     def _flickr(self):
+#         '''
+#             Internal function for flickr_scrape
+#             _flickr(flickr_query, flickr_dest='/content/images', flickr_qty=10)
+#         '''
+#         os.system('sudo pip install gallery-dl')
+#         if isinstance(self.flickr_query, list):
+#             for s in self.flickr_query:
+#                 keyword=s.replace(' ', '+')
+#                 self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+#         else: 
+#             keyword=str(self.flickr_query.replace(' ', '+'))
+#             self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+
+            
     def if_exists(self, path):
         ''' check if path leads somewhere '''
         func_name=inspect.stack()[0][3]
@@ -540,50 +579,7 @@ class Core:
 
         
         
-    def flickr_scrape(self,query= ['portrait'],qty=5,dest='/content/images'):
-        '''
-            Example:
-                search_list,img_dir,qty = ['portait','face'], 'images', 21
-                flickr_scrape(search_list,qty,img_dir)
-        '''
-        self.flickr_dest = dest
-        self.flickr_qty = qty
-        self.flickr_query = query
-        
-        root='/content'
-        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
-            print(str(self.flickr_query) + self.flickr_dest + str(self.flickr_qty))
-            self._flickr()
-                
-        # see if they are downloaded
-        img_list = self.GlobX(str(self.flickr_dest),'*.jpg')
-        print(len(img_list))
-        # M.resize.resize_folder(str(M.root_dirname)+'/images')
-        i=0
-        # self.sys_com('rm -r '+str(M.root_dirname)+'/images')
-        for img in img_list:
-            print(img)
-#             self.sys_com('cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1))
-            self.sys_com('cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1))      
-            i+=1
-        print(str(i)+' images copied!')
-        self.sys_com('rm -r '+str(self.flickr_dest)+'/flickr')
-        
-    def _flickr(self):
-        '''
-        Example:
-            _flickr(flickr_query, flickr_dest='/content/images', flickr_qty=10)
-        '''
-        os.system('sudo pip install gallery-dl')
 
-        if isinstance(self.flickr_query, list):
-            for s in self.flickr_query:
-                keyword=s.replace(' ', '+')
-                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-        else: 
-            keyword=str(self.flickr_query.replace(' ', '+'))
-            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-    
 #     old method router
     def Me(self, args):
         """Dispatch method"""
