@@ -106,7 +106,23 @@ class Core:
 #         self.print_warn = ColorPrint.ColorPrint.print_warn
 #         self.print_info = ColorPrint.ColorPrint.print_info
 #         self.print_bold = ColorPrint.ColorPrint.print_bold
-    
+
+
+    def GlobX(self, path, pattern):
+        ''' Glob folders on pattern '''
+
+        log_msg =  'Searching  ' + str(path) + ' for  ' + pattern
+        func_name=inspect.stack()[0][3]
+        self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
+        
+        GloB = self.H.Me
+        GloB.path = '/content/installed_repos'
+        GloB.pattern = '*.md'
+        GloB.cmd = ['globx', GloB.path, GlobB.pattern]
+        self.cprint("GlobGloBGloB....",'warn')
+        return GloB(GloB.cmd)
+        
+        
     def if_exists(self, path):
         ''' check if path leads somewhere '''
         func_name=inspect.stack()[0][3]
