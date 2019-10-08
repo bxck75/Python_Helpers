@@ -101,20 +101,31 @@ class Core:
 #         self.print_bold = ColorPrint.ColorPrint.print_bold
 
 
-    def GlobX(self, path, pattern):
+    def GlobX(self, path_in, pattern_in):
         ''' Glob folders on pattern '''
-
-        log_msg =  'Searching  ' + str(path) + ' for  ' + pattern
-        func_name=inspect.stack()[0][3]
-        self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
+        import os
+        os.system('sudo pip install pywildcard')
+        import pywildcard as fnmatch
+        treeroot=path_in
+        pattern=pattern_in
+        Sheisterhaufen = []
+        for base, dirs, files in os.walk(treeroot):
+            goodfiles = fnmatch.filter(files, pattern)
+            Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
+        return Sheisterhaufen
+    
+    
+#         log_msg =  'Searching  ' + str(path) + ' for  ' + pattern
+#         func_name=inspect.stack()[0][3]
+#         self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
         
-        glob = self.H.Me
-        cmd = ['globx', path, pattern]
-        self.cprint("GlobGloBGloB....",'warn')
-        self.sys_log(func_name + ' <~[LOGGED]~> ' + "GlobGloBGloB...." + path + '/' + pattern)
-        self.cprint("Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt",'pass')
-        self.sys_log(func_name + ' <~[LOGGED]~> ' + "Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt")
-        return glob(cmd)
+#         glob = self.H.Me
+#         cmd = ['globx', path, pattern]
+#         self.cprint("GlobGloBGloB....",'warn')
+#         self.sys_log(func_name + ' <~[LOGGED]~> ' + "GlobGloBGloB...." + path + '/' + pattern)
+#         self.cprint("Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt",'pass')
+#         self.sys_log(func_name + ' <~[LOGGED]~> ' + "Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt")
+#         return glob(cmd)
         
         
     def if_exists(self, path):
