@@ -451,7 +451,7 @@ class Core:
         # request help on method from list
         return zippedList
 
-    def loadTboard():
+    def importTboard():
         '''load tensorboard'''
         import datetime, os ,tensorboard 
         
@@ -516,6 +516,289 @@ class Core:
         print(str(i)+' images copied!')
         self.H.Me(['cml','rm -r '+str(self.flickr_dest)+'/flickr'])
 
+#     old method router
+    def Me(self, args):
+        """Dispatch method"""
+        # glob the args
+        self.root_path='/content/'
+#         print(self.root_path)
+        self.args = args
+        print('[Running-->]'+str(self.args))
+        self.method= self.args[0]
+        self.method_args= self.args[1:]
+        method_args = self.method_args
+        method_name = '_' + str(self.method)
+        # Get the method from 'self'. Default to a lambda.
+        method = getattr(self, method_name, lambda: self.no_action())
+        # Call the method as its returned
+        return method()
+
+    # HELPER FUNCTIONS
+    # facial landmarks
+    def landmarkdetecter(self,img):
+        self.Me(['pip',['face_recognition']])
+        from PIL import Image
+        import face_recognition
+
+        # Load the jpg file into a numpy array
+        image = face_recognition.load_image_file(img)
+
+        # Find all the faces in the image using the default HOG-based model.
+        # This method is fairly accurate, but not as accurate as the CNN model and not GPU accelerated.
+        # See also: find_faces_in_picture_cnn.py
+        face_locations = face_recognition.face_locations(image)
+
+        print("I found {} face(s) in this photograph.".format(len(face_locations)))
+
+        for face_location in face_locations:
+            # Print the location of each face in this image
+            top, right, bottom, left = face_location
+            print("A face is located at pixel location Top: {}, Left: {}, Bottom: {}, Right: {}".format(top, left, bottom, right))
+
+            # You can access the actual face itself like this:
+            face_image = image[top:bottom, left:right]
+            pil_image = Image.fromarray(face_image)
+        pil_image.show()
+        
+        
+        
+    #facial landmarks
+    def landmarkdetect(self,img):
+        self.Me(['pip',['face_recognition']])
+        from PIL import Image, ImageDraw
+        import face_recognition
+
+        # Load the jpg file into a numpy array
+        image = face_recognition.load_image_file(img)# /home/rishika/Pictures/multi1.jpg
+
+        # Find all facial features in all the faces in the image
+        face_landmarks_list = face_recognition.face_landmarks(image)
+
+        print("I found {} face(s) in this photograph.".format(len(face_landmarks_list)))
+
+        # Create a PIL imagedraw object so we can draw on the picture
+        pil_image = Image.fromarray(image)
+        d = ImageDraw.Draw(pil_image)
+
+        for face_landmarks in face_landmarks_list:
+
+            # Print the location of each facial feature in this image
+            for facial_feature in face_landmarks.keys():
+                print("The {} in this face has the following points: {}".format(facial_feature, face_landmarks[facial_feature]))
+
+            # Let's trace out each facial feature in the image with a line!
+            for facial_feature in face_landmarks.keys():
+                d.line(face_landmarks[facial_feature], width=5)
+        # Show the picture
+        pil_image.show()
+
+        #comment
+
+    # method Args discloser
+    def _get_args(self):
+        from inspect import signature
+        print(signature(self.method_args[0]))
+#         print(self.method_args)
+#         self.args_target=self.method_args[0]
+#         print(inspect.isasyncgenfunction(self.args_target))
+
+    # print methods of an object
+    def _methods_of(self,lr=False):
+        for attr in dir(self.method_args[0]):
+            if attr.startswith("_"): continue
+            try:
+                if callable(getattr(self.method_args[0],str(attr),None)):
+                    print(f"{attr}{str(inspect.signature(getattr(self.method_args[0],str(attr), None)))}:")
+                    if lr==True: print()
+            except: pass
+
+    # Folder globber
+    def _globx(self):
+        import os
+        os.system('sudo pip install pywildcard')
+        import pywildcard as fnmatch
+#         print(self.args)
+        treeroot=self.method_args[0]
+        pattern=self.method_args[1]
+        Sheisterhaufen = []
+        for base, dirs, files in os.walk(treeroot):
+            goodfiles = fnmatch.filter(files, pattern)
+            Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
+        return Sheisterhaufen
+
+    # CMD-LINE subprocess spawner
+    def _cml(self): 
+        Sheisterhaufen =[]
+        cmd=self.method_args[0]
+        if len(self.method_args) > 1:
+            fi=self.method_args[1]
+        else: # only False needs to be fed
+            fi=True
+        nepopso = os.popen(cmd)
+        try: # Yeah try that u popo!!!
+            for line in nepopso:
+#                 line.encode("utf-8") Mightbe on older python
+                if fi == True:
+                    Sheisterhaufen.append(line.replace('\n',''))
+        finally: # yeah finally done pooping!!!!!
+            nepopso.close()
+        return Sheisterhaufen
+    
+    # Flickr scraper
+    # TODO: make this the main gallery-dl wrapper class and include it 
+    # I can then us the API to it full sambal power and scrape 200+ galleries!!!
+    def _flickr(self):
+        os.system('sudo pip install gallery-dl')
+        self.flickr_query = self.method_args[0]
+        print(self.method_args)
+        self.flickr_dest = self.method_args[1]
+        self.flickr_qty = int(self.method_args[2])
+        if isinstance(self.flickr_query, list):
+            for s in self.flickr_query:
+                keyword=s.replace(' ', '+')
+                self.Me(['cml','gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword])
+        else: 
+            keyword=str(self.flickr_query.replace(' ', '+'))
+            self.Me(['cml','gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword])
+    
+    # Method discloser
+    def _vdir(self):
+        if len(self.method_args)==0:
+            return [x for x in dir(self) if not x.startswith('__')]
+        else:
+            if isinstance(self.method_args[0], list):
+                elem=[]
+                for m in self.method_args[0]:
+                    elem.append([m.__name__,[x for x in dir(m) if not x.startswith('__')]])
+                return elem 
+            else:   
+                return [x for x in dir(self.method_args[0]) if not x.startswith('__')]
+    
+    # Pip installer
+    def _pip(self):
+        import os
+        print()
+        self.pip_install_list = self.method_args[0]
+        if isinstance(self.pip_install_list, list):
+            spaced_list=''
+            for s in self.pip_install_list:
+                spaced_list += str( s + ' ' )
+            # install the space separated list
+            print('Installing ' + spaced_list)
+            self.Me(['cml','pip install ' + spaced_list])
+        else: 
+            # install the single pip lib
+            print('Installing ' + self.pip_install_list)
+            self.Me(['cml','pip install ' + self.pip_install_list])
+            
+    # Folder spawner
+    def _mkd(self):
+        import os
+        if isinstance(self.method_args[0], list):
+            for x in self.method_args[0]:
+                os.makedirs(self.method_args[1] + '/' + str(x), exist_ok = True)
+        else:
+            os.makedirs(self.method_args[1]+'/'+self.method_args[0], exist_ok = True)
+            
+    # Pull all selected reps  
+    def _inst_reps(self):
+        self.repo_list=self.method_args[0]      
+        self.git_install_root=self.method_args[1]
+        self.sub_repos=self.method_args[2]
+        self.chadir=self.method_args[3]
+        self.Me(['cml','mkdir -p '+self.git_install_root])
+#         print(self.git_install_root)
+        for rep in self.repo_list:
+            self.rep=rep.split('/')
+            # change folder check
+            if self.chadir == True:
+                #Switch to path
+                os.chdir(self.git_install_root)
+                # pull the git repo
+                self.Me(['cml','git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git'])
+                # Set the return value for rep rootpath
+                self.path=self.git_install_root+'/'+self.rep[1]
+        # show imported files
+        self.Me(['cml','ls ' +self.path])
+        # run custom setups and get other reps
+#         self.custom_reps_setup()
+#         if self.sub_repos == True:
+#             self.get_other_reps()
+            
+        def __repr__(self):
+            return self.path
+        
+    # get GPU Capabilities    
+    def _get_gpu(self):
+    #     check gpu
+        import tensorflow as tf
+        tf.test.gpu_device_name()
+        self.Me(['cml','ln -sf /opt/bin/nvidia-smi /usr/bin/nvidia-smi'])
+        self.Me(['cml','pip install gputil'])
+        self.Me(['cml','pip install psutil'])
+        self.Me(['cml','pip install humanize'])
+        import psutil
+        import humanize
+        import os
+        import GPUtil as GPU
+        GPUs = GPU.getGPUs()
+        # XXX: only one GPU on Colab and isn’t guaranteed
+        gpu = GPUs[0]
+        def printm():
+         process = psutil.Process(os.getpid())
+         print("Gen RAM Free: " + humanize.naturalsize( psutil.virtual_memory().available ), " I Proc size: " + humanize.naturalsize( process.memory_info().rss))
+         print("GPU RAM Free: {0:.0f}MB | Used: {1:.0f}MB | Util {2:3.0f}% | Total {3:.0f}MB".format(gpu.memoryFree, gpu.memoryUsed, gpu.memoryUtil*100, gpu.memoryTotal))
+        printm()
+
+    #--repository required dependancies setup
+    def custom_reps_setup(self):
+        # custom stuff for CartoonGAN-tensorflow and keras-team/keras-contrib
+        if 'keras-team/keras-contrib' in self.repo_list:
+            os.chdir(self.path+'/keras-contrib')
+            self.Me(['cml','python convert_to_tf_keras.py'])
+            self.Me(['cml','USE_TF_KERAS=1'])
+            self.Me(['cml','python setup.py install'])
+            import tensorflow as tf
+            tf.__version__     
+        # custom setup stuff for gallery-dl repo
+        if 'mikf/gallery-dl' in self.repo_list:
+            os.chdir(self.git_install_root+'/gallery-dl')
+            self.Me(['cml',"pip install -e . |grep 'succes'",True])
+        # custom setup stuff for youtube-dl repo
+        if 'ytdl-org/youtube-dl' in self.repo_list:
+            os.chdir(self.git_install_root+'/youtube-dl') 
+            self.Me(['cml',"pip install -e . |grep 'succes'",True])      
+        # switch backt to root
+        os.chdir(self.git_install_root)
+        
+    #   --grab the username if a repos is installed
+    #   --generate a txt file of all other reps of the user    
+    def get_other_reps(self):          
+        for r in self.repo_list:
+            self.GitUsers=[]
+            self.sub_repo_list=[]
+            self.GUSER=r.split('/')[0]
+            self.repo_name=r.split('/')[1]
+            self.GitUsers.append(self.GUSER)
+            h=Helpers()
+
+            CURL_CMD="curl https://api.github.com/users/{self.GUSER}/repos?per_page=100 | grep -o '"
+            CURL_CMD+='git@[^"]*' + ' > '+self.git_install_root+'/info.txt'
+            result=self.Me(['cml',CURL_CMD])
+            print(result)
+            self.Me(['cml','cat '+self.git_install_root+"/info.txt |awk -F ':' '{print $2}'|awk -F '.' '{print $1}' > "+self.path+"/"+self.GUSER+"_repositories.txt"])
+            with open(self.git_install_root+'/info.txt','r') as f:
+                for line in f:
+                    cline=line.split(':')[1].split('.')[0]
+                    self.sub_repo_list.append(cline),
+
+        print(self.sub_repo_list)
+
+    # END OF HELPER FUNCTIONS
+  
+    def no_action(self):
+        return self._vdir()
+    
 
         
 def get_hmm():
