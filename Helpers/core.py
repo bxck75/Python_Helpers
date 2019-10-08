@@ -113,18 +113,18 @@ class Core:
         '''
         Example:
             log_msg = "Empty command string. did you first set the CMD arg?"
-            self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]) + '\n')
+            self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]))
         '''
         self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
         print(self.if_exists(self.system_log_file))
         if self.if_exists(self.system_log_file):
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-            fh.write(str([msg])+'\n')
+            fh.write(str([msg]))
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write(str(str([log_name ,' logfile '])+'\n'))
+            fh.write(str(str([log_name ,' logfile '])))
             fh.close()
                    
     def runProcess(self):
@@ -136,7 +136,7 @@ class Core:
         # log 
         log_msg = str(self.Sys_Cmd)
         func_name=inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg + '\n')
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )
                           
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
@@ -145,7 +145,7 @@ class Core:
         else:
             # log 
             log_msg = "Empty command string. did you first set the CMD arg?"
-            self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]) + '\n')
+            self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]))
             return log_msg
 
         while(True):
@@ -169,7 +169,7 @@ class Core:
         # log 
         log_msg = cmd
         func_name=inspect.stack()[0][3]
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg + '\n')
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg)
              
         results = []
         #  for lines in output of the subprocess
@@ -283,7 +283,7 @@ class Core:
         # log 
         log_msg = str([keep, cleanup_path, search_pattern])
         func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg + '\n')
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
              
         import dlib
         import matplotlib.pyplot as plt
