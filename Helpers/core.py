@@ -97,7 +97,8 @@ class Core:
         self.fg = lambda text, color: "\33[38;5;" + str(color) + "m" + text + "\33[0m"
         self.bg = lambda text, color: "\33[48;5;" + str(color) + "m" + text + "\33[0m"
     
-    def runProcess(self):    
+    def runProcess(self):  
+        import subprocess
         p = subprocess.Popen(self.command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         # results = []
         while(True):
