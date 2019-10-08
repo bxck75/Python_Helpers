@@ -82,7 +82,7 @@ class Core:
         self.Sys_Exec = self.sys_com
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
-
+        self.git_install_root = self.root + '/installed_repos'
         
     def install_repos(self, repos, inst_dir, sub_repos=False, chdir=False):
         '''
