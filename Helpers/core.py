@@ -505,17 +505,13 @@ class Core:
         #             --operation combine \
         #             --output_dir ' + str(_out_))
 
+        
+        
     def flickr_scrape(self,query= ['portrait'],qty=5,dest='/content/images'):
         '''
-            search_list,img_dir,qty
-            #get 20 images from flickr
-            img_dir='images'
-            qty=10
-            search_list = ['portait','face']
-            flickr_scrape(self,search_list,img_dir,qty): 
-            # print(self.flickr_dest)
-            # print(self.flickr_qty)
-            # print(self.flickr_query)
+            Example:
+                search_list,img_dir,qty = ['portait','face'], 'images', 21
+                FScrape(search_list,qty,img_dir)
         '''
         self.flickr_dest = dest
         self.flickr_qty = qty
