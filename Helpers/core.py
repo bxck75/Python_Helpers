@@ -90,12 +90,12 @@ class Core:
             inst_dir='/content/images'
             repos=['bxck75/piss_ant_pix2pix','bxck75/opencv']
             install_repos(repos, inst_dir)
-            
         '''
-        self.repo_list=self.method_args[0]      
-        self.git_install_root=self.method_args[1]
-        self.sub_repos=self.method_args[2]
-        self.chadir=self.method_args[3]
+        self.repo_list=repos      
+        self.git_install_root=inst_dir
+        self.sub_repos=sub_repos
+        self.chadir=chdir
+        
         self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
         for rep in self.repo_list:
