@@ -116,7 +116,7 @@ class Core:
     def sys_com(self,execute_command='ls -l'):
         ''' 
             Execute system command and get output 
-            cmd = 'ls -l'
+            cmd = 'ls'
             sys_com(execute_command=cmd)
         '''
         results = []
@@ -124,11 +124,11 @@ class Core:
         self.command_to_exec = execute_command.split(' ')
         #  for lines in output of the subprocess
         for line in self.runProcess():
+            # if decoded line is not empty
             if line.decode('utf-8') != '':
-                print(line)
                 # append the line to results list
                 results.append(line.decode('utf-8').replace("\n",''))
-            
+        # return results    
         return results
             
     def rec_walk_folder(self, folder, output='files'):
