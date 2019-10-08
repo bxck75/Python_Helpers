@@ -219,13 +219,15 @@ class Core:
      
     def cleanup_files(self, keep, cleanup_path, search_pattern='*.*g', show_keepers=False):
         '''
-        Example:
-            cleanup_files(
-                        keep=16,
-                        cleanup_path='/content/test',
-                        search_pattern='*.*g',
-                        show_keepers=True
-                        )
+            Example:
+                cleanup_files(
+                            keep=16,
+                            cleanup_path='/content/test',
+                            search_pattern='*.*g',
+                            show_keepers=True
+                            )
+                        
+            show_keepers only works with images else will crash the process
         '''
         import dlib
         import matplotlib.pyplot as plt
@@ -243,12 +245,10 @@ class Core:
                     img = dlib.load_rgb_image(latest[i]) 
                     plt.imshow(img)
                     plt.show()
-
             # delete keepers from the image list
             del img_list[-keep:]
-            # delete the imageslist
+            # delete files left in the image list
             for i_file in img_list:
-                img = dlib.load_rgb_image(i_file) 
                 print('deleting : ' + i_file)
                 os.remove(i_file)
 
@@ -256,7 +256,16 @@ class Core:
     def into_func(self,mod,meth,func=None):
         ''' 
             load a module.meth.func from string
-            
+            Example 1:
+                mod='IPython'
+                meth='display'
+                into_func(mod, meth)
+                
+            Example 2:
+                mod='IPython'
+                meth='display'
+                func='clear_output'
+                into_func(mod, meth, func)
         '''
         import importlib
         module=mod
