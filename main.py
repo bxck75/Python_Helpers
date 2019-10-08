@@ -63,4 +63,4 @@ class main:
         ''' image crawler init'''
         self.ImgCrawler = Helpers.core.GoImgScrape.GoogleImageCrawler()
         
-M = main()
+main()
