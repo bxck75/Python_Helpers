@@ -99,6 +99,7 @@ class Core:
         self.print_bold = ColorPrint.ColorPrint.print_bold
         
     def file_from_list(self, list_to_write, file_name):
+        ''' list of items into a txt file '''
         for line in list_to_write:
             self.sys_log(line,  file_name)
         
@@ -109,8 +110,8 @@ class Core:
         '''
         self.system_log_file = self.Colab_root + '/' + log_name + '.log'
         if self.if_exists(self.system_log_file):
+            print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-#             msg = "'" + msg + "'"
             fh.write(msg)
             fh.close()
                    
