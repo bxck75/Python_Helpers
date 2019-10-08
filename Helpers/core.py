@@ -115,12 +115,13 @@ class Core:
         func_name=inspect.stack()[0][3]
         self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
         
-        GloB = self.H.Me
-        GloB.path = '/content/installed_repos'
-        GloB.pattern = '*.md'
-        GloB.cmd = ['globx', GloB.path, GlobB.pattern]
+        glob = self.H.Me
+        cmd = ['globx', path, pattern]
         self.cprint("GlobGloBGloB....",'warn')
-        return GloB(GloB.cmd)
+        self.sys_log(func_name + ' <~[LOGGED]~> ' + "GlobGloBGloB...." + path + '/' + pattern)
+        self.cprint("Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt",'pass')
+        self.sys_log(func_name + ' <~[LOGGED]~> ' + "Pooooot pt..pt..pt..prrrttt...pt.pt.prrrrttt")
+        return glob(cmd)
         
         
     def if_exists(self, path):
