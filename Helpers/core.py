@@ -135,15 +135,14 @@ class Core:
             self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]))
         '''
         self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
-        print(self.if_exists(self.system_log_file))
+
         if self.if_exists(self.system_log_file):
-#             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
             fh.write(str(msg.encode("utf-8")))
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write(str(str(log_name ,'logfile').encode("utf-8")))
+            fh.write(str(log_name ,'logfile').encode('utf-8'))
             fh.close()
                    
     def runProcess(self):
