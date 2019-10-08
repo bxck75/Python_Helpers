@@ -24,7 +24,7 @@ class main:
         
         ''' scraper install '''
         self.c_d(self.root)
-#         self.hlp(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
+#         self.HelpMe(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
         
         ''' cv2 and distro install '''
         cv_repos=[
