@@ -87,7 +87,7 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
-        self.Sys_Exec.CMD = None
+        self.Sys_Cmd = None
         
         ''' set color output '''
         self.print_fail = ColorPrint.ColorPrint.print_fail
@@ -102,9 +102,10 @@ class Core:
             run subprocess from self.CMD
         '''
         import subprocess
-        command_to_exec = self.Sys_Exec.CMD.split(' ')
+        command_to_exec = self.Sys_Cmd.split(' ')
         # check if is valid command string
-        if (command_to_exec != None and command_to_exec != ''):
+        if ( command_to_exec != None and len( command_to_exec ) > 0 ):
+            # run the subprocess
             p = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         else:
             return "Empty command string. did you first set the CMD arg? "
