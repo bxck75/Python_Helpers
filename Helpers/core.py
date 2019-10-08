@@ -89,7 +89,8 @@ class Core:
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
 #         self.Sys_Cmd = None
-        
+        self.if_exists = os.path.exists
+    
         ''' set color output '''
         self.print_fail = ColorPrint.ColorPrint.print_fail
         self.print_pass = ColorPrint.ColorPrint.print_pass
@@ -98,35 +99,40 @@ class Core:
         self.print_bold = ColorPrint.ColorPrint.print_bold
         
     def file_from_list(self, list_to_write, file_name):
-        fh = open(file_name, "w") 
-        list_of_text = list_to_write    
-        fh.writelines(lines_of_text) 
-        fh.close() 
+        for line in list_to_write:
+            self.sys_log(line,  file_name)
         
-    def sys_log(self,msg):
-         fh = open(self.Colab_root + '/system_log.txt, 'a' )
-         msg = "[system_log]-> '" + msg + "'"
-         fh.write(msg)
-         fh.close()
+    def sys_log(self, msg, log_name='system'):
+        '''
+        Example:
+             sys_log(msg, log_name='system')
+        '''
+        self.system_log_file = self.Colab_root + '/' + log_name + '.log'
+        if self.if_exists(self.system_log_file):
+            fh = open(self.system_log_file, 'a+' )
+#             msg = "'" + msg + "'"
+            fh.write(msg)
+            fh.close()
                    
     def runProcess(self):
         ''' 
             run subprocess from self.CMD
         '''
         import subprocess
-        self.sys_log('[subprocess]-> ' + self.Sys_Cmd)
-        command_to_exec = self.Sys_Cmd
+        # log 
+        self.sys_log('[subprocess]-> ' + self.Sys_Cmd )
+        
         # check if is valid command string
-        if ( command_to_exec != None and len( command_to_exec ) > 0 ):
+        if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
             # run the subprocess
-            p = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            sproc = subprocess.Popen(self.Sys_Cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         else:
             return "Empty command string. did you first set the CMD arg? "
         while(True):
             # returns None while subprocess is running and 0 when finished
-            retcode = p.poll()
+            retcode = sproc.poll()
             # meanwhile it outputs lines of the pipe
-            line = p.stdout.readline()
+            line = sproc.stdout.readline()
             # if line not is None yield line
             if line is not None:
                 yield line
@@ -138,7 +144,7 @@ class Core:
         ''' 
             Execute system command and get output 
             cmd = 'ls'
-            sys_com(execute_command=cmd)
+            sys_com(cmd)
         '''           
         self.Sys_Cmd = cmd.split(' ')
         self.sys_log('[system_command]->' + self.Sys_Cmd)
