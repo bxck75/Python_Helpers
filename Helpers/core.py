@@ -127,7 +127,7 @@ class Core:
             if line.decode('utf-8') != '':
                 print(line)
                 # append the line to results list
-                results.append(line.decode('utf-8'))
+                results.append(line.decode('utf-8').replace("\n",''))
             
         return results
             
