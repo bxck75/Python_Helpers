@@ -98,12 +98,20 @@ class Core:
         self.print_info = ColorPrint.ColorPrint.print_info
         self.print_bold = ColorPrint.ColorPrint.print_bold
     
-
-    def insp(self):
-
-        print(inspect.stack()[0][3])
-        return inspect.stack()[0][3]
-    
+    def if_exists(self, path):
+        # log 
+        log_msg =  path
+        func_name=inspect.stack()[0][3]
+        
+        try:
+            if os.path.exists(path):
+                self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' File exists! ')
+                return True
+            else:
+                self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' File Does not exists! ')    
+        except:
+            self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' Error while checking file! ')
+            
     def file_from_list(self, list_to_write, file_name):
         ''' list of items into a txt file '''
         for line in list_to_write:
@@ -118,7 +126,7 @@ class Core:
         self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
         print(self.if_exists(self.system_log_file))
         if self.if_exists(self.system_log_file):
-            print('logging in file = ' + self.system_log_file)
+#             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
             fh.write(str([msg]))
             fh.close()
