@@ -4,6 +4,11 @@ import Helpers
 class main:
     
     def __init__(self):
+        ''' set root paths '''
+        root = '/content'
+        gdrive_root = '/content/drive/My Drive'
+        helpers_root = root + '/installed_repos/Python_Helpers'
+
         ''' import helpers '''
         os.chdir(helpers_root)
         
