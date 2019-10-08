@@ -101,7 +101,7 @@ class Core:
 
     def insp(self):
         import inspect
-        print(inspect.stack()[0])
+        print(inspect.stack()[0][3])
         return inspect.stack()[0][3]
     
     def file_from_list(self, list_to_write, file_name):
@@ -134,7 +134,8 @@ class Core:
                           
         # log 
         log_msg = str(self.Sys_Cmd)
-        self.sys_log(self.insp() + '<~[LOGGED]~>' + log_msg + '\n')
+        func_name=inspect.stack()[0][3]
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg + '\n')
                           
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
@@ -166,7 +167,8 @@ class Core:
         '''  
         # log 
         log_msg = cmd
-        self.sys_log( self.insp() + '<~[LOGGED]~>' + log_msg + '\n')
+        func_name=inspect.stack()[0][3]
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg + '\n')
              
         results = []
         #  for lines in output of the subprocess
@@ -277,6 +279,11 @@ class Core:
                         
             show_keepers only works with images else will crash the process
         '''
+        # log 
+        log_msg = str([keep, cleanup_path, search_pattern])
+        func_name = str(inspect.stack()[0][3])
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg + '\n')
+             
         import dlib
         import matplotlib.pyplot as plt
         # clean up images
@@ -315,6 +322,7 @@ class Core:
                 func='clear_output'
                 into_func(mod, meth, func)
         '''
+
         import importlib
         module=mod
         method=meth
