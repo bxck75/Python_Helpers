@@ -80,7 +80,7 @@ class Core:
     def __init__(self):
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
-        self.Colab_root = '/content
+        self.Colab_root = '/content'
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'  
         self.Gdownload = GdriveD
         self.H = self.load_helpers()
