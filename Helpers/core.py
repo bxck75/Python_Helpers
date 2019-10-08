@@ -112,17 +112,18 @@ class Core:
     def sys_log(self, msg, log_name='system'):
         '''
         Example:
-             sys_log(msg, log_name='system')
+            log_msg = "Empty command string. did you first set the CMD arg?"
+            self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]) + '\n')
         '''
         self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
         if self.if_exists(self.system_log_file):
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-            fh.write('[ ' + msg.encode('utf-8')+" ]\n")
+            fh.write(str([msg.encode('utf-8')])+"\n")
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write('[ ' + log_name + ' logfile'+" ]\n")
+            fh.write(str([log_name + ' logfile'+" ]\n")
             fh.close()
                    
     def runProcess(self):
@@ -130,16 +131,21 @@ class Core:
             run subprocess from self.CMD
         '''
         import subprocess
+                          
         # log 
-        this_funcs_name = self.insp()
-        self.sys_log('[' + this_funcs_name + ']-> ' + str(self.Sys_Cmd) + '\n')
-        
+        log_msg = str(self.Sys_Cmd)
+        self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]) + '\n')
+                          
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
             # run the subprocess
             sproc = subprocess.Popen(self.Sys_Cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         else:
-            return "Empty command string. did you first set the CMD arg? "
+            # log 
+            log_msg = "Empty command string. did you first set the CMD arg?"
+            self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]) + '\n')
+            return log_msg
+
         while(True):
             # returns None while subprocess is running and 0 when finished
             retcode = sproc.poll()
