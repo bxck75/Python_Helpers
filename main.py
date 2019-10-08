@@ -5,9 +5,7 @@ class main:
     
     def __init__(self):
         
-        ''' Better chdir '''
-        c_d = Helpers_Core.cd
-        c_d(root)
+)
 
         ''' set root paths '''
         root = '/content'
@@ -23,6 +21,10 @@ class main:
         HelpMe = Helpers_Core.H.Me # build in system commands old  module helpers
         Sys_Exec = Helpers_Core.Sys_Exec
 
+        ''' Better chdir '''
+        c_d = Helpers_Core.cd
+        c_d(root
+        
         ''' scraper install '''
         c_d(root)
         dosage = ['bxck75/dosage']
