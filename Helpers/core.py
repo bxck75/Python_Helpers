@@ -3,9 +3,9 @@ import os, sys, inspect
 os.system('pip install colorama')
 import colorama
 
-from . import helpers
+# from . import helpers
 from . import ZipUp
-from . import BigHelp
+# from . import BigHelp
 from . import RepCoList
 from . import resize
 from . import GdriveD
@@ -14,13 +14,10 @@ from . import GoImgScrape
 from . import ColorPrint
 from . import gscrape
 from . import ops
-from . import Scraper
 
 class Core:
     '''
-        New help will be made later .......
-        Functions:
-        
+    Functions:      
          'MethHelp',
          'cd',
          'cdr',
@@ -40,39 +37,30 @@ class Core:
          'valid_list'
          
         Examples:
-
             import os
             # remove defaults
             os.system('rm -r sample_data')
-            
             # Clone the repo
             os.system('git clone https://github.com/bxck75/Python_Helpers.git')
-
-
             # Change dir
             os.chdir('/content/Python_Helpers')
-            
             # install
             os.system('python setup.py install')
-
             from IPython.display import clear_output
             from PIL import Image
             import main
             import sys
             import IPython
             import Helpers
-            
             # set few helper objects
             P=Helpers.core.Core()
             hlp=P.H
             os.chdir('/content/')
             hlp.repolist= hlp.repo_collection
             repos_sorted = hlp.repo_collection.repos_sorted
-            
             # get pix2pix repo
             A1=['bxck75/piss-ant-pix2pix']
             hlp.Me(['inst_reps',A1,'/content/installed_repos',False,True])
-            
             # Dir Module
             hlp.Me(['vdir',Helpers])
             # Explore modules classes and functions
