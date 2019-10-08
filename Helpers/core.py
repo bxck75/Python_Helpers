@@ -114,16 +114,16 @@ class Core:
 
 
     def GetSubclasses(self):
-#     Create a my_classes package containing all files for your Base class and all subclasses. You should include only one class in each file.
-#     Set __all__ appropriately in __init__.py to import all .py files except for __init__.py (from this answer):
-            from os import listdir
-            from os.path import dirname, basename
-            __all__ = [basename(f)[:-3] for f in listdir(dirname(__file__)) if f[-3:] == ".py" and not f.endswith("__init__.py")]
-    #     Import your classes using from my_classes import *, since our custom __all__ adds all classes inside the my_classes package to the namespace.
-    #     However, this does not allow us direct access to the subclasses yet. You have to access them like this in your main script:
-            from my_classes import *
-            from my_classes.base import Base
-            subclasses = Base.__subclasses__()
+#       Create a my_classes package containing all files for your Base class and all subclasses. You should include only one class in each file.
+#       Set __all__ appropriately in __init__.py to import all .py files except for __init__.py (from this answer):
+        from os import listdir
+        from os.path import dirname, basename
+        __all__ = [basename(f)[:-3] for f in listdir(dirname(__file__)) if f[-3:] == ".py" and not f.endswith("__init__.py")]
+    #   Import your classes using from my_classes import *, since our custom __all__ adds all classes inside the my_classes package to the namespace.
+    #   However, this does not allow us direct access to the subclasses yet. You have to access them like this in your main script:
+        from my_classes import *
+        from my_classes.base import Base
+        subclasses = Base.__subclasses__()
         return subclasses
 
         
