@@ -29,11 +29,8 @@ class main:
         self.HelpMe(['inst_reps', self.dosage,  self.helpers_root+'/Helpers', False, True])
 
         ''' needed gdrive repos '''
-        self.gd_rps=[
-            'bxck75/google-drive-list-shared',
-            'bxck75/PyDrive',
-        ]
-        self.HelpMe(['inst_reps',self.gd_rps, self.helpers_root+'/Helpers',False,True])
+        self.gdrive_rps=['bxck75/google-drive-list-shared', 'bxck75/PyDrive']
+        self.HelpMe(['inst_reps',self.gdrive_rps, self.helpers_root+'/Helpers',False,True])
 
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -46,8 +43,7 @@ class main:
         ''' pix2pix repos '''
         self.pix2pix_rps=[
             'bxck75/piss-ant-pix2pix',
-            'bxck75/scrape-linkedin-selenium',
-            # 'bxck75/opencv',
+            'bxck75/opencv',
             ]
         self.HelpMe(['inst_reps',self.pix2pix_rps, self.root +'/installed_repos',False,True])
 
