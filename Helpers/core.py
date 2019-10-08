@@ -88,7 +88,7 @@ class Core:
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
-#         self.Sys_Cmd = None
+
         self.if_exists = os.path.exists
     
         ''' set color output '''
@@ -147,7 +147,7 @@ class Core:
             sys_com(cmd)
         '''           
         self.Sys_Cmd = cmd.split(' ')
-        self.sys_log('[system_command]->' + self.Sys_Cmd)
+        self.sys_log('[system_command]->' + cmd)
         results = []
         #  for lines in output of the subprocess
         for line in self.runProcess():
