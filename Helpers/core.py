@@ -91,29 +91,40 @@ class Core:
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
     
+    def cprint(self, msg, style='info'):
         ''' set color output '''
-        self.print_fail = ColorPrint.ColorPrint.print_fail
-        self.print_pass = ColorPrint.ColorPrint.print_pass
-        self.print_warn = ColorPrint.ColorPrint.print_warn
-        self.print_info = ColorPrint.ColorPrint.print_info
-        self.print_bold = ColorPrint.ColorPrint.print_bold
+        mod, meth, func = 'ColorPrint','ColorPrint','print_'+style
+        cprint_func = self.info_func(mod, meth, func)
+        cprint(msg)
+#         self.print_fail = ColorPrint.ColorPrint.print_fail
+#         self.print_pass = ColorPrint.ColorPrint.print_pass
+#         self.print_warn = ColorPrint.ColorPrint.print_warn
+#         self.print_info = ColorPrint.ColorPrint.print_info
+#         self.print_bold = ColorPrint.ColorPrint.print_bold
     
     def if_exists(self, path):
-        # log 
-        log_msg =  path
+        ''' check if path leads somewhere '''
         func_name=inspect.stack()[0][3]
-        
         try:
             if os.path.exists(path):
-                self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' File exists! ')
+                log_msg =  path + ' File exists! '
+                self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
                 return True
             else:
-                self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' File Does not exists! ')    
+                log_msg =  path + ' File Does not exists! '
+                self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg ) 
+                return False
         except:
-            self.sys_log(func_name + '<~[LOGGED]~>' + log_msg +' Error while checking file! ')
+            log_msg =  path + ' Error while checking file! '
+            self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg )
+            return False
             
-    def file_from_list(self, list_to_write, file_name):
+    def list_to_file(self, list_to_write, file_name):
         ''' list of items into a txt file '''
+        # log 
+        log_msg =  'List ' + str(list_to_write) + ' to file ' + file_name 
+        func_name=inspect.stack()[0][3]
+        self.sys_log(func_name + ' <~[LOGGED]~> ' + log_msg)
         for line in list_to_write:
             self.sys_log(line,  file_name)
         
@@ -144,8 +155,7 @@ class Core:
         # log 
         log_msg = str(self.Sys_Cmd)
         func_name=inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )
-                          
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )                          
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
             # run the subprocess
