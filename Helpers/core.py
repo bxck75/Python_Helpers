@@ -116,7 +116,7 @@ class Core:
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
-            fh.write('[ ' + log_name +' '+ log+' ]')
+            fh.write('[ ' + log_name + ' logfile ]')
             fh.close()
                    
     def runProcess(self):
