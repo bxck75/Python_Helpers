@@ -74,10 +74,10 @@ class Core:
         self.Colab_root = '/content'
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'  
         self.Gdownload = GdriveD
-        self.H = self.load_helpers()
-#         self.H.zip = self.load_zipper()
-        self.H.repo_collection = RepCoList
-        self.H.flickr_scr = self.flickr_scrape
+        self.BigHelp = BigHelp
+        self.zip = ZipUp.ZipUp
+        self.repo_collection = RepCoList
+        self.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
@@ -443,14 +443,14 @@ class Core:
         self.H.DS_ROOT='/'+DS_root+'/'
         os.chdir(self.Gdrive_root+self.H.GD_ROOT)
         self.H.Me(['mkd',[DS_root,'models'],self.root_dirname])
-        self.H.Me(['cml','cp -r '+pack+' '+self.root_dirname+self.H.DS_ROOT])
+        self.sys_com('cp -r '+pack+' '+self.root_dirname+self.H.DS_ROOT)
         os.chdir(self.root_dirname+self.H.DS_ROOT)
-        self.H.Me(['cml','unzip -q '+pack])
-        self.H.Me(['cml','rm -r '+pack])
+        self.sys_com('unzip -q '+pack)
+        self.sys_com('rm -r '+pack)
         os.chdir(self.root_dirname)
 
     def MethHelp(self,libs):
-        os_help=self.H.Me(['vdir',libs])
+        os_help=self.BigHelp.H.Me(['vdir',libs])
         #make a list containing libs values of os_help
         listOfLibs = [x[0] for x in os_help]
         #make a list containing libs method values of os_help
@@ -473,21 +473,21 @@ class Core:
     def load_zipper(self):
         '''load zipup to gdrive obj'''
 #         self.C = BigHelp
-        return ZipUp.ZipUp
+#         return ZipUp.ZipUp
 
     def set_maker(_in_,_mode_,_out_):
         '''
            set_maker(_in_,_mode_,_out_):
         '''
         #     global r
-        self.H.Me(['cml','python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(self.root_dirname)+'/images_resized'])
+        self.sys_com('python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(self.root_dirname)+'/images_resized')
         #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(M.root_dirname)+'/images_resized')
-        self.H.Me(['cml','echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation blank --output_dir '+str(self.root_dirname)+'/images_blank'])
+        self.sys_com('echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation blank --output_dir '+str(self.root_dirname)+'/images_blank')
         #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation blank --output_dir '+str(M.root_dirname)+'/images_blank')
-        self.H.Me(['cml','echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation edge --output_dir '+str(self.root_dirname)+'/images_edge'])
+        self.sys_com('echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation edge --output_dir '+str(self.root_dirname)+'/images_edge')
         #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation edge --output_dir '+str(M.root_dirname)+'/images_edge')
         if _mode_ != '':
-            self.H.Me(['cml','echo python ' + str(self.root_dirname)+'/tools/process.py --input_dir ' + str(self.root_dirname)+'/images_' + _mode_ +' --operation combine --output_dir ' + str(_out_)])
+            self.sys_com('echo python ' + str(self.root_dirname)+'/tools/process.py --input_dir ' + str(self.root_dirname)+'/images_' + _mode_ +' --operation combine --output_dir ' + str(_out_))
         #         os.system('echo python ' + str(M.root_dirname)+'/tools/process.py \
         #             --input_dir ' + str(M.root_dirname)+'/images_' + _mode_ + ' \
         #             --operation combine \
@@ -513,14 +513,14 @@ class Core:
         print(len(img_list))
         # M.resize.resize_folder(str(M.root_dirname)+'/images')
         i=0
-        # self.H.Me(['cml','rm -r '+str(M.root_dirname)+'/images'])
+        # self.sys_com('rm -r '+str(M.root_dirname)+'/images')
         for img in img_list:
             print(img)
-#             self.H.Me(['cml','cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1)])
-            self.H.Me(['cml','cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1)])      
+#             self.sys_com('cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1))
+            self.sys_com('cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1))      
             i+=1
         print(str(i)+' images copied!')
-        self.H.Me(['cml','rm -r '+str(self.flickr_dest)+'/flickr'])
+        self.sys_com('rm -r '+str(self.flickr_dest)+'/flickr')
 
 #     old method router
     def Me(self, args):
@@ -662,10 +662,10 @@ class Core:
         if isinstance(self.flickr_query, list):
             for s in self.flickr_query:
                 keyword=s.replace(' ', '+')
-                self.Me(['cml','gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword])
+                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
         else: 
             keyword=str(self.flickr_query.replace(' ', '+'))
-            self.Me(['cml','gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword])
+            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
     
     # Method discloser
     def _vdir(self):
@@ -691,11 +691,11 @@ class Core:
                 spaced_list += str( s + ' ' )
             # install the space separated list
             print('Installing ' + spaced_list)
-            self.Me(['cml','pip install ' + spaced_list])
+            self.sys_com('pip install ' + spaced_list)
         else: 
             # install the single pip lib
             print('Installing ' + self.pip_install_list)
-            self.Me(['cml','pip install ' + self.pip_install_list])
+            self.sys_com('pip install ' + self.pip_install_list)
             
     # Folder spawner
     def _mkd(self):
@@ -712,7 +712,7 @@ class Core:
         self.git_install_root=self.method_args[1]
         self.sub_repos=self.method_args[2]
         self.chadir=self.method_args[3]
-        self.Me(['cml','mkdir -p '+self.git_install_root])
+        self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
         for rep in self.repo_list:
             self.rep=rep.split('/')
@@ -721,11 +721,11 @@ class Core:
                 #Switch to path
                 os.chdir(self.git_install_root)
                 # pull the git repo
-                self.Me(['cml','git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git'])
+                self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
                 # Set the return value for rep rootpath
                 self.path=self.git_install_root+'/'+self.rep[1]
         # show imported files
-        self.Me(['cml','ls ' +self.path])
+        self.sys_com('ls ' +self.path)
         # run custom setups and get other reps
 #         self.custom_reps_setup()
 #         if self.sub_repos == True:
@@ -739,10 +739,10 @@ class Core:
     #     check gpu
         import tensorflow as tf
         tf.test.gpu_device_name()
-        self.Me(['cml','ln -sf /opt/bin/nvidia-smi /usr/bin/nvidia-smi'])
-        self.Me(['cml','pip install gputil'])
-        self.Me(['cml','pip install psutil'])
-        self.Me(['cml','pip install humanize'])
+        self.sys_com('ln -sf /opt/bin/nvidia-smi /usr/bin/nvidia-smi')
+        self.sys_com('pip install gputil')
+        self.sys_com('pip install psutil')
+        self.sys_com('pip install humanize')
         import psutil
         import humanize
         import os
@@ -761,19 +761,19 @@ class Core:
         # custom stuff for CartoonGAN-tensorflow and keras-team/keras-contrib
         if 'keras-team/keras-contrib' in self.repo_list:
             os.chdir(self.path+'/keras-contrib')
-            self.Me(['cml','python convert_to_tf_keras.py'])
-            self.Me(['cml','USE_TF_KERAS=1'])
-            self.Me(['cml','python setup.py install'])
+            self.sys_com('python convert_to_tf_keras.py')
+            self.sys_com('USE_TF_KERAS=1')
+            self.sys_com('python setup.py install')
             import tensorflow as tf
             tf.__version__     
         # custom setup stuff for gallery-dl repo
         if 'mikf/gallery-dl' in self.repo_list:
             os.chdir(self.git_install_root+'/gallery-dl')
-            self.Me(['cml',"pip install -e . |grep 'succes'",True])
+            self.sys_com("pip install -e . |grep 'succes'",True)
         # custom setup stuff for youtube-dl repo
         if 'ytdl-org/youtube-dl' in self.repo_list:
             os.chdir(self.git_install_root+'/youtube-dl') 
-            self.Me(['cml',"pip install -e . |grep 'succes'",True])      
+            self.sys_com("pip install -e . |grep 'succes'",True)      
         # switch backt to root
         os.chdir(self.git_install_root)
         
@@ -790,9 +790,9 @@ class Core:
 
             CURL_CMD="curl https://api.github.com/users/{self.GUSER}/repos?per_page=100 | grep -o '"
             CURL_CMD+='git@[^"]*' + ' > '+self.git_install_root+'/info.txt'
-            result=self.Me(['cml',CURL_CMD])
+            result=self.sys_com(CURL_CMD)
             print(result)
-            self.Me(['cml','cat '+self.git_install_root+"/info.txt |awk -F ':' '{print $2}'|awk -F '.' '{print $1}' > "+self.path+"/"+self.GUSER+"_repositories.txt"])
+            self.sys_com('cat '+self.git_install_root+"/info.txt |awk -F ':' '{print $2}'|awk -F '.' '{print $1}' > "+self.path+"/"+self.GUSER+"_repositories.txt")
             with open(self.git_install_root+'/info.txt','r') as f:
                 for line in f:
                     cline=line.split(':')[1].split('.')[0]
