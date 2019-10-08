@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
+import colorama
 
 from . import helpers
 from . import ZipUp
