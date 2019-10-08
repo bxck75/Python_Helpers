@@ -99,17 +99,23 @@ class Core:
     
     def sys_com(self,execute_command='ls -l'):    
         p = subprocess.Popen(execute_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        results = []
         while(True):
             # returns None while subprocess is running
             retcode = p.poll() 
             line = p.stdout.readline()
+
             yield line
             if retcode is not None:
                 break
+            results.append([retcode,line])
+        return results
                 
     def sys_com_2(self,execute_command='ls -l'):
+        results = []
         for line in runProcess(execute_command.split()):
-            yield line
+            results.append(line)
+        return results
             
     def rec_walk_folder(self, folder, output='files'):
         ''' 
