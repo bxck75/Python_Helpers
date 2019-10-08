@@ -80,14 +80,15 @@ class Core:
     def __init__(self):
         '''int objects'''
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
-        self.Gdrive_root= '/content/drive/My Drive'
+        self.Colab_root = '/content
+        self.Gdrive_root= self.Colab_root+ '/drive/My Drive'  
         self.Gdownload = GdriveD
         self.H = self.load_helpers()
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
         self.Sys_Exec = self.sys_com
-        self.Sys_Cmd = None
+#         self.Sys_Cmd = None
         
         ''' set color output '''
         self.print_fail = ColorPrint.ColorPrint.print_fail
@@ -96,13 +97,25 @@ class Core:
         self.print_info = ColorPrint.ColorPrint.print_info
         self.print_bold = ColorPrint.ColorPrint.print_bold
         
+    def file_from_list(self, list_to_write, file_name):
+        fh = open(file_name, "w") 
+        list_of_text = list_to_write    
+        fh.writelines(lines_of_text) 
+        fh.close() 
         
+    def sys_log(self,msg):
+         fh = open(self.Colab_root + '/system_log.txt, 'a' )
+         msg = "[system_log]-> '" + msg + "'"
+         fh.write(msg)
+         fh.close()
+                   
     def runProcess(self):
         ''' 
             run subprocess from self.CMD
         '''
         import subprocess
-        command_to_exec = self.Sys_Cmd.split(' ')
+        self.sys_log('[subprocess]-> ' + self.Sys_Cmd)
+        command_to_exec = self.Sys_Cmd
         # check if is valid command string
         if ( command_to_exec != None and len( command_to_exec ) > 0 ):
             # run the subprocess
@@ -121,12 +134,14 @@ class Core:
             if retcode is not None:
                 break
 
-    def sys_com(self):
+    def sys_com(self,cmd):
         ''' 
             Execute system command and get output 
             cmd = 'ls'
             sys_com(execute_command=cmd)
-        '''
+        '''           
+        self.Sys_Cmd = cmd.split(' ')
+        self.sys_log('[system_command]->' + self.Sys_Cmd)
         results = []
         #  for lines in output of the subprocess
         for line in self.runProcess():
