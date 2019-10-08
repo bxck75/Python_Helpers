@@ -379,9 +379,9 @@ class Core:
                 ''' Help for functions and classes '''
                 if (str(submod_func).split(' ')[0] == '<function' or str(submod_func).split(' ')[0]  == '<class'):
                     # Function exploration logic
-                    print(self.fg('#' * 20, 100), end='') 
+                    self.cprint('#' * 50, style='warn')
                     print('--- ' + str(submod_func) + ' ---', end='')
-                    print(self.fg('#' * 20, 160))                                      
+                    self.cprint('#' * 50, style='fail')
                 ''' ADD RESULTS OF THE SUB MODULES '''
                 results_list.append([submod_func, self.H.Me( [ 'vdir', self.into_func(mod, meth, vdir_result[i]) ] )]) 
             ''' return as a list '''
