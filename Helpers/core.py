@@ -101,15 +101,15 @@ class Core:
         import subprocess
         p = subprocess.Popen(self.command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         while(True):
-            # returns None while subprocess is running
-            retcode = p.poll() 
-            line = p.stdout.readline().encode('utf-8')
-            
-            if line != '':
+            # returns None while subprocess is running and 0 when finished
+            retcode = p.poll()
+            # meanwhile it outputs lines of the pipe
+            line = p.stdout.readline()
+            # if line not is None yield line
+            if line is not None:
                 yield line
-                
+            # if retcode not is None break
             if retcode is not None:
-#                 print(retcode)
                 break
 
                 
@@ -122,11 +122,12 @@ class Core:
         results = []
         # split and set the system cmd
         self.command_to_exec = execute_command.split(' ')
-        # init the subprocess
+        #  for lines in output of the subprocess
         for line in self.runProcess():
-            print(line)
-            # append the line to results list
-            results.append(line)
+            if line.decode('utf-8') != '':
+                print(line)
+                # append the line to results list
+                results.append(line.decode('utf-8'))
             
         return results
             
