@@ -5,7 +5,7 @@ import colorama
 
 # from . import helpers
 from . import ZipUp
-# from . import BigHelp
+from . import BigHelp
 from . import RepCoList
 from . import resize
 from . import GdriveD
