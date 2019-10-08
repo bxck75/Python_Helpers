@@ -59,8 +59,8 @@ class main:
         self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
         
         ''' handpicked repos '''
-        handpicked_repos = self.sorted_repos[:8]
-        print(self.handpicked_repos)
+#         handpicked_repos = self.sorted_repos[:8]
+#         print(self.handpicked_repos)
 #         self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
 
         ''' zipper init '''
