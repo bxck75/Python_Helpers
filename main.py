@@ -27,7 +27,15 @@ class main:
         self.c_d(self.root)
         self.dosage = ['bxck75/dosage']
         self.HelpMe(['inst_reps', self.dosage,  self.helpers_root+'/Helpers', False, True])
-
+        
+        ''' cv2 and distro install '''
+        self.cv_repos=[
+            'bxck75/opencv_contrib',
+            'bxck75/opencv',
+            'bxck75/face2face-demo',
+        ]
+        self.HelpMe(['inst_reps', self.cv_repos,  self.helpers_root+'/Helpers', False, True])
+        '''
         ''' needed gdrive repos '''
         self.gdrive_rps=['bxck75/google-drive-list-shared', 'bxck75/PyDrive']
         self.HelpMe(['inst_reps',self.gdrive_rps, self.helpers_root+'/Helpers',False,True])
@@ -42,8 +50,7 @@ class main:
 
         ''' pix2pix repos '''
         self.pix2pix_rps=[
-            'bxck75/piss-ant-pix2pix',
-            'bxck75/opencv',
+            'bxck75/piss-ant-pix2pix',,
             ]
         self.HelpMe(['inst_reps',self.pix2pix_rps, self.root +'/installed_repos',False,True])
 
