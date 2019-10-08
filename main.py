@@ -4,6 +4,11 @@ import Helpers
 class main:
     
     def __init__(self):
+        
+        ''' Better chdir '''
+        c_d = Helpers_Core.cd
+        c_d(root)
+
         ''' set root paths '''
         root = '/content'
         gdrive_root = '/content/drive/My Drive'
