@@ -35,7 +35,7 @@ class main:
             'bxck75/face2face-demo',
         ]
         self.HelpMe(['inst_reps', self.cv_repos,  self.helpers_root+'/Helpers', False, True])
-        '''
+
         ''' needed gdrive repos '''
         self.gdrive_rps=['bxck75/google-drive-list-shared', 'bxck75/PyDrive']
         self.HelpMe(['inst_reps',self.gdrive_rps, self.helpers_root+'/Helpers',False,True])
