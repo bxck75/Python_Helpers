@@ -544,7 +544,7 @@ class Core:
         '''
             Example:
                 search_list,img_dir,qty = ['portait','face'], 'images', 21
-                FScrape(search_list,qty,img_dir)
+                flickr_scrape(search_list,qty,img_dir)
         '''
         self.flickr_dest = dest
         self.flickr_qty = qty
@@ -552,9 +552,11 @@ class Core:
         
         root='/content'
         if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
-            self.H.Me(['flickr',self.flickr_query,self.flickr_dest, self.flickr_qty])
+            print(self.flickr_query + self.flickr_dest + self.flickr_qty)
+            self._flickr()
+                
         # see if they are downloaded
-        img_list = self.H.Me(['globx',str(self.flickr_dest),'*.jpg'])
+        img_list = self.GlobX(str(self.flickr_dest),'*.jpg')
         print(len(img_list))
         # M.resize.resize_folder(str(M.root_dirname)+'/images')
         i=0
@@ -566,7 +568,22 @@ class Core:
             i+=1
         print(str(i)+' images copied!')
         self.sys_com('rm -r '+str(self.flickr_dest)+'/flickr')
+        
+    def _flickr(self):
+        '''
+        Example:
+            _flickr(flickr_query, flickr_dest='/content/images', flickr_qty=10)
+        '''
+        os.system('sudo pip install gallery-dl')
 
+        if isinstance(self.flickr_query, list):
+            for s in self.flickr_query:
+                keyword=s.replace(' ', '+')
+                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+        else: 
+            keyword=str(self.flickr_query.replace(' ', '+'))
+            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+    
 #     old method router
     def Me(self, args):
         """Dispatch method"""
@@ -698,20 +715,7 @@ class Core:
     # Flickr scraper
     # TODO: make this the main gallery-dl wrapper class and include it 
     # I can then us the API to it full sambal power and scrape 200+ galleries!!!
-    def _flickr(self):
-        os.system('sudo pip install gallery-dl')
-        self.flickr_query = self.method_args[0]
-        print(self.method_args)
-        self.flickr_dest = self.method_args[1]
-        self.flickr_qty = int(self.method_args[2])
-        if isinstance(self.flickr_query, list):
-            for s in self.flickr_query:
-                keyword=s.replace(' ', '+')
-                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-        else: 
-            keyword=str(self.flickr_query.replace(' ', '+'))
-            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-    
+
     # Method discloser
     def _vdir(self):
         if len(self.method_args)==0:
