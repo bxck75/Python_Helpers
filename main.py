@@ -24,7 +24,11 @@ class main:
         
         ''' scraper install '''
         self.c_d(self.root)
-#         self.HelpMe(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
+        
+        # In_helpers/helpers/ map 
+        inst_dir=self.helpers_root+'/Helpers'
+        repos=['bxck75/piss_ant_pix2pix','bxck75/opencv','bxck75/dosage']
+        self.install_repos(repos, inst_dir)
         
         ''' cv2 and distro install '''
         cv_repos=[
