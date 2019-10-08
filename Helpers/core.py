@@ -108,11 +108,11 @@ class Core:
         Example:
              sys_log(msg, log_name='system')
         '''
-        self.system_log_file = self.Colab_root + '/' + log_name + '.log'
+        self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
         if self.if_exists(self.system_log_file):
             print('logging in file = ' + self.system_log_file)
             fh = open(self.system_log_file, 'a+' )
-            fh.write(msg)
+            fh.write(msg+"\n")
             fh.close()
         else:
             fh = open(self.system_log_file, 'w' )
