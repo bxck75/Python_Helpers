@@ -35,54 +35,29 @@ class Core:
          'set_maker',
          'valid_img',
          'valid_list'
-         
-        Examples:
-            import os
-            # remove defaults
-            os.system('rm -r sample_data')
-            # Clone the repo
-            os.system('git clone https://github.com/bxck75/Python_Helpers.git')
-            # Change dir
-            os.chdir('/content/Python_Helpers')
-            # install
-            os.system('python setup.py install')
-            from IPython.display import clear_output
-            from PIL import Image
-            import main
-            import sys
-            import IPython
-            import Helpers
-            # set few helper objects
-            P=Helpers.core.Core()
-            hlp=P.H
-            os.chdir('/content/')
-            hlp.repolist= hlp.repo_collection
-            repos_sorted = hlp.repo_collection.repos_sorted
-            # get pix2pix repo
-            A1=['bxck75/piss-ant-pix2pix']
-            hlp.Me(['inst_reps',A1,'/content/installed_repos',False,True])
-            # Dir Module
-            hlp.Me(['vdir',Helpers])
-            # Explore modules classes and functions
-            Helpers.Core().docu('os','system')
-            
-     ---
+
     '''
     def __init__(self):
-        '''int objects'''
-        self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))
-        self.Colab_root = '/content'
-        self.Gdrive_root= self.Colab_root+ '/drive/My Drive'  
+        '''ini objects'''
+        
+        # paths
+        self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))    # local root
+        self.Colab_root = '/content'                                                        # absolute root
+        self.git_install_root = self.Colab_root + '/installed_repos'                        # git install root
+        self.Gdrive_root= self.Colab_root+ '/drive/My Drive'                                # google drive root
+        
+        # inject functionality into the object
         self.Gdownload = GdriveD
         self.BigHelp = BigHelp
         self.zip = ZipUp.ZipUp
         self.GoogleS =GoImgScrape
         self.repo_collection = RepCoList
+        
+        # Custom shortcuts to tools and core functions
         self.FlickrS = self.flickr_scrape
         self.Sys_Exec = self.sys_com
         self.Log = self.Sys_Exec
         self.if_exists = os.path.exists
-        self.git_install_root = self.root + '/installed_repos'
         
     def install_repos(self, repos, inst_dir, sub_repos=False, chdir=False):
         '''
@@ -91,17 +66,16 @@ class Core:
             repos=['bxck75/piss_ant_pix2pix','bxck75/opencv']
             install_repos(repos, inst_dir)
         '''
-        self.repo_list=repos      
-        self.root_dirname=inst_dir
-        self.sub_repos=sub_repos
-        self.chadir=chdir
-        
+#         self.repo_list=repos      
+#         self.git_install_root=inst_dir
+#         self.sub_repos=sub_repos
+#         self.chadir=chdir
         self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
-        for rep in self.repo_list:
+        for rep in repos:
             self.rep=rep.split('/')
             # change folder check
-            if self.chadir == True:
+            if chadir == True:
                 #Switch to path
                 os.chdir(self.git_install_root)
                 # pull the git repo
@@ -109,10 +83,10 @@ class Core:
                 # Set the return value for rep rootpath
                 self.path=self.git_install_root+'/'+self.rep[1]
             # show imported files
-            self.sys_com('ls ' + self.root_dirnameh)
+            self.sys_com('ls ' + inst_dir)
         # run custom setups and get other reps
 #         self.custom_reps_setup()
-        if self.sub_repos == True:
+        if sub_repos == True:
             self.get_other_reps()
         
 
@@ -145,7 +119,6 @@ class Core:
         for base, dirs, files in os.walk(treeroot):
             goodfiles = fnmatch.filter(files, pattern)
             Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
-            
         print(Sheisterhaufen)
         return Sheisterhaufen
     
@@ -156,35 +129,33 @@ class Core:
                 search_list,img_dir,qty = ['portait','face'], 'images', 21
                 flickr_scrape(search_list,qty,img_dir)
         '''
-        self.flickr_dest = dest
-        self.flickr_qty = qty
-        self.flickr_query = query
-        root='/content'
-        if (self.flickr_query != '' and self.flickr_qty != '' and self.flickr_dest != '' ):
+#         self.flickr_dest = dest
+#         self.flickr_qty = qty
+#         self.flickr_query = query
+#         root='/content'
+        if (query != '' and qty != '' and dest != '' ):
             ''' Let the scapers scrape! '''
-#             self._flickr()
-        ''' Scraping '''
-        os.system('sudo pip install gallery-dl')
-        if isinstance(self.flickr_query, list):
-            for s in self.flickr_query:
-                keyword=s.replace(' ', '+')
-                self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-        else: 
-            keyword=str(self.flickr_query.replace(' ', '+'))
-            self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
+            os.system('sudo pip install gallery-dl')
+            if isinstance(query, list):
+                for s in query:
+                    keyword=s.replace(' ', '+')
+                    self.sys_com('gallery-dl --range 1-' + str(qty) + ' -d ' + dest + ' https://flickr.com/search/?text='+keyword)
+            else: 
+                keyword=str(query.replace(' ', '+'))
+                self.sys_com('gallery-dl --range 1-' + str(qty) + ' -d ' + dest + ' https://flickr.com/search/?text='+keyword)
 
         ''' see if they are downloaded '''
-        img_list = self.GlobX(str(self.flickr_dest),'*.jpg')
+        img_list = self.GlobX(str(dest),'*.jpg')
         print(len(img_list))
         i=0 # iterator for filename
         for img in img_list:
             print(img)
 #             self.sys_com('cp '+img+' '+str(self.root_dirname)+'/images/img_%d.jpg'%(i+1))
-            self.sys_com('cp '+img+' '+str(self.flickr_dest)+'/img_%d.jpg'%(i+1))      
+            self.sys_com('cp '+img+' '+str(dest)+'/img_%d.jpg'%(i+1))      
             i+=1 # up iterator
         print(str(i)+' images copied!')
         ''' Remove flickr folder when images are moved and renamed'''
-        self.sys_com('rm -r '+str(self.flickr_dest)+'/flickr')
+        self.sys_com('rm -r '+str(dest)+'/flickr')
         
         
 #     def _flickr(self):
@@ -235,7 +206,6 @@ class Core:
             self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]))
         '''
         self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
-
         if self.if_exists(self.system_log_file):
             fh = open(self.system_log_file, 'a+' )
             fh.write(str(msg)+'\n')
@@ -250,8 +220,6 @@ class Core:
             run subprocess from self.CMD
         '''
         import subprocess
-                          
-        # log 
         log_msg = str(self.Sys_Cmd)
         func_name=inspect.stack()[0][3]
         self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )                          
@@ -264,7 +232,6 @@ class Core:
             log_msg = "Empty command string. did you first set the CMD arg?"
             self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]))
             return log_msg
-
         while(True):
             # returns None while subprocess is running and 0 when finished
             retcode = sproc.poll()
@@ -283,11 +250,9 @@ class Core:
             cmd = 'ls'
             sys_com(cmd)
         '''  
-        # log 
         log_msg = cmd
         func_name=inspect.stack()[0][3]
         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg)
-             
         results = []
         #  for lines in output of the subprocess
         self.Sys_Cmd = cmd.split(' ')
@@ -366,7 +331,10 @@ class Core:
 
         
     def valid_list(self, lst):
-        ''' validate list if not empty'''
+        '''
+            validate list if not empty
+            valid_list(self, lst)
+        '''
         if len(lst) > 0:
             return True
         else:
@@ -393,15 +361,13 @@ class Core:
                             cleanup_path='/content/test',
                             search_pattern='*.*g',
                             show_keepers=True
-                            )
-                        
+                            )        
             show_keepers only works with images else will crash the process
         '''
         # log 
         log_msg = str([keep, cleanup_path, search_pattern])
         func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
-             
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )    
         import dlib
         import matplotlib.pyplot as plt
         # clean up images
@@ -428,19 +394,17 @@ class Core:
     
     def into_func(self,mod,meth,func=None):
         ''' 
-            load a module.meth.func from string
+        load a module.meth.func from string
             Example 1:
                 mod='IPython'
                 meth='display'
-                into_func(mod, meth)
-                
+                into_func(mod, meth) 
             Example 2:
                 mod='IPython'
                 meth='display'
                 func='clear_output'
                 into_func(mod, meth, func)
         '''
-
         import importlib
         module=mod
         method=meth
@@ -451,7 +415,6 @@ class Core:
             function=func
             print(module + '.' + method+'.' + function+' <-- Is now a function from string')
             function_string = module + '.' + method + '.' + function  # 'IPython.display.Audio'
-            
         ''' split the string '''
         mod_name, func_name = function_string.rsplit('.',1)
         ''' load module '''
@@ -550,15 +513,15 @@ class Core:
         '''load tensorboard'''
         import datetime, os ,tensorboard 
         
-    def load_helpers(self):
-        '''load BigHelp to gdrive obj'''
-#         self.C = BigHelp
-#         return BigHelp.Helpers()
+#     def load_helpers(self):
+#         '''load BigHelp to gdrive obj'''
+# #         self.C = BigHelp
+# #         return BigHelp.Helpers()
 
-    def load_zipper(self):
-        '''load zipup to gdrive obj'''
-#         self.C = BigHelp
-#         return ZipUp.ZipUp
+#     def load_zipper(self):
+#         '''load zipup to gdrive obj'''
+# #         self.C = BigHelp
+# #         return ZipUp.ZipUp
 
     def set_maker(_in_,_mode_,_out_):
         '''
@@ -581,22 +544,22 @@ class Core:
         
         
 
-#     old method router
-    def Me(self, args):
-        """Dispatch method"""
-        # glob the args
-        self.root_path='/content/'
-#         print(self.root_path)
-        self.args = args
-        print('[Running-->]'+str(self.args))
-        self.method= self.args[0]
-        self.method_args= self.args[1:]
-        method_args = self.method_args
-        method_name = '_' + str(self.method)
-        # Get the method from 'self'. Default to a lambda.
-        method = getattr(self, method_name, lambda: self.no_action())
-        # Call the method as its returned
-        return method()
+# #     old method router
+#     def Me(self, args):
+#         """Dispatch method"""
+#         # glob the args
+#         self.root_path='/content/'
+# #         print(self.root_path)
+#         self.args = args
+#         print('[Running-->]'+str(self.args))
+#         self.method= self.args[0]
+#         self.method_args= self.args[1:]
+#         method_args = self.method_args
+#         method_name = '_' + str(self.method)
+#         # Get the method from 'self'. Default to a lambda.
+#         method = getattr(self, method_name, lambda: self.no_action())
+#         # Call the method as its returned
+#         return method()
 
     # HELPER FUNCTIONS
     # facial landmarks
@@ -678,36 +641,36 @@ class Core:
             except: pass
 
     # Folder globber
-    def _globx(self):
-        import os
-        os.system('sudo pip install pywildcard')
-        import pywildcard as fnmatch
-#         print(self.args)
-        treeroot=self.method_args[0]
-        pattern=self.method_args[1]
-        Sheisterhaufen = []
-        for base, dirs, files in os.walk(treeroot):
-            goodfiles = fnmatch.filter(files, pattern)
-            Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
-        return Sheisterhaufen
+#     def _globx(self):
+#         import os
+#         os.system('sudo pip install pywildcard')
+#         import pywildcard as fnmatch
+# #         print(self.args)
+#         treeroot=self.method_args[0]
+#         pattern=self.method_args[1]
+#         Sheisterhaufen = []
+#         for base, dirs, files in os.walk(treeroot):
+#             goodfiles = fnmatch.filter(files, pattern)
+#             Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
+#         return Sheisterhaufen
 
-    # CMD-LINE subprocess spawner
-    def _cml(self): 
-        Sheisterhaufen =[]
-        cmd=self.method_args[0]
-        if len(self.method_args) > 1:
-            fi=self.method_args[1]
-        else: # only False needs to be fed
-            fi=True
-        nepopso = os.popen(cmd)
-        try: # Yeah try that u popo!!!
-            for line in nepopso:
-#                 line.encode("utf-8") Mightbe on older python
-                if fi == True:
-                    Sheisterhaufen.append(line.replace('\n',''))
-        finally: # yeah finally done pooping!!!!!
-            nepopso.close()
-        return Sheisterhaufen
+#     # CMD-LINE subprocess spawner
+#     def _cml(self): 
+#         Sheisterhaufen =[]
+#         cmd=self.method_args[0]
+#         if len(self.method_args) > 1:
+#             fi=self.method_args[1]
+#         else: # only False needs to be fed
+#             fi=True
+#         nepopso = os.popen(cmd)
+#         try: # Yeah try that u popo!!!
+#             for line in nepopso:
+# #                 line.encode("utf-8") Mightbe on older python
+#                 if fi == True:
+#                     Sheisterhaufen.append(line.replace('\n',''))
+#         finally: # yeah finally done pooping!!!!!
+#             nepopso.close()
+#         return Sheisterhaufen
     
     # Flickr scraper
     # TODO: make this the main gallery-dl wrapper class and include it 
@@ -752,30 +715,30 @@ class Core:
         else:
             os.makedirs(self.method_args[1]+'/'+self.method_args[0], exist_ok = True)
             
-    # Pull all selected reps  
-    def _inst_reps(self):
-        self.repo_list=self.method_args[0]      
-        self.git_install_root=self.method_args[1]
-        self.sub_repos=self.method_args[2]
-        self.chadir=self.method_args[3]
-        self.sys_com('mkdir -p '+self.git_install_root)
-#         print(self.git_install_root)
-        for rep in self.repo_list:
-            self.rep=rep.split('/')
-            # change folder check
-            if self.chadir == True:
-                #Switch to path
-                os.chdir(self.git_install_root)
-                # pull the git repo
-                self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
-                # Set the return value for rep rootpath
-                self.path=self.git_install_root+'/'+self.rep[1]
-        # show imported files
-        self.sys_com('ls ' +self.path)
-        # run custom setups and get other reps
-#         self.custom_reps_setup()
-#         if self.sub_repos == True:
-#             self.get_other_reps()
+#     # Pull all selected reps  
+#     def _inst_reps(self):
+#         self.repo_list=self.method_args[0]      
+#         self.git_install_root=self.method_args[1]
+#         self.sub_repos=self.method_args[2]
+#         self.chadir=self.method_args[3]
+#         self.sys_com('mkdir -p '+self.git_install_root)
+# #         print(self.git_install_root)
+#         for rep in self.repo_list:
+#             self.rep=rep.split('/')
+#             # change folder check
+#             if self.chadir == True:
+#                 #Switch to path
+#                 os.chdir(self.git_install_root)
+#                 # pull the git repo
+#                 self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
+#                 # Set the return value for rep rootpath
+#                 self.path=self.git_install_root+'/'+self.rep[1]
+#         # show imported files
+#         self.sys_com('ls ' +self.path)
+#         # run custom setups and get other reps
+# #         self.custom_reps_setup()
+# #         if self.sub_repos == True:
+# #             self.get_other_reps()
             
         def __repr__(self):
             return self.path
