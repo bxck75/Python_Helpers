@@ -103,7 +103,7 @@ class Core:
         while(True):
             # returns None while subprocess is running
             retcode = p.poll() 
-            line = p.stdout.readline()
+            line = p.stdout.readline().encode('utf-8')
             
             if line != '':
                 yield line
@@ -126,7 +126,7 @@ class Core:
         for line in self.runProcess():
             print(line)
             # append the line to results list
-            results.append(line.decode('utf-8'))
+            results.append(line)
             
         return results
             
