@@ -27,7 +27,7 @@ class ICrawl:
                         date=((2018, 1, 1), (2019, 8, 30))
                       )
 
-        GoogleImageCrawler.crawl(keyword=self.keyword, filters=self.filters, offset=0, max_num=self.max_qty, out_dir=self.out_dir, min_size=self.min_wh, max_size= self.max_wh, overwrite=True)
+        GoogleImageCrawler.crawl(self.keyword, self.filters, 0, self.max_qty, self.out_dir, self.min_wh, self.max_wh, True)
 
         path = '/content/crawled'.split('/')[len('/content/crawled'.split('/'))-1]
         print(path)
