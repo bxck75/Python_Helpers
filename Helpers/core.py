@@ -76,6 +76,7 @@ class Core:
         self.Gdownload = GdriveD
         self.BigHelp = BigHelp
         self.zip = ZipUp.ZipUp
+        self.GoogleS =GoImgScrape
         self.repo_collection = RepCoList
         self.FlickrS = self.flickr_scrape
         self.Sys_Exec = self.sys_com
