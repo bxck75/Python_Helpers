@@ -86,20 +86,29 @@ class Core:
         self.H.zip = self.load_zipper()
         self.H.repo_collection = RepCoList
         self.H.flickr_scr = self.flickr_scrape
+        self.Sys_Exec = self.sys_com
+        self.Sys_Exec.CMD
+        
         ''' set color output '''
         self.print_fail = ColorPrint.ColorPrint.print_fail
         self.print_pass = ColorPrint.ColorPrint.print_pass
         self.print_warn = ColorPrint.ColorPrint.print_warn
         self.print_info = ColorPrint.ColorPrint.print_info
         self.print_bold = ColorPrint.ColorPrint.print_bold
-        # Simple colors
-        # usage: print(self.fg("text", 160))
-        self.fg = lambda text, color: "\33[38;5;" + str(color) + "m" + text + "\33[0m"
-        self.bg = lambda text, color: "\33[48;5;" + str(color) + "m" + text + "\33[0m"
-    
-    def runProcess(self):  
+        
+        
+    def runProcess(self):
+        ''' 
+            run subprocess from self.CMD
+        '''
         import subprocess
-        p = subprocess.Popen(self.command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        command_to_exec = self.Sys_Exec.CMD.split(' ')
+        # check if is valid command string
+        if (command_to_exec != None and command_to_exec != ''):
+            p = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        else:
+            print("Empty command string. did you first set the CMD arg? ")
+            break
         while(True):
             # returns None while subprocess is running and 0 when finished
             retcode = p.poll()
@@ -112,16 +121,13 @@ class Core:
             if retcode is not None:
                 break
 
-                
-    def sys_com(self,execute_command='ls -l'):
+    def sys_com(self):
         ''' 
             Execute system command and get output 
             cmd = 'ls'
             sys_com(execute_command=cmd)
         '''
         results = []
-        # split and set the system cmd
-        self.command_to_exec = execute_command.split(' ')
         #  for lines in output of the subprocess
         for line in self.runProcess():
             # if decoded line is not empty
