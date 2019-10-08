@@ -14,7 +14,7 @@ class main:
         
         ''' start helper core and system commands '''
         self.Helpers_Core=Helpers.Core() # new helper class
-#         self.hlp=Helpers.BigHelp.Helpers.H  # old  module helpers
+        self.hlp=Helpers.BigHelp.Helpers  # old  module helpers
         self.HelpMe = Helpers.BigHelp.Helpers.Me # build in system commands old  module helpers
         self.Sys_Exec = self.Helpers_Core.Sys_Exec
 
@@ -24,26 +24,24 @@ class main:
         
         ''' scraper install '''
         self.c_d(self.root)
-        self.dosage = [
-            'bxck75/dosage'
-        ]
-        self.HelpMe(['inst_reps', self.dosage,  self.helpers_root+'/Helpers', False, True])
+        dosage = ['bxck75/dosage']
+        self.HelpMe(['inst_reps', dosage,  self.helpers_root+'/Helpers', False, True])
         
         ''' cv2 and distro install '''
-        self.cv_repos=[
+        cv_repos=[
             'bxck75/opencv_contrib',
             'bxck75/opencv',
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
-        self.HelpMe(['inst_reps', self.cv_repos,  self.helpers_root+'/Helpers', False, True])
+        self.HelpMe(['inst_reps', cv_repos,  self.helpers_root+'/Helpers', False, True])
 
         ''' needed gdrive repos '''
-        self.gdrive_rps=[
+        gdrive_rps=[
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-        self.HelpMe(['inst_reps',self.gdrive_rps, self.helpers_root+'/Helpers',False,True])
+        self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
 
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -55,10 +53,8 @@ class main:
         self.Sys_Exec('rm -r ' + self.helpers_root + '/Helpers/google-drive-list-shared')
 
         ''' pix2pix repos '''
-        self.pix2pix_rps=[
-            'bxck75/piss-ant-pix2pix',
-        ]
-        self.HelpMe(['inst_reps',self.pix2pix_rps, self.root +'/installed_repos',False,True])
+        pix2pix_rps=['bxck75/piss-ant-pix2pix']
+        self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
         self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
