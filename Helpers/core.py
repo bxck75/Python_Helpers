@@ -107,8 +107,7 @@ class Core:
         if (command_to_exec != None and command_to_exec != ''):
             p = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         else:
-            print("Empty command string. did you first set the CMD arg? ")
-            break
+            return "Empty command string. did you first set the CMD arg? "
         while(True):
             # returns None while subprocess is running and 0 when finished
             retcode = p.poll()
