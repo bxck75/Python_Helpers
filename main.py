@@ -16,7 +16,7 @@ class main:
         self.Helpers_Core=Helpers.Core() # new helper class
         self.hlp=Helpers.BigHelp.Helpers  # old  module helpers
         self.HelpMe = Helpers.BigHelp.Helpers.Me # build in system commands old  module helpers
-        self.Sys_Exec = self.Helpers_Core.Sys_Exec
+        self.Sys_Exec = self.Helpers_Core.Sys_Exec # execute system command
 
         ''' Better chdir '''
         self.c_d = self.Helpers_Core.cd
@@ -24,8 +24,7 @@ class main:
         
         ''' scraper install '''
         self.c_d(self.root)
-        dosage = ['bxck75/dosage']
-        self.HelpMe(['inst_reps', dosage,  self.helpers_root+'/Helpers', False, True])
+        self.HelpMe(['inst_reps', ['bxck75/dosage'], self.helpers_root+'/Helpers', False, True])
         
         ''' cv2 and distro install '''
         cv_repos=[
