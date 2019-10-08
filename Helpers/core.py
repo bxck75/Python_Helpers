@@ -104,9 +104,12 @@ class Core:
             # returns None while subprocess is running
             retcode = p.poll() 
             line = p.stdout.readline()
-            yield line
+            
+            if line != '':
+                yield line
+                
             if retcode is not None:
-                print(retcode)
+#                 print(retcode)
                 break
 
                 
