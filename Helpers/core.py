@@ -97,24 +97,28 @@ class Core:
         self.fg = lambda text, color: "\33[38;5;" + str(color) + "m" + text + "\33[0m"
         self.bg = lambda text, color: "\33[48;5;" + str(color) + "m" + text + "\33[0m"
     
-    def sys_com(self,execute_command='ls -l'):    
-        p = subprocess.Popen(execute_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        results = []
+    def runProcess(self):    
+        p = subprocess.Popen(self.command_to_exec, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+#         results = []
         while(True):
             # returns None while subprocess is running
             retcode = p.poll() 
             line = p.stdout.readline()
-
+            
             yield line
+            
             if retcode is not None:
                 break
-            results.append([retcode,line])
-        return results
+#             results.append([retcode,line])
+#         return results
                 
-    def sys_com_2(self,execute_command='ls -l'):
+    def sys_com(self,execute_command='ls -l'):
         results = []
-        for line in runProcess(execute_command.split()):
+        self.command_to_exec = execute_command
+        for line in self.runProcess( self.command_to_exec.split() ):
+            print(line)
             results.append(line)
+            
         return results
             
     def rec_walk_folder(self, folder, output='files'):
