@@ -92,7 +92,7 @@ class Core:
             install_repos(repos, inst_dir)
         '''
         self.repo_list=repos      
-        self.git_install_root=inst_dir
+        self.root_dirname=inst_dir
         self.sub_repos=sub_repos
         self.chadir=chdir
         
@@ -108,12 +108,12 @@ class Core:
                 self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
                 # Set the return value for rep rootpath
                 self.path=self.git_install_root+'/'+self.rep[1]
-        # show imported files
-        self.sys_com('ls ' +self.path)
+            # show imported files
+            self.sys_com('ls ' + self.root_dirnameh)
         # run custom setups and get other reps
 #         self.custom_reps_setup()
-#         if self.sub_repos == True:
-#             self.get_other_reps()
+        if self.sub_repos == True:
+            self.get_other_reps()
         
 
     def cprint(self, msg, style='info'):
