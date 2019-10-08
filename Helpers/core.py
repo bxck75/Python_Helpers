@@ -112,6 +112,8 @@ class Core:
         for base, dirs, files in os.walk(treeroot):
             goodfiles = fnmatch.filter(files, pattern)
             Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
+            
+        print(Sheisterhaufen)
         return Sheisterhaufen
     
     
