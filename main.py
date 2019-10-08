@@ -40,7 +40,7 @@ class main:
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-#         self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
+        self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
 
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -53,7 +53,7 @@ class main:
 
         ''' pix2pix repos '''
         pix2pix_rps=['bxck75/piss-ant-pix2pix']
-#         self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
+        self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
         self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
