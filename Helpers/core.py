@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
+from pathlib import Path
 os.system('pip install colorama')
 import colorama
 
