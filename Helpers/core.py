@@ -207,8 +207,9 @@ class Core:
             if mode == 'landmarker':
                 ''' landmark processes for pix2pix dataset '''
                 self.landmarker(org_path , marked_path)
-            elif mode == 'symantic':
+            elif mode == 'haar':
                 ''' other processes to make set '''
+                self.haar_detect(org_path , marked_path)
             elif mode == 'colorizer':
                 ''' other processes to make set '''
             elif mode == 'edged':
