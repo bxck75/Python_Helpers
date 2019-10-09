@@ -70,7 +70,7 @@ class Core:
         self.Sys_Exec = self.sys_com
         self.LogGER = self.sys_log
         ''' Better change dir '''
-        self.c_d = self.Helpers_Core.cd       
+        self.c_d = self.cd       
         ''' Change to root folder '''
         self.c_d(self.root)
         # existencecheker
