@@ -76,6 +76,9 @@ class Core:
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICrawL
         
+       
+        ''' Haar facial landmark detector '''
+        self.HaarDetect = self.haar_detect
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
         ''' Flickr scraper '''
@@ -98,12 +101,6 @@ class Core:
         self.c_d(self.root)
         print('classes shuffle done!')
         
-        ''' handpicked repos '''
-#         self.handpicked_repos = self.sorted_repos
-#         print(self.handpicked_repos)
-#         self.Helpers_Core.install_repos(handpicked_repos, inst_dir)
-#         self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
-
         ''' In_helpers/helpers/ map ''' 
         inst_dir=self.helpers_root+'/Helpers'
         repos=[
@@ -149,7 +146,7 @@ class Core:
         
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
-    '''                                   existence checker                                               '''
+    '''                                                                          '''
     
     
     
@@ -183,6 +180,7 @@ class Core:
         plt.imshow('facedetect', vis)
         cv.imwrite(out_img,vis)
         return out_img 
+        
         
         
     import os
@@ -399,7 +397,7 @@ class Core:
         for base, dirs, files in os.walk(treeroot):
             goodfiles = fnmatch.filter(files, pattern)
             Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
-#         print(Sheisterhaufen)
+        print(Sheisterhaufen)
         return Sheisterhaufen
     
 
