@@ -75,7 +75,7 @@ class main:
         self.Zipper = self.Helpers_Core.ZipUp
 
         ''' gdrive downloader init '''
-        self.Gdrive_download = self.Helpers_Core.Gdownload.GdriveD
+        self.Gdrive_download = self.Helpers_Core.GdriveD
 
         ''' image crawler init'''
 #         self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
