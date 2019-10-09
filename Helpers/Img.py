@@ -4,8 +4,6 @@ class Tools:
   import numpy as np
   import cv2
   
-
-  
   def ShowImg(path, fig_id, clone=False):
       ''' 
       Show image
@@ -22,9 +20,10 @@ class Tools:
       img_rainbow = cv2.cvtColor(img, cv2.COLORMAP_RAINBOW)
       plt.figure(figsize = (10,20))
       plt.axis('off')
-      font = cv2.FONT_HERSHEY_SIMPLEX
-      text = cv2.putText(img_rainbow,'K00B404',(10,45), font, 2,(2,1,112), 4, cv2.LINE_AA)
-      plt.imshow(text)
+      
+#       font = cv2.FONT_HERSHEY_SIMPLEX
+#       text = cv2.putText(img_rainbow,'K00B404',(10,45), font, 2,(2,1,112), 4, cv2.LINE_AA)
+#       plt.imshow(text)
 
       plt.imshow(img_rainbow)
       # imshow(X, cmap=None, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None, origin=None, 
