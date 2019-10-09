@@ -78,6 +78,6 @@ class main:
         self.Gdrive_download = self.Helpers_Core.Gdownload.GdriveD
 
         ''' image crawler init'''
-        self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
+#         self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
         
 main()
