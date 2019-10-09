@@ -143,6 +143,7 @@ class Core:
         '''
             haar_detect( img_in, img_out)
         '''
+        import cv2 as cv
         import matplotlib.pyplot as plt
         import sys
         img = cv.imread(in_img)
