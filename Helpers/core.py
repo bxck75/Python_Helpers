@@ -173,9 +173,8 @@ class Core:
         '''
             # Driver code  
             # https://gist.githubusercontent.com/bxck75/dc0ef99833af8a2b2533c2d1634d24d0/raw/212feb5df1f89e1f2bce1e8b3c0c10015f875e93/DelDig.py
-        '''
-        list = ['4geeks', '3for', '4geeks'] 
-        print(DelDig(list))
+            list = ['4geeks', '3for', '4geeks'] 
+            print(DelDig(list))
         '''
         import re 
         pattern = '[0-9]'
