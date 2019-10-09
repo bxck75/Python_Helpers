@@ -72,12 +72,12 @@ class main:
         # self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
 
         ''' zipper init '''
-        self.Zipper = self.Helpers_Core.zip()
+        self.Zipper = self.Helpers_Core.zip
 
         ''' gdrive downloader init '''
         self.Gdrive_download = self.Helpers_Core.Gdownload.GdriveD
 
         ''' image crawler init'''
-        self.ImgCrawler = Helpers.core.GoImgScrape.GoogleImageCrawler()
+        self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
         
 main()
