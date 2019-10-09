@@ -59,4 +59,4 @@ class main:
         pix2pix_rps=['bxck75/piss-ant-pix2pix','bxck75/dosage']
         self.Helpers_Core.install_repos(pix2pix_rps, inst_dir,False,True)
         
-main()
+# main()
