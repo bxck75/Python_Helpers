@@ -40,12 +40,15 @@ class Core:
 
     '''
     def __init__(self):
-
+        
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))    # local root
-        self.Colab_root = '/content'                                                        # absolute root
+        self.Colab_root = '/content'
+        # absolute root
+        self.root = self.Colab_root
         self.git_install_root = self.Colab_root + '/installed_repos'                        # git install root
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'                                # google drive root
 
+        
         # inject functionality into the object
         self.BigHelp =      BigHelp
         self.Ops =          ops
