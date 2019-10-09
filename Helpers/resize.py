@@ -1,9 +1,10 @@
+import cv2
 def resize_folder(folder):
     '''
         # Example resize('/root/Bureaublad/data/boefjes/front')
     '''
     from PIL import Image
-    import os,sys,glob
+    import os,sys,glob,cv2
     for root, dirs, files in os.walk(folder, topdown=False):
         print('[Resizing '+str(len(files))+' files]')
         i=0
@@ -22,6 +23,7 @@ def resize_single(src,pad=False,size=256):
     '''
         resize(img,pad,size)
     '''
+    import cv2
     imag = cv2.imread(src)
     height, width, _ = imag.shape
     dst = imag
