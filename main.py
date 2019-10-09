@@ -62,22 +62,5 @@ class main:
         self.Helpers_Core.install_repos(pix2pix_rps, inst_dir)
         # self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
 
-        ''' many repos in this list!!! '''
-        self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
-        
-        ''' handpicked repos '''
-#         handpicked_repos = self.sorted_repos[1,2,3,4,5,6,7,8]
-#         print(self.handpicked_repos)
-#         self.Helpers_Core.install_repos(handpicked_repos, inst_dir)
-        # self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
-
-        ''' zipper init '''
-        self.Zipper = self.Helpers_Core.ZipUp
-
-        ''' gdrive downloader init '''
-        self.Gdrive_download = self.Helpers_Core.GdriveD
-
-        ''' image crawler init'''
-#         self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
         
 main()
