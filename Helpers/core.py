@@ -1,4 +1,4 @@
-s# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os, sys, inspect
 os.system('pip install colorama')
 import colorama
