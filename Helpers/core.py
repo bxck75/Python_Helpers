@@ -135,10 +135,17 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                   existence checker                                               '''
-    def haar_detect(self, img):
-        ''' detect faces
+    
+    
+    
+    def haar_detect(self, in_img, out_img):
+        ''' detect faces'''
+        '''
+            haar_detect( img_in, img_out)
+        '''
         import matplotlib.pyplot as plt
         import sys
+        img = cv.imread(in_img)
         cascade_fn = "/content/installed_repos/Python_Helpers/Helpers/haarcascade_frontalface_alt.xml"
         nested_fn  = "/content/installed_repos/Python_Helpers/Helpers/haarcascade_eye.xml"
         cascade = cv.CascadeClassifier(cv.samples.findFile(cascade_fn))
@@ -158,6 +165,7 @@ class Core:
         dt = clock() - t
         draw_str(vis, (20, 20), 'time: %.1f ms' % (dt*1000))
         plt.imshow('facedetect', vis)
+        cv.imwrite(out_img,vis)
         plt.show
         
         
