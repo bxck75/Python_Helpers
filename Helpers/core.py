@@ -145,7 +145,7 @@ class Core:
         for im in range(0, len(ILIST)):
             drive, path_and_file = os.path.splitdrive(ILIST[im])
             path, file = os.path.split(path_and_file)
-            fil_name, ext = file.split('.')
+            file_name, ext = file.split('.')
             
             ''' strip old numbers from filename '''
             file_name.rstrip(string.digits)
