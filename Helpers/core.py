@@ -58,7 +58,7 @@ class Core:
         self.GdriveD =      GdriveD
         self.FileView =     Fileview
         self.ZipUp =        ZipUp
-        self.ImScrape =     GoImgScrape
+        self.ImgCrawler =   GoImgScrape
         self.GooScrape =    gscrape
         self.Resize =       resize 
         self.Logger =       logger
@@ -66,7 +66,26 @@ class Core:
         ''' Init a few modules '''
         self.ImScrape.GoogleImageCrawler()
         self.ZipUp =  self.ZipUp.ZipUp
-        self.Resize
+        
+        ''' many repos in this list!!! '''
+        self.sorted_repos = self.Repo_List.repos_sorted.sort()
+        
+        ''' handpicked repos '''
+        self.handpicked_repos = self.sorted_repos[1:2:3:4:5:6:7]
+        print(self.handpicked_repos)
+#         self.Helpers_Core.install_repos(handpicked_repos, inst_dir)
+        # self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
+
+        ''' zipper init '''
+        self.Zipper = self.Helpers_Core.ZipUp
+
+        ''' gdrive downloader init '''
+        self.Gdrive_download = self.Helpers_Core.GdriveD
+
+        ''' image crawler init'''
+#         self.ImgCrawler = self.Helpers_Core.GoImgScrape.GoogleImageCrawler()
+        
+        
         # Custom shortcuts to tools and core functions
         self.FlickrS = self.flickr_scrape
         self.Sys_Exec = self.sys_com
