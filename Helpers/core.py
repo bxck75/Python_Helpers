@@ -88,10 +88,11 @@ class Core:
         inst_dir=self.helpers_root+'/Helpers'
         repos=[
             'bxck75/piss_ant_pix2pix',
-            'bxck75/A1Colabs'
+            'bxck75/A1Colabs',
         ]
         r = self.Helpers_Core.install_repos(repos, inst_dir,False,True)
-    `   print(r)
+`       print(r)
+    
         ''' cv2 and distro install '''
         cv_repos=[
             'bxck75/opencv_contrib',
@@ -99,7 +100,7 @@ class Core:
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
-        r =self.Helpers_Core.install_repos(cv_repos, inst_dir,False,True) 
+        r =self.Helpers_Core.install_repos(cv_repos, inst_dir, False, True) 
     `   print(r)
 
         ''' needed googledrive repos '''
@@ -107,7 +108,7 @@ class Core:
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-        r = self.Helpers_Core.install_repos(gdrive_rps, inst_dir,False,True)
+        r = self.Helpers_Core.install_repos(gdrive_rps, inst_dir, False, True)
     `   print(r)
     
         ''' PyDrive install '''
@@ -119,7 +120,10 @@ class Core:
         sr += self.Sys_Exec('rm -r ' + self.helpers_root + '/Helpers/google-drive-list-shared')
 
         ''' pix2pix repos '''
-        pix2pix_rps=['bxck75/piss-ant-pix2pix','bxck75/dosage']
+        pix2pix_rps=[
+                'bxck75/piss-ant-pix2pix',
+                'bxck75/dosage',
+        ]
         r=self.Helpers_Core.install_repos(pix2pix_rps, inst_dir,False,True)
     `   print(r)
 
