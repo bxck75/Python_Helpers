@@ -14,6 +14,7 @@ from . import GoImgScrape
 from . import ColorPrint
 from . import gscrape
 from . import ops
+from . import Fileview
 
 class Core:
     '''
@@ -38,7 +39,10 @@ class Core:
 
     '''
     def __init__(self):
-        '''ini objects'''
+        '''
+            ini
+        
+        '''
         
         # paths
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))    # local root
@@ -47,12 +51,22 @@ class Core:
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'                                # google drive root
         
         # inject functionality into the object
-        self.Gdownload = GdriveD
-        self.BigHelp = BigHelp
-        self.zip = ZipUp.ZipUp
-        self.GoogleS =GoImgScrape
-        self.repo_collection = RepCoList
+        self.BigHelp =      BigHelp
+        self.Ops =          ops
+        self.Repo_List =    RepCoList
+        self.ColorPrint =   ColorPrint
+        self.GdriveD =      GdriveD
+        self.FileView =     Fileview
+        self.ZipUp =        ZipUp
+        self.ImScrape =     GoImgScrape
+        self.GooScrape =    gscrape
+        self.Resize =       resize 
+        self.Logger =       logger
         
+        ''' Init a few modules '''
+        self.ImScrape.GoogleImageCrawler()
+        self.ZipUp =  self.ZipUp.ZipUp
+        self.Resize
         # Custom shortcuts to tools and core functions
         self.FlickrS = self.flickr_scrape
         self.Sys_Exec = self.sys_com
