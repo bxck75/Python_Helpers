@@ -1,5 +1,10 @@
 class Tools:
-  ''' Tools for images and video '''
+  ''' 
+  Tools for images and video
+    Example:
+      resize_single(img_path pad=False, size=400)
+      resize_folder('/root/Bureaublad/data/boefjes/front')
+  '''
   import matplotlib.pyplot as plt
   import numpy as np
   import cv2
