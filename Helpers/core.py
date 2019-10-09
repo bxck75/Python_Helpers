@@ -91,10 +91,9 @@ class Core:
             'bxck75/A1Colabs',
         ]
         r = self.Helpers_Core.install_repos(repos, inst_dir,False,True)
-`       print(r)
-    
+        print(r)
         ''' cv2 and distro install '''
-        cv_repos=[
+        cv_repos = [
             'bxck75/opencv_contrib',
             'bxck75/opencv',
             'bxck75/face2face-demo',
