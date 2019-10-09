@@ -63,16 +63,18 @@ class Core:
         self.Resize =       resize 
         self.Logger =       logger
         
+        self.flickr_scrape(query= ['Rick And Mortey'],qty=5,dest='/content/images')
+        
         ''' Init a few modules '''
-        self.ImScrape.GoogleImageCrawler()
+        self.ImgCrawler.GoogleImageCrawler()
         self.ZipUp =  self.ZipUp.ZipUp
         
         ''' many repos in this list!!! '''
-        self.sorted_repos = self.Repo_List.repos_sorted.sort()
+        self.sorted_repos = self.Repo_List.repos_sorted
         
         ''' handpicked repos '''
-        self.handpicked_repos = self.sorted_repos[1:2:3:4:5:6:7]
-        print(self.handpicked_repos)
+#         self.handpicked_repos = self.sorted_repos
+#         print(self.handpicked_repos)
 #         self.Helpers_Core.install_repos(handpicked_repos, inst_dir)
         # self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
 
