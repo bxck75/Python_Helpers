@@ -25,11 +25,11 @@ class main:
         ''' scraper install '''
         self.c_d(self.root)
         
-        # In_helpers/helpers/ map 
+        ''' In_helpers/helpers/ map ''' 
         inst_dir=self.helpers_root+'/Helpers'
-        repos=['bxck75/piss_ant_pix2pix','bxck75/opencv','bxck75/dosage']
+        repos=['bxck75/piss_ant_pix2pix','bxck75/A1Colabs']
         self.Helpers_Core.install_repos(repos, inst_dir)
-#         Helpers_Core
+
         ''' cv2 and distro install '''
         cv_repos=[
             'bxck75/opencv_contrib',
@@ -37,14 +37,16 @@ class main:
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
-#         self.HelpMe(['inst_reps', cv_repos,  self.helpers_root+'/Helpers', False, True])
+        self.Helpers_Core.install_repos(cv_repos, inst_dir) 
+        # self.HelpMe(['inst_reps', cv_repos,  self.helpers_root+'/Helpers', False, True])
 
         ''' needed gdrive repos '''
         gdrive_rps=[
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-        self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
+        self.Helpers_Core.install_repos(gdrive_rps, inst_dir)
+        # self.HelpMe(['inst_reps',gdrive_rps, self.helpers_root+'/Helpers',False,True])
 
         ''' PyDrive install '''
         self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -56,16 +58,18 @@ class main:
         self.Sys_Exec('rm -r ' + self.helpers_root + '/Helpers/google-drive-list-shared')
 
         ''' pix2pix repos '''
-        pix2pix_rps=['bxck75/piss-ant-pix2pix']
-        self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
+        pix2pix_rps=['bxck75/piss-ant-pix2pix','bxck75/dosage']
+        self.Helpers_Core.install_repos(pix2pix_rps, inst_dir)
+        # self.HelpMe(['inst_reps',pix2pix_rps, self.root +'/installed_repos',False,True])
 
         ''' many repos in this list!!! '''
         self.sorted_repos = Helpers.RepCoList.repos_sorted.sort()
         
         ''' handpicked repos '''
-#         handpicked_repos = self.sorted_repos[:8]
-#         print(self.handpicked_repos)
-#         self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
+        handpicked_repos = self.sorted_repos[1,2,3,4,5,6,7,8]
+        print(self.handpicked_repos)
+        self.Helpers_Core.install_repos(handpicked_repos, inst_dir)
+        # self.HelpMe(['inst_reps',self.handpicked_repos, self.root +'/installed_repos',False,True])
 
         ''' zipper init '''
         self.Zipper = self.Helpers_Core.load_zipper()
