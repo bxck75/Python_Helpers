@@ -22,8 +22,9 @@ def resize_single(src,pad=False,size=256):
     '''
         resize(img,pad,size)
     '''
-    height, width, _ = src.shape
-    dst = src
+    imag = cv2.imread(src)
+    height, width, _ = imag.shape
+    dst = imag
     if height != width:
         if pad:
             size = max(height, width)
