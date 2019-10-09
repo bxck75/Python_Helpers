@@ -238,7 +238,7 @@ class Core:
         cv2.destroyAllWindows()   
         
     
-    def path_split(full_path):
+    def path_split(self, full_path):
         ''' split s path into a dict '''
         ''' path_split(full_path) '''
         r = {}
@@ -247,9 +247,7 @@ class Core:
         path, file = os.path.split(path_and_file)
         file_name, ext = file.split('.')
         r.update({'path': path.split('/')[1:],'file' : file_name, 'ext' : ext})
-        # del r['path'][0]
         return r
-
 
     def DelDig(self, list): 
         '''
