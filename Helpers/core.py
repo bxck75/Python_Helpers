@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-import os, sys, inspect, cv2
+
+import os, sys, inspect
 os.system('pip install colorama')
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
 import colorama
 
 from . import ZipUp
@@ -20,25 +24,32 @@ from . import resize
 
 class Core:
     '''
+    Examples:
+        ###
+        lm_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
+        HelpCore.GdriveD.GdriveD(lm_file[1],lm_file[0])
+        ###
+        
     Functions:      
+         'Colab_root',
+         'ColorPrint',
+         'FileView',
+         'FlickrS',
+         'GdriveD',
+         'Gdrive_root',
+         'GlobX',
+         'GooScrape',
+         'ImgCrawler',
+         'ImgTools',
+         'LogGER',
+         'Logger',
          'MethHelp',
-         'cd',
-         'cdr',
-         'check_img_list',
-         'docu',
-         'explore_mod',
-         'flickr_scrape',
-         'get_gdrive_dataset',
-         'img_batch_rename',
-         'into_func',
-         'loadTboard',
-         'load_helpers',
-         'load_zipper',
-         'rec_walk_folder',
-         'set_maker',
-         'valid_img',
-         'valid_list'
-
+         'Ops',
+         'Repo_List',
+         'Resize',
+         'Sys_Cmd',
+         'Sys_Exec',
+         'ZipUp',
     '''
     def __init__(self):
         
@@ -75,7 +86,7 @@ class Core:
         self.sorted_repos = self.Repo_List.repos_sorted
         ''' Sys.exec en sys.log '''
         self.Sys_Exec = self.sys_com
-        self.LogGER = self.sys_log
+        self.Logger.sys_log = self.sys_log
         ''' Better change dir '''
         self.c_d = self.cd       
         ''' Change to root folder '''
