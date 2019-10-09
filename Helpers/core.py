@@ -100,7 +100,7 @@ class Core:
             'bxck75/face-recognition',
         ]
         r =self.Helpers_Core.install_repos(cv_repos, inst_dir, False, True) 
-    `   print(r)
+        print(r)
 
         ''' needed googledrive repos '''
         gdrive_rps=[
@@ -108,7 +108,7 @@ class Core:
             'bxck75/PyDrive'
         ]
         r = self.Helpers_Core.install_repos(gdrive_rps, inst_dir, False, True)
-    `   print(r)
+        print(r)
     
         ''' PyDrive install '''
         sr = self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
@@ -124,7 +124,7 @@ class Core:
                 'bxck75/dosage',
         ]
         r=self.Helpers_Core.install_repos(pix2pix_rps, inst_dir,False,True)
-    `   print(r)
+        print(r)
 
         
     '''###################################################################################################'''   
