@@ -1,5 +1,6 @@
 # a list of repos for machinelearning
 reps=[
+        'CMU-Perceptual-Computing-Lab/openpose',
         'mrgloom/Face-landmarks-detection-benchmark',
         'bxck75/openface',
         'bxck75/ipyleaflet',
