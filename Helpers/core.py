@@ -63,10 +63,13 @@ class Core:
         self.Logger =       logger
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICrawL
+        
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
-        ''' flickr scraper '''
+        ''' Flickr scraper '''
         self.FlickrS = self.flickr_scrape
+        ''' Show image '''
+        self.ShowImg = self.ImgTools.ShowImg
         ''' Many repos in this list!!! '''
         self.sorted_repos = self.Repo_List.repos_sorted
         ''' Sys.exec en sys.log '''
@@ -76,7 +79,7 @@ class Core:
         self.c_d = self.cd       
         ''' Change to root folder '''
         self.c_d(self.root)
-        # existencecheker
+        ''' Existence checker '''
         self.if_exists = os.path.exists
         
         # cd root
@@ -167,7 +170,7 @@ class Core:
         draw_str(vis, (20, 20), 'time: %.1f ms' % (dt*1000))
         plt.imshow('facedetect', vis)
         cv.imwrite(out_img,vis)
-        plt.show
+        return out_img 
         
         
     import os
@@ -175,7 +178,7 @@ class Core:
     import numpy as np 
     from PIL import Image        
     recognizer = cv2.face.LBPHFaceRecognizer_create()
-    path = '/content/dataset'
+    path = '/content/images'
     if not os.path.exists('/content/recognizer'):
         os.makedirs('/content/recognizer')
         
@@ -201,7 +204,7 @@ class Core:
         
         
         
-    def Temp(self, ):
+    def Temp(self, img ):
         import cv2
         import numpy as np 
         import sqlite3
@@ -295,22 +298,22 @@ class Core:
         '''
 #         print(__doc__)
         '''landmark the image'''
-        img = cv.imread(input_path)
+        img = cv2.imread(input_path)
         if img is None:
             print('Failed to load image file:', input_path)
             sys.exit(1)
-        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        lsd = cv.line_descriptor_LSDDetector.createLSDDetector()
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        lsd = cv2.line_descriptor_LSDDetector.createLSDDetector()
         lines = lsd.detect(gray, 1, 1)
         for kl in lines:
             if kl.octave == 0:
                 # cv.line only accepts integer coordinate
                 pt1 = (int(kl.startPointX), int(kl.startPointY))
                 pt2 = (int(kl.endPointX), int(kl.endPointY))
-                cv.line(img, pt1, pt2, [255, 0, 0], 2)
+                cv2.line(img, pt1, pt2, [255, 0, 0], 2)
                 
         print(output_path)
-        cv.imwrite(output_path, img)
+        cv2.imwrite(output_path, img)
         
         
         
