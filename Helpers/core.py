@@ -70,7 +70,7 @@ class Core:
         
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
-        self.ZipUp =  self.ZipUp.ZipUp
+    
         
         ''' many repos in this list!!! '''
         self.sorted_repos = self.Repo_List.repos_sorted
