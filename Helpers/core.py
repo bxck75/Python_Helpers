@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+s# -*- coding: utf-8 -*-
 import os, sys, inspect
 os.system('pip install colorama')
 import colorama
@@ -680,7 +680,7 @@ class Core:
         os.chdir(self.root_dirname)
 
     def MethHelp(self,libs):
-        os_help=self.BigHelp.H.Me(['vdir',libs])
+        os_help=self.HelpCore.explore_mod(libs)
         #make a list containing libs values of os_help
         listOfLibs = [x[0] for x in os_help]
         #make a list containing libs method values of os_help
