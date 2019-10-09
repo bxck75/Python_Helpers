@@ -73,6 +73,8 @@ class Core:
         self.c_d = self.Helpers_Core.cd       
         ''' Change to root folder '''
         self.c_d(self.root)
+        # existencecheker
+        self.if_exists = os.path.exists
         
         # cd root
         self.c_d(self.root)
@@ -130,7 +132,7 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                   existence checker                                               '''
-    self.if_exists = os.path.exists  
+      
         
     def install_repos(self, repos, inst_dir, sub_repos=False, chadir=False):
         '''
