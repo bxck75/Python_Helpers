@@ -141,7 +141,7 @@ class Core:
             clone the originals and return tuple of org and marked path
             cloner('/content/images/img_1.jpg',204) 
         '''
-        ILIST = self.Globx(img_path, '*.*g')
+        ILIST = self.GlobX(img_path, '*.*g')
         for im in range(0, len(ILIST)):
             drive, path_and_file = os.path.splitdrive(ILIST[im])
             path, file = os.path.split(path_and_file)
