@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
-from pathlib import Path
 os.system('pip install colorama')
 import colorama
 
@@ -137,7 +136,74 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                   existence checker                                               '''
-      
+    def cloner(self, img_path):
+        ''' 
+            clone the originals and return tuple of org and marked path
+            cloner('/content/images/img_1.jpg',204) 
+        '''
+        ILIST = Globx(img_path, '*.*g')
+        for im in range(0, len(ILIST)):
+            drive, path_and_file = os.path.splitdrive(ILIST[im])
+            path, file = os.path.split(path_and_file)
+            fil_name, ext = file.split(.)
+            
+            ''' strip old numbers from filename '''
+            file_name.rstrip(string.digits)
+            
+            ''' compose the new paths '''
+            org_path = path + '/org/' + file_name + '_%4d.%s' %  im, ext
+            marked_path = path + '/marked/' + file_name + '_%4d.%s' %  im, ext
+            
+            ''' copy directly from inputfolder to org folder as working copy '''
+            copy_to_org_cmd = os.path.join( path, file ) + ' ' + org_path
+            os.system('cp ' + copy_cmd )
+            ''' 
+                Send img to the landmarker 
+                with marked folder as return path 
+            '''
+            if mode == 'landmarker':
+                ''' landmark processes for pix2pix dataset '''
+                self.landmarker(org_path , marked_path)
+            elif mode == 'symantic':
+                ''' other processes to make set '''
+            elif mode == 'colorizer':
+                ''' other processes to make set '''
+            elif mode == 'edged':
+                ''' other processes to make set '''
+            else:
+                print('No mode picked!...')
+                sys.exit(1)
+            ''' counter 1 up '''
+            ti += 1
+            '''   End of loop   '''
+    
+    def landmarker(self, input_path, output_path):
+        ''' 
+            landmark image the originals and return tuple of org and marked path
+            landmarker(self, input_path, output_path):
+            Example:
+            landmarker('/content/images/org/img_1.jpg','/content/images/marked/img_1.jpg') 
+        '''
+#         print(__doc__)
+        '''landmark the image'''
+        img = cv.imread(input_path)
+        if img is None:
+            print('Failed to load image file:', input_path)
+            sys.exit(1)
+        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        lsd = cv.line_descriptor_LSDDetector.createLSDDetector()
+        lines = lsd.detect(gray, 1, 1)
+        for kl in lines:
+            if kl.octave == 0:
+                # cv.line only accepts integer coordinate
+                pt1 = (int(kl.startPointX), int(kl.startPointY))
+                pt2 = (int(kl.endPointX), int(kl.endPointY))
+                cv.line(img, pt1, pt2, [255, 0, 0], 2)
+                
+        print(output_path)
+        cv.imwrite(output_path, img)
+        
+        
         
     def install_repos(self, repos, inst_dir, sub_repos=False, chadir=False):
         '''
