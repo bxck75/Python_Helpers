@@ -7,23 +7,26 @@ class main:
     def __init__(self):
         ''' set root paths '''
         self.root = '/content'
-        self.gdrive_root = '/content/drive/My Drive'
+        self.gdrive_root = self.root + '/drive/My Drive'
         self.helpers_root = self.root + '/installed_repos/Python_Helpers'
-
-        ''' import helpers '''
         os.chdir(self.helpers_root)
         
         ''' start helper core and system commands '''
         self.Helpers_Core=Helpers.Core() # new helper class
         self.HelpMe = Helpers.BigHelp.Helpers # build in system commands old  module helpers
         self.Sys_Exec = self.Helpers_Core.Sys_Exec # execute system command
-
-        ''' Better chdir '''
-        self.c_d = self.Helpers_Core.cd
-        self.c_d(self.root)
         
-        ''' scraper install '''
-        self.c_d(self.root)
+        # Python program to Remove all  
+        # digits from a list of string 
+        
+
+
+#         ''' Better chdir '''
+#         self.c_d = self.Helpers_Core.cd
+#         self.c_d(self.root)
+        
+#         ''' scraper install '''
+#         self.c_d(self.root)
         
 #         ''' In_helpers/helpers/ map ''' 
 #         inst_dir=self.helpers_root+'/Helpers'
