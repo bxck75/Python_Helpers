@@ -15,6 +15,8 @@ from . import ColorPrint
 from . import gscrape
 from . import ops
 from . import Fileview
+from . import Img
+
 
 class Core:
     '''
@@ -62,8 +64,9 @@ class Core:
         self.GooScrape =    gscrape
         self.Resize =       resize 
         self.Logger =       logger
+        self.ImgTools =     Img.Tools
         
-        self.flickr_scrape(query= ['Rick And Mortey'],qty=5,dest='/content/images')
+#         self.flickr_scrape(query= ['Rick And Mortey'],qty=5,dest='/content/images')
         
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
