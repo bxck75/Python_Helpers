@@ -476,7 +476,7 @@ class Core:
         if show == False:
             return dir
         else:       
-            return rec_walk_folder(dir)
+            return self.rec_walk_folder(dir)
 
         
     def cdr(self,ls=False, root='/content'):
