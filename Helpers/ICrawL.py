@@ -1,7 +1,7 @@
 from icrawler.builtin import BaiduImageCrawler, BingImageCrawler, GoogleImageCrawler
 
 def ICL(key='face', qty=100, out_dir='/content/images'):
-    '''IcrawL(key, out_dir='/content/images')'''  
+    '''ICL(key='face', qty=100, out_dir='/content/images')'''  
     google_crawler = GoogleImageCrawler(
         feeder_threads=1,
         parser_threads=1,
