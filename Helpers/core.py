@@ -99,8 +99,8 @@ class Core:
         print(r)
         ''' cv2 and distro install '''
         cv_repos = [
-            'bxck75/opencv_contrib',
-            'bxck75/opencv',
+#             'bxck75/opencv_contrib',
+#             'bxck75/opencv',
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
@@ -126,7 +126,7 @@ class Core:
         ''' pix2pix repos '''
         pix2pix_rps=[
                 'bxck75/piss-ant-pix2pix',
-                'bxck75/dosage',
+#                 'bxck75/dosage',
         ]
         r=self.install_repos(pix2pix_rps, inst_dir,False,True)
         print(r)
