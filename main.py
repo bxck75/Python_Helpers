@@ -2,7 +2,7 @@ import os, sys, inspect
 from pathlib import Path
 import Helpers
 
-!pip install icrawler
+os.system('pip install icrawler')
 
 class main:
     ''' This and the core.py file are the main frontier of development '''
