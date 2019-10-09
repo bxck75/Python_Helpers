@@ -15,7 +15,7 @@ from . import gscrape
 from . import ops
 from . import Fileview
 from . import Img
-
+from . import ICrawL
 
 class Core:
     '''
@@ -62,7 +62,7 @@ class Core:
         self.Resize =       resize 
         self.Logger =       logger
         self.ImgTools =     Img.Tools
-        
+        self.ICrawL =       ICrawL
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
         ''' flickr scraper '''
