@@ -1,4 +1,4 @@
-class tools:
+class Tools:
   ''' Tools for images and video '''
   
   def help(self,input,output):
