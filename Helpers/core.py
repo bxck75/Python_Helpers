@@ -135,8 +135,32 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                   existence checker                                               '''
-    
-    
+    def haar_detect(self,img):
+        ''' detect faces
+        import matplotlib.pyplot as plt
+        import sys
+        cascade_fn = "/content/installed_repos/Python_Helpers/Helpers/haarcascade_frontalface_alt.xml"
+        nested_fn  = "/content/installed_repos/Python_Helpers/Helpers/haarcascade_eye.xml"
+        cascade = cv.CascadeClassifier(cv.samples.findFile(cascade_fn))
+        nested = cv.CascadeClassifier(cv.samples.findFile(nested_fn))
+        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        gray = cv.equalizeHist(gray)
+        t = clock()
+        rects = detect(gray, cascade)
+        vis = img.copy()
+        draw_rects(vis, rects, (0, 255, 0))
+        if not nested.empty():
+            for x1, y1, x2, y2 in rects:
+                roi = gray[y1:y2, x1:x2]
+                vis_roi = vis[y1:y2, x1:x2]
+                subrects = detect(roi.copy(), nested)
+                draw_rects(vis_roi, subrects, (255, 0, 0))
+        dt = clock() - t
+        draw_str(vis, (20, 20), 'time: %.1f ms' % (dt*1000))
+        plt.imshow('facedetect', vis)
+        plt.show
+        
+        
     def DelDig(list): 
         '''
             # Driver code  
@@ -156,13 +180,14 @@ class Core:
             cloner('/content/images/img_1.jpg',204) 
         '''
         ILIST = self.GlobX(img_path, '*.*g')
+        
         for im in range(0, len(ILIST)):
             drive, path_and_file = os.path.splitdrive(ILIST[im])
             path, file = os.path.split(path_and_file)
             file_name, ext = file.split('.')
             
             ''' strip old numbers from filename '''
-            file_name.rstrip(file_name.digits)
+            print(self.DelDig(ILIST))
             
             ''' compose the new paths '''
             org_path = path + '/org/' + file_name + '_%4d.%s' %  im, ext
