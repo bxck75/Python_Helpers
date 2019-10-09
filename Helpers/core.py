@@ -43,9 +43,8 @@ class Core:
         
         self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))    # local root
         self.Colab_root = '/content'
-        self.helpers_root = self.Colab_root + '/installed_repos/Python_Helpers/Helpers' 
-        # absolute root
-        self.root = self.Colab_root
+        self.helpers_root = self.Colab_root + '/installed_repos/Python_Helpers/Helpers'
+        self.root = self.Colab_root                                                         # absolute root
         self.git_install_root = self.Colab_root + '/installed_repos'                        # git install root
         self.Gdrive_root= self.Colab_root+ '/drive/My Drive'                                # google drive root
 
