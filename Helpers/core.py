@@ -16,6 +16,7 @@ from . import ops
 from . import Fileview
 from . import Img
 from . import ICrawL
+from . import resize
 
 class Core:
     '''
@@ -201,8 +202,6 @@ class Core:
         recognizer.save('/content/recognizer/trainingData.yml')
         cv2.imwrite(out_img,vis)
         cv2.destroyAllWindows()
-        
-        
         
     def Temp(self, img ):
         import cv2
