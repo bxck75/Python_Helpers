@@ -169,6 +169,38 @@ class Core:
         cv.imwrite(out_img,vis)
         plt.show
         
+        
+    import os
+    import cv2
+    import numpy as np 
+    from PIL import Image        
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    path = '/content/dataset'
+    if not os.path.exists('/content/recognizer'):
+        os.makedirs('/content/recognizer')
+        
+    def getImagesWithID(path):
+        ''' images with ids '''
+        imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
+        faces = []
+        IDs = []
+        for imagePath in imagePaths:
+            faceImg = Image.open(imagePath).convert('L')
+            faceNp = np.array(faceImg,'uint8')
+            ID = int(os.path.split(imagePath)[-1].split('.')[1])
+            faces.append(faceNp)
+            IDs.append(ID)
+#             cv2.imshow("training",faceNp)
+            cv2.waitKey(10)
+        return np.array(IDs), faces
+        Ids, faces = getImagesWithID(path)
+        recognizer.train(faces,Ids)
+        recognizer.save('/content/recognizer/trainingData.yml')
+        cv2.imwrite(out_img,vis)
+        cv2.destroyAllWindows()
+        
+        
+        
     def Temp(self, ):
         import cv2
         import numpy as np 
