@@ -135,7 +135,7 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                   existence checker                                               '''
-    def haar_detect(self,img):
+    def haar_detect(self, img):
         ''' detect faces
         import matplotlib.pyplot as plt
         import sys
@@ -161,7 +161,7 @@ class Core:
         plt.show
         
         
-    def DelDig(list): 
+    def DelDig(self, list): 
         '''
             # Driver code  
             # https://gist.githubusercontent.com/bxck75/dc0ef99833af8a2b2533c2d1634d24d0/raw/212feb5df1f89e1f2bce1e8b3c0c10015f875e93/DelDig.py
@@ -181,19 +181,15 @@ class Core:
             cloner('/content/images/img_1.jpg',204) 
         '''
         ILIST = self.GlobX(img_path, '*.*g')
-        
         for im in range(0, len(ILIST)):
             drive, path_and_file = os.path.splitdrive(ILIST[im])
             path, file = os.path.split(path_and_file)
             file_name, ext = file.split('.')
-            
             ''' strip old numbers from filename '''
             print(self.DelDig(ILIST))
-            
             ''' compose the new paths '''
             org_path = path + '/org/' + file_name + '_%4d.%s' %  im, ext
             marked_path = path + '/marked/' + file_name + '_%4d.%s' %  im, ext
-            
             ''' copy directly from inputfolder to org folder as working copy '''
             copy_to_org_cmd = os.path.join( path, file ) + ' ' + org_path
             os.system('cp ' + copy_cmd )
