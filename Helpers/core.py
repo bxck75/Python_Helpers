@@ -399,8 +399,8 @@ class Core:
                 search_list,img_dir,qty = ['portait','face'], 'images', 21
                 flickr_scrape(search_list,qty,img_dir)
         '''
-        print("Running queries:"+query+' qty:'+qty+' dest:'+dest)
-        if (query != '' and qty != '' and dest != '' ):
+        print("Running queries:"+query+' qty:'+str(qty)+' dest:'+dest)
+        if (query != '' and str(qty) != '' and dest != '' ):
             ''' Let the scapers scrape! '''
             os.system('sudo pip install gallery-dl')
             if isinstance(query, list):
