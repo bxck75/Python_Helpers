@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, sys, inspect
+import os, sys, inspect, cv2
 os.system('pip install colorama')
 import colorama
 
