@@ -237,6 +237,20 @@ class Core:
         conn.close()
         cv2.destroyAllWindows()   
         
+    
+    def path_split(full_path):
+        ''' split s path into a dict '''
+        ''' path_split(full_path) '''
+        r = {}
+        r['full_path'] = full_path
+        drive, path_and_file = os.path.splitdrive(full_path)
+        path, file = os.path.split(path_and_file)
+        file_name, ext = file.split('.')
+        r.update({'path': path.split('/')[1:],'file' : file_name, 'ext' : ext})
+        # del r['path'][0]
+        return r
+
+
     def DelDig(self, list): 
         '''
             # Driver code  
