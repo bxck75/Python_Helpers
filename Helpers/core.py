@@ -148,7 +148,7 @@ class Core:
             file_name, ext = file.split('.')
             
             ''' strip old numbers from filename '''
-            file_name.rstrip(string.digits)
+            file_name.rstrip(file_name.digits)
             
             ''' compose the new paths '''
             org_path = path + '/org/' + file_name + '_%4d.%s' %  im, ext
