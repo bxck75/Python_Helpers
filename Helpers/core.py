@@ -53,14 +53,11 @@ class Core:
          'ZipUp',
     '''
     def __init__(self):
-        
-        self.root_dirname, self.root_filename = os.path.split(os.path.abspath(__file__))    # local root
-        self.Colab_root = '/content'
-        self.helpers_root = self.Colab_root + '/installed_repos/Python_Helpers/Helpers'
-        self.root = self.Colab_root                                                         # absolute root
-        self.git_install_root = self.Colab_root + '/installed_repos'                        # git install root
-        self.Gdrive_root= self.Colab_root+ '/drive/My Drive'                                # google drive root
-
+        self.root               = '/'                                                       # Absolute root
+        self.colab_root         = self.root + 'content'                                     # Colab root        
+        self.git_install_root   = self.colab_root + '/installed_repos'                      # Git install root
+        self.gdrive_root        = self.colab_root+ '/drive/My Drive'                        # Google drive root
+        self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) root and filename
         
         # inject functionality into the object
         self.BigHelp =      BigHelp
