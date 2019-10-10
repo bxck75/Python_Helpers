@@ -215,7 +215,7 @@ class Core:
         target_list = fld1_img_paths + fld2_img_paths
         target_list.sort()
         target_list
-        os.makedirs(target_folder, exits_ok = True)
+        os.makedirs(target_folder, exist_ok = True)
         for i in range(len(target_list)-1):
             print(target_list[i])
             self.sys_com('cp ' + target_list[i] + ' ' +  target_folder + '/img_%4d.jpg' % i)
