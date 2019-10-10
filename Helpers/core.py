@@ -514,9 +514,9 @@ class Core:
 #         self.print_warn = ColorPrint.ColorPrint.print_warn
 #         self.print_info = ColorPrint.ColorPrint.print_info
 #         self.print_bold = ColorPrint.ColorPrint.print_bold
-    def rainbow(self):
-                
-
+    def rainbow(self)
+        ''' print a rainbow '''
+        self ColorPrint
     def GlobX(self, path_in, pattern_in):
         ''' Glob folders on pattern '''
         import os
