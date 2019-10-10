@@ -212,7 +212,7 @@ class Core:
         predictor = predictor_file[0].replace('zip','dat')
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(predictor)
-        plt.imshow(self.DFace.AlignDlib(predictor_file[0]).getAllFaceBoundingBoxes(img_in)))
+        plt.imshow(self.DFace.AlignDlib(predictor_file[0]).getAllFaceBoundingBoxes(img_in))
         plt.show
     
     def num_files( self, folder ): 
