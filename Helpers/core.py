@@ -210,6 +210,7 @@ class Core:
         
         ''' Detector predictor load'''
         import dlib
+        print(os.path.join(self.git_install_root, predictor_file[0]).replace('zip','dat'))
         predictor = os.path.join(self.git_install_root, predictor_file[0]).replace('zip','dat')
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(predictor)
