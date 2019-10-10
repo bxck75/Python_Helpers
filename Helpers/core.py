@@ -205,7 +205,7 @@ class Core:
     def Face(self, img_in):
         ''' Download and unzip the haar cascader '''
         predictor_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
-        HelpCore.GdriveD.GdriveD(predictor_file[1],predictor_file[0])
+        self.GdriveD.GdriveD(predictor_file[1],predictor_file[0])
         os.system('unzip /content/shape_predictor_194_face_landmarks.zip')
         
         ''' Detector predictor load'''
