@@ -205,9 +205,10 @@ class Core:
     def Face(self, img_in):
         ''' Download and unzip the haar cascader '''
         predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
-        predictor_file_68 = ['shape_predictor_68_face_landmarks.zip','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
+        predictor_file_68 = ['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
         self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
-        os.system('unzip ' + predictor_file_68[0] + ' -d ' + self.git_install_root)
+#         only it dat file is zipped
+#         os.system('unzip ' + predictor_file_194[0] + ' -d ' + self.git_install_root)
         
         ''' Detector predictor load'''
         import dlib
