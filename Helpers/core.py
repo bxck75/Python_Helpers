@@ -56,13 +56,14 @@ class Core:
          'ZipUp',
     '''
     def __init__(self):
+        ''' set root paths '''
         self.root               = '/'                                                       # Absolute root
         self.colab_root         = self.root + 'content'                                     # Colab root        
         self.git_install_root   = self.colab_root + '/installed_repos'                      # Git install root
         self.gdrive_root        = self.colab_root+ '/drive/My Drive'                        # Google drive root
         self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) root and filename
         
-        # inject functionality into the object
+        ''' Inject functionality into the object '''
         self.BigHelp =      BigHelp
         self.Ops =          ops
         self.Repo_List =    RepCoList
@@ -101,7 +102,7 @@ class Core:
         ''' Existence checker '''
         self.if_exists = os.path.exists
         
-        # cd root
+        ''' cd  to root '''
         self.c_d(self.root)
         print('classes shuffle done!')
         
@@ -113,6 +114,7 @@ class Core:
         ]
         r = self.install_repos(repos, inst_dir,False,True)
         print(r)
+        
         ''' cv2 and distro install '''
         cv_repos = [
 #             'bxck75/opencv_contrib',
@@ -150,7 +152,8 @@ class Core:
         
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
-    '''                                                                          '''
+    '''###################################################################################################'''
+        
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
         ''' 
             # Run core/custom pip installer
@@ -172,7 +175,7 @@ class Core:
             'colorama',
             'recognize_faces',
         ]
-        if merge == True;
+        if merge == True:
             ''' merge the core with the custom pip list'''
             self.merged_pip_list = self.custom_pip_list.update(self.core_pip_list)
             
