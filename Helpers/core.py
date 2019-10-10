@@ -21,6 +21,7 @@ from . import Fileview
 from . import Img
 from . import resize
 from . import ICL
+from . import FaceGrabber
 
 class Core:
     '''
@@ -75,6 +76,7 @@ class Core:
         self.Logger =       logger
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL
+        self.FaceGrabber =  FaceGrabber
         
        
         ''' Haar facial landmark detector '''
