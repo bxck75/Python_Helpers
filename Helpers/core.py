@@ -204,8 +204,9 @@ class Core:
 
         
     '''###################################################################################################'''   
-    '''                               sub methodes definitions bellow this line                                        '''
+    '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
+
     def combine_img_folders(self,fld1, fld2, target_folder, ptrn="*.*g"):
         ''' combine the images of 2 folders and rename them sequencial'''
 
@@ -263,18 +264,25 @@ class Core:
                     print('[Done!]')
             return "[Core pip list installed.]"
 
-    def get_file(self, file=self.system_log_file):
+    def get_file(self, file=None, adm=None):
         ''' 
         file to list method
-        defaults to system log file 
+        defaults to system.txt file 
             Example:
                 Get_File(file='log.txt')            
         '''
         file_list = []
+        # no system files without pwd
+        if (file.split('.')[1] in ['sh','py','ipynb'] and adm != 'adm'):
+            file = None
+        if file == None
+            file = self.system_log_file
+            
         with open(file,'r') as f:
             line = f.read()
             file_list.append(line)
         return file_list
+        
         
     def haar_detect(self, in_img, out_img):
         ''' detect faces'''
