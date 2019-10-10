@@ -116,7 +116,7 @@ class Core:
         self.colab_root         = self.root + 'content'                                     # Colab root        
         self.git_install_root   = self.colab_root + '/installed_repos'                      # Git install root
         self.gdrive_root        = self.colab_root+ '/drive/My Drive'                        # Google drive root
-        self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) root and filename
+        self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) dirname and filename
         
         ''' Inject functionality into the object '''
         print('[Running func injection]')
@@ -204,9 +204,21 @@ class Core:
 
         
     '''###################################################################################################'''   
-    '''                               Definitions bellow this line                                        '''
+    '''                               sub methodes definitions bellow this line                                        '''
     '''###################################################################################################'''
-        
+    def combine_img_folders(self,fld1, fld2, target_folder, ptrn="*.*g"):
+        ''' combine the images of 2 folders and rename them sequencial'''
+
+        fld1_img_paths = self.GlobX(fld1,ptrn)
+        fld2_img_paths = self.GlobX(fld2,ptrn)
+        target_list = fld1_img_paths + fld2_img_paths
+        target_list.sort()
+        target_list
+        os.makedirs(target_folder, exits_ok = True)
+        for i in range(len(target_list)-1):
+            print(target_list[i])
+            self.sys_com('cp ' + target_list[i] + ' ' +  target_folder + '/img_%4d.jpg' % i)
+            
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
         ''' 
             # Run core/custom pip installer
@@ -251,7 +263,7 @@ class Core:
                     print('[Done!]')
             return "[Core pip list installed.]"
 
-    def Get_File(self, file=self.system_log_file):
+    def get_file(self, file=self.system_log_file):
         ''' 
         file to list method
         defaults to system log file 
