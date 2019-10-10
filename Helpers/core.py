@@ -35,7 +35,6 @@ class Core:
         ###
         
     Functions:      
-         'Colab_root',
          'ColorPrint',
          'FileView',
          'FlickrS',
@@ -197,49 +196,6 @@ class Core:
                     print('[Done!]')
             return "[Core pip list installed.]"
         
-    def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
-        ''' 
-            # Run core/custom pip installer
-            # Define:
-                run_pip_installer(self,custom=False,custom_pip_list=None,merge=False) 
-            # Example:
-                # Install core list
-                self.run_installers()
-            # Example:
-                # Install custom list
-                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'])
-            # Example:
-                # Install merged custom/core list
-                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'], merge=True)
-        '''
-        self.custom_pip_list = custom_pip_list
-        
-        self.core_pip_list = [
-            'colorama',
-            'recognize_faces',
-        ]
-        if merge == True:
-            ''' merge the core with the custom pip list'''
-            self.merged_pip_list = self.custom_pip_list.update(self.core_pip_list)
-            
-        if custom == True:
-            ''' install custom list '''
-            if self.valid_list(self.custom_pip_list):
-                ''' installed custom pip list '''
-                for iter in range(len(self.custom_pip_list)-1):
-                    print('[Installing]--> '+ self.custom_pip_list[iter])
-                    os.system('pip install ' + self.custom_pip_list[iter])
-                    print('[Done!]')
-            return "[Custom list installed.]"
-
-        else:
-            ''' install core list '''
-            if self.valid_list(self.core_pip_list):
-                for iter in range(len(self.core_pip_list)-1):
-                    print('[Installing]--> '+ self.core_pip_list[iter])
-                    os.system('pip install ' + self.core_pip_list[iter])
-                    print('[Done!]')
-            return "[Core pip list installed.]"
 
         
     def haar_detect(self, in_img, out_img):
@@ -272,9 +228,10 @@ class Core:
         plt.imshow('facedetect', vis)
         cv.imwrite(out_img,vis)
         return out_img 
-        
-        
-        
+
+    
+    def getImagesWithID(path):
+        ''' images with ids '''
     import os
     import cv2
     import numpy as np 
@@ -283,9 +240,6 @@ class Core:
     path = '/content/images'
     if not os.path.exists('/content/recognizer'):
         os.makedirs('/content/recognizer')
-        
-    def getImagesWithID(path):
-        ''' images with ids '''
         imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
         faces = []
         IDs = []
@@ -295,7 +249,7 @@ class Core:
             ID = int(os.path.split(imagePath)[-1].split('.')[1])
             faces.append(faceNp)
             IDs.append(ID)
-#             cv2.imshow("training",faceNp)
+            # plt.imshow("training",faceNp)
             cv2.waitKey(10)
         return np.array(IDs), faces
         Ids, faces = getImagesWithID(path)
@@ -422,8 +376,7 @@ class Core:
                 # cv.line only accepts integer coordinate
                 pt1 = (int(kl.startPointX), int(kl.startPointY))
                 pt2 = (int(kl.endPointX), int(kl.endPointY))
-                cv2.line(img, pt1, pt2, [255, 0, 0], 2)
-                
+                cv2.line(img, pt1, pt2, [255, 0, 0], 2)           
         print(output_path)
         cv2.imwrite(output_path, img)
         
@@ -436,10 +389,6 @@ class Core:
             repos=['bxck75/piss_ant_pix2pix','bxck75/opencv']
             install_repos(repos, inst_dir)
         '''
-#         self.repo_list=repos      
-#         self.git_install_root=inst_dir
-#         self.sub_repos=sub_repos
-#         self.chadir=chdir
         self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
         for rep in repos:
@@ -523,23 +472,8 @@ class Core:
         print(str(i)+' images copied!')
         ''' Remove flickr folder when images are moved and renamed'''
         self.sys_com('rm -r '+str(dest)+'/flickr')
-        
-        
-#     def _flickr(self):
-#         '''
-#             Internal function for flickr_scrape
-#             _flickr(flickr_query, flickr_dest='/content/images', flickr_qty=10)
-#         '''
-#         os.system('sudo pip install gallery-dl')
-#         if isinstance(self.flickr_query, list):
-#             for s in self.flickr_query:
-#                 keyword=s.replace(' ', '+')
-#                 self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
-#         else: 
-#             keyword=str(self.flickr_query.replace(' ', '+'))
-#             self.sys_com('gallery-dl --range 1-'+str(self.flickr_qty)+' -d '+self.flickr_dest+' https://flickr.com/search/?text='+keyword)
 
-            
+        
     def if_exists(self, path):
         ''' check if path leads somewhere '''
         func_name=inspect.stack()[0][3]
@@ -572,7 +506,7 @@ class Core:
             log_msg = "Empty command string. did you first set the CMD arg?"
             self.sys_log(str([ self.insp(), ' <~[LOGGED]~> ', log_msg ]))
         '''
-        self.system_log_file = self.Colab_root + '/' + log_name + '.txt'
+        self.system_log_file = self.colab_root + '/' + log_name + '.txt'
         if self.if_exists(self.system_log_file):
             fh = open(self.system_log_file, 'a+' )
             fh.write(str(msg)+'\n')
