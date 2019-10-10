@@ -22,6 +22,10 @@ from . import resize
 from . import ICL
 from . import FaceGrabber
 
+
+        
+
+        
 class Core:
     '''
     Examples:
@@ -74,6 +78,8 @@ class Core:
         self.ICrawL =       ICL.ICL
         self.FaceGrabber =  FaceGrabber
         
+        ''' run pip, apt installers '''
+        self.run_pip_installer()
        
         ''' Haar facial landmark detector '''
         self.HaarDetect = self.haar_detect
@@ -146,8 +152,39 @@ class Core:
     '''                               Definitions bellow this line                                        '''
     '''                                                                          '''
     
-    
-    
+    def run_pip_installer(self,custom=False,custom_pip_list=None):
+        ''' 
+        Run core or custom pip installer
+            Example:
+                self.run_installers(custom=False,custom_list=None)
+                
+            Example:
+                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'])
+        '''
+        self.custom_pip_list = custom_pip_list
+        
+        self.core_pip_list = [
+            'colorama',
+            'recognize_faces',
+        ]
+        
+        if custom == True:
+            if self.valid_list(self.custom_pip_list):
+                ''' installed custom pip list '''
+                for iter in range(len(self.custom_pip_list)-1):
+                    print('[Installing]--> '+ self.custom_pip_list[iter])
+                    os.system('pip install ' + self.custom_pip_list[iter])
+                    print('[Done!]')
+                return "[Custom list install.]"
+        else:
+            ''' install core list '''            
+            for iter in range(len(self.core_pip_list)-1):
+                print('[Installing]--> '+ self.core_pip_list[iter])
+                os.system('pip install ' + self.core_pip_list[iter])
+                print('[Done!]')
+            return "[Core pip list install.]"
+
+        
     def haar_detect(self, in_img, out_img):
         ''' detect faces'''
         '''
