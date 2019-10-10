@@ -75,7 +75,7 @@ class Core:
         self.Resize =       resize 
         self.Logger =       logger
         self.ImgTools =     Img.Tools
-        self.ICrawL =       ICL
+        self.ICrawL =       ICL.ICL
         self.FaceGrabber =  FaceGrabber
         
        
