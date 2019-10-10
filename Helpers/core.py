@@ -21,6 +21,8 @@ from . import resize
 from . import ICL
 from . import FaceGrabber
 from . import pprint_color
+from . import Dlib_Face
+
 class Core:
     '''
     Examples:
@@ -127,7 +129,7 @@ class Core:
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
         self.FaceGrabber =  FaceGrabber
-        
+        self.DFace =        Dlib_Face
         
         ''' run pip, apt installers '''
         print('[Running pip installer]')
