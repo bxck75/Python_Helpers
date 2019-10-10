@@ -202,6 +202,19 @@ class Core:
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
+    def Face(self, img_in):
+        ''' Download and unzip the haar cascader '''
+        predictor_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
+        HelpCore.GdriveD.GdriveD(predictor_file[1],predictor_file[0])
+        os.system('unzip /content/shape_predictor_194_face_landmarks.zip')
+        
+        ''' Detector predictor load'''
+        predictor = predictor_file[0].replace('zip','dat')
+        detector = dlib.get_frontal_face_detector()
+        predictor = dlib.shape_predictor(predictor)
+        plt.imshow(self.DFace.AlignDlib(predictor_file[0]).getAllFaceBoundingBoxes(img_in)))
+        plt.show
+    
     def num_files( self, folder ): 
         return len(self.GlobX(folder,'*'))
         
