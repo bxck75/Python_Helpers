@@ -6,6 +6,8 @@ import cv2
 import matplotlib.pyplot as plt
 
 
+
+
 from . import ZipUp
 from . import BigHelp
 from . import RepCoList
@@ -34,25 +36,78 @@ class Core:
         HelpCore.GdriveD.GdriveD(lm_file[1],lm_file[0])
         ###
         
-    Functions:      
+    Main Functions:      
+         ['BigHelp',
          'ColorPrint',
+         'DelDig',
+         'FaceGrabber',
          'FileView',
          'FlickrS',
          'GdriveD',
-         'Gdrive_root',
          'GlobX',
          'GooScrape',
+         'HaarDetect',
+         'ICrawL',
          'ImgCrawler',
          'ImgTools',
-         'LogGER',
          'Logger',
          'MethHelp',
          'Ops',
          'Repo_List',
          'Resize',
+         'ShowImg',
          'Sys_Cmd',
          'Sys_Exec',
-         'ZipUp',
+         'Temp',
+         'ZipUp']
+         
+    Sub functions:
+         ['c_d',
+         'cd',
+         'cdr',
+         'check_img_list',
+         'cleanup_files',
+         'cloner',
+         'colab_root',
+         'core_dirname',
+         'core_filename',
+         'core_pip_list',
+         'cprint',
+         'custom_pip_list',
+         'custom_reps_setup',
+         'docu',
+         'explore_mod',
+         'flickr_scrape',
+         'gdrive_root',
+         'getImagesWithID',
+         'get_gdrive_dataset',
+         'get_other_reps',
+         'git_install_root',
+         'haar_detect',
+         'if_exists',
+         'img_batch_rename',
+         'importTboard',
+         'install_repos',
+         'into_func',
+         'landmarkdetect',
+         'landmarkdetecter',
+         'landmarker',
+         'list_to_file',
+         'no_action',
+         'path',
+         'path_split',
+         'rec_walk_folder',
+         'rep',
+         'root',
+         'runProcess',
+         'run_pip_installer',
+         'set_maker',
+         'sorted_repos',
+         'sys_com',
+         'sys_log',
+         'system_log_file',
+         'valid_img',
+         'valid_list']
     '''
     def __init__(self):
         ''' set root paths '''
@@ -195,13 +250,26 @@ class Core:
                     os.system('pip install ' + self.core_pip_list[iter])
                     print('[Done!]')
             return "[Core pip list installed.]"
-        
 
+    def Get_File(self, file=self.system_log_file):
+        ''' 
+        file to list method
+        defaults to system log file 
+            Example:
+                Get_File(file='log.txt')            
+        '''
+        file_list = []
+        with open(file,'r') as f:
+            line = f.read()
+            file_list.append(line)
+        return file_list
         
     def haar_detect(self, in_img, out_img):
         ''' detect faces'''
         '''
-            haar_detect( img_in, img_out)
+            Detect faces and landmarks
+                Example:
+                    haar_detect( img_in, img_out)
         '''
         import cv2 as cv
         import matplotlib.pyplot as plt
