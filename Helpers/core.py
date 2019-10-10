@@ -139,7 +139,7 @@ class Core:
         
         ''' PyDrive install '''
         print('[Installing PyDrive]')
-        sr = self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
+        sr = self.Sys_Exec('python ' + self.git_install_root + '/PyDrive/setup.py install')
         import pydrive
         ''' google shared wrapper '''
         print('[Installing google wrapper]')
