@@ -206,7 +206,9 @@ class Core:
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
-
+    def num_files( self, folder ): 
+        return len(self.GlobX(folder,'*'))
+        
     def combine_img_folders(self,fld1, fld2, target_folder, ptrn="*.*g"):
         ''' combine the images of 2 folders and rename them sequencial'''
 
