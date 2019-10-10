@@ -204,19 +204,22 @@ class Core:
     '''###################################################################################################'''
     def Face(self, img_in):
         ''' Download and unzip the haar cascader '''
-        predictor_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
-        self.GdriveD.GdriveD(predictor_file[1],predictor_file[0])
-        os.system('unzip ' + os.path.join(self.git_install_root, 'shape_predictor_194_face_landmarks.zip') + ' -d ' + self.git_install_root)
+        predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
+        predictor_file_68 = ['shape_predictor_68_face_landmarks.zip','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
+        self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
+        os.system('unzip ' + os.path.join(self.git_install_root, predictor_file_68[0]) + ' -d ' + self.git_install_root)
         
         ''' Detector predictor load'''
         import dlib
-        print(os.path.join(self.git_install_root, predictor_file[0]).replace('zip','dat'))
-        predictor = os.path.join(self.git_install_root, predictor_file[0]).replace('zip','dat')
+        print(os.path.join(self.git_install_root, predictor_file_68[0]).replace('zip','dat'))
+        predictor = os.path.join(self.git_install_root, predictor_file_68[0]).replace('zip','dat')
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(predictor)
-        self.FaceAligner = self.DFace.AlignDlib(os.path.join(self.git_install_root , predictor_file[0]))
-        plt.imshow(self.FaceAligner.getAllFaceBoundingBoxes(img_in))
-        plt.show
+        self.FaceAligner = self.DFace.AlignDlib(os.path.join(self.git_install_root , predictor_file_68[0]))
+        R = self.FaceAligner.getAllFaceBoundingBoxes(img_in)
+        print(R)
+#         plt.imshow()
+#         plt.show
     
     def num_files( self, folder ): 
         return len(self.GlobX(folder,'*'))
