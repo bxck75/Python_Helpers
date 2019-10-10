@@ -229,7 +229,7 @@ class Core:
         os.makedirs(target_folder, exist_ok = True)
         for i in range(len(target_list)-1):
             print(target_list[i])
-            targets_new_name = target_folder + '/' + ('img_%04d.jpg' % i)
+            target_new_name = target_folder + '/' + ('img_%04d.jpg' % i)
             print(target_new_name)
             self.sys_com('cp ' + target_list[i] + ' ' +  target_new_name )
         return len(target_list)
