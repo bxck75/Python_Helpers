@@ -113,7 +113,7 @@ class Core:
         
         ''' In_helpers/helpers/ map '''
         print('[Installing repos]')
-        inst_dir=self.helpers_root
+        inst_dir=self.core_dirname
         
         ''' cv2 and distro install '''
         cv_repos = [
