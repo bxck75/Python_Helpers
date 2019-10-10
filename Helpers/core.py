@@ -59,6 +59,9 @@ class Core:
         self.gdrive_root        = self.colab_root+ '/drive/My Drive'                        # Google drive root
         self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) root and filename
         
+        # run pip, apt installers
+        self.run_installers()
+        
         # inject functionality into the object
         self.BigHelp =      BigHelp
         self.Ops =          ops
