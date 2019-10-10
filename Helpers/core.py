@@ -209,6 +209,7 @@ class Core:
         os.system('unzip /content/shape_predictor_194_face_landmarks.zip')
         
         ''' Detector predictor load'''
+        import dlib
         predictor = predictor_file[0].replace('zip','dat')
         detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor(predictor)
