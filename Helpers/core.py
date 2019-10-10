@@ -57,6 +57,7 @@ class Core:
     '''
     def __init__(self):
         ''' set root paths '''
+        print('[Setting paths]')
         self.root               = '/'                                                       # Absolute root
         self.colab_root         = self.root + 'content'                                     # Colab root        
         self.git_install_root   = self.colab_root + '/installed_repos'                      # Git install root
@@ -64,6 +65,7 @@ class Core:
         self.core_dirname, self.core_filename = os.path.split(os.path.abspath(__file__))    # Core(self) root and filename
         
         ''' Inject functionality into the object '''
+        print('[Running func injection]')
         self.BigHelp =      BigHelp
         self.Ops =          ops
         self.Repo_List =    RepCoList
@@ -80,9 +82,12 @@ class Core:
         self.FaceGrabber =  FaceGrabber
         
         ''' run pip, apt installers '''
+        print('[Running pip installer]')
         self.run_pip_installer()
-       
-        ''' Haar facial landmark detector '''
+        
+        ''' Setting some shortcuts '''
+        print('[Shuffle Shit...]')
+        ''' Facial landmark detector '''
         self.HaarDetect = self.haar_detect
         ''' Init a few modules '''
         self.ImgCrawler.GoogleImageCrawler()
@@ -103,51 +108,45 @@ class Core:
         self.if_exists = os.path.exists
         
         ''' cd  to root '''
+        print('[Changing dir to root]')
         self.c_d(self.root)
-        print('classes shuffle done!')
         
-        ''' In_helpers/helpers/ map ''' 
-        inst_dir=self.helpers_root+'/Helpers'
-        repos=[
-            'bxck75/piss_ant_pix2pix',
-            'bxck75/A1Colabs',
-        ]
-        r = self.install_repos(repos, inst_dir,False,True)
-        print(r)
+        ''' In_helpers/helpers/ map '''
+        print('[Installing repos]')
+        inst_dir=self.helpers_root
         
         ''' cv2 and distro install '''
         cv_repos = [
 #             'bxck75/opencv_contrib',
-#             'bxck75/opencv',
+#             'bxck75/opencv', # long install
             'bxck75/face2face-demo',
             'bxck75/face-recognition',
         ]
-        r =self.install_repos(cv_repos, inst_dir, False, True) 
-        print(r)
+        self.install_repos(cv_repos, inst_dir, False, True) 
 
         ''' needed googledrive repos '''
         gdrive_rps=[
             'bxck75/google-drive-list-shared', 
             'bxck75/PyDrive'
         ]
-        r = self.install_repos(gdrive_rps, inst_dir, False, True)
-        print(r)
+        self.install_repos(gdrive_rps, inst_dir, False, True)
     
-        ''' PyDrive install '''
-        sr = self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
-        import pydrive
-        
-        ''' google shared wrapper '''
-        sr += self.Sys_Exec('cp ' + self.helpers_root + '/Helpers/google-drive-list-shared/google-drive-list-shared.py ' + self.helpers_root + '/Helpers/gdrive_shared.py')
-        sr += self.Sys_Exec('rm -r ' + self.helpers_root + '/Helpers/google-drive-list-shared')
-
         ''' pix2pix repos '''
         pix2pix_rps=[
                 'bxck75/piss-ant-pix2pix',
-#                 'bxck75/dosage',
         ]
-        r=self.install_repos(pix2pix_rps, inst_dir,False,True)
-        print(r)
+        self.install_repos(pix2pix_rps, inst_dir,False,True)
+        print('[Installing repos Done]')
+        
+        ''' PyDrive install '''
+        print('[Installing PyDrive]')
+        sr = self.Sys_Exec('python /content/installed_repos/Python_Helpers/Helpers/PyDrive/setup.py install')
+        import pydrive
+        ''' google shared wrapper '''
+        print('[Installing google wrapper]')
+        sr += self.Sys_Exec('cp ' + self.core_dirname + '/google-drive-list-shared/google-drive-list-shared.py ' + self.helpers_root + '/Helpers/gdrive_shared.py')
+        sr += self.Sys_Exec('rm -r ' + self.core_dirname + '/google-drive-list-shared')
+        print(sr)
 
         
     '''###################################################################################################'''   
