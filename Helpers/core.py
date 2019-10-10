@@ -230,29 +230,31 @@ class Core:
         return out_img 
 
     
-    def getImagesWithID(path):
+    def getImagesWithID(img_folder):
         ''' images with ids '''
-    import os
-    import cv2
-    import numpy as np 
-    from PIL import Image        
-    recognizer = cv2.face.LBPHFaceRecognizer_create()
-    path = '/content/images'
-    if not os.path.exists('/content/recognizer'):
-        os.makedirs('/content/recognizer')
-        imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
-        faces = []
-        IDs = []
-        for imagePath in imagePaths:
-            faceImg = Image.open(imagePath).convert('L')
-            faceNp = np.array(faceImg,'uint8')
-            ID = int(os.path.split(imagePath)[-1].split('.')[1])
-            faces.append(faceNp)
-            IDs.append(ID)
-            # plt.imshow("training",faceNp)
-            cv2.waitKey(10)
-        return np.array(IDs), faces
-        Ids, faces = getImagesWithID(path)
+        import os
+        import cv2
+        import numpy as np 
+        from PIL import Image
+        
+        def run_recognizer(path)
+            recognizer = cv2.face.LBPHFaceRecognizer_create()
+            if not os.path.exists('/content/recognizer'):
+                os.makedirs('/content/recognizer')
+            imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
+            faces = []
+            IDs = []
+
+            for imagePath in imagePaths:
+                faceImg = Image.open(imagePath).convert('L')
+                faceNp = np.array(faceImg,'uint8')
+                ID = int(os.path.split(imagePath)[-1].split('.')[1])
+                faces.append(faceNp)
+                IDs.append(ID)
+                # plt.imshow("training",faceNp)
+                cv2.waitKey(10)
+            return np.array(IDs), faces     
+        Ids, faces = run_recognizer(img_folder)
         recognizer.train(faces,Ids)
         recognizer.save('/content/recognizer/trainingData.yml')
         cv2.imwrite(out_img,vis)
