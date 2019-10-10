@@ -20,7 +20,7 @@ from . import Img
 from . import resize
 from . import ICL
 from . import FaceGrabber
-
+from . import pprint_color
 class Core:
     '''
     Examples:
@@ -116,7 +116,7 @@ class Core:
         self.BigHelp =      BigHelp
         self.Ops =          ops
         self.Repo_List =    RepCoList
-        self.ColorPrint =   ColorPrint
+        self.ColorPrint =   pprint_color.pprint_color
         self.GdriveD =      GdriveD
         self.FileView =     Fileview
         self.ZipUp =        ZipUp
@@ -127,6 +127,7 @@ class Core:
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
         self.FaceGrabber =  FaceGrabber
+        
         
         ''' run pip, apt installers '''
         print('[Running pip installer]')
