@@ -74,7 +74,7 @@ class Core:
         self.Resize =       resize 
         self.Logger =       logger
         self.ImgTools =     Img.Tools
-        self.ICrawL =       ICrawL
+        self.ICrawL =       ICL
         
        
         ''' Haar facial landmark detector '''
