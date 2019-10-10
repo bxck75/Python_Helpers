@@ -237,7 +237,7 @@ class Core:
         import numpy as np 
         from PIL import Image
         
-        def run_recognizer(path)
+        def run_recognizer(path):
             recognizer = cv2.face.LBPHFaceRecognizer_create()
             if not os.path.exists('/content/recognizer'):
                 os.makedirs('/content/recognizer')
