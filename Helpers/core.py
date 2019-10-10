@@ -21,6 +21,7 @@ from . import Fileview
 from . import Img
 from . import ICrawL
 from . import resize
+from . import ICL
 
 class Core:
     '''
