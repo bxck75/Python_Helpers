@@ -218,7 +218,7 @@ class Core:
             'colorama',
             'recognize_faces',
         ]
-        if merge == True;
+        if merge == True:
             ''' merge the core with the custom pip list'''
             self.merged_pip_list = self.custom_pip_list.update(self.core_pip_list)
             
