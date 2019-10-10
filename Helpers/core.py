@@ -143,8 +143,8 @@ class Core:
         import pydrive
         ''' google shared wrapper '''
         print('[Installing google wrapper]')
-        sr += self.Sys_Exec('cp ' + self.core_dirname + '/google-drive-list-shared/google-drive-list-shared.py ' +  self.core_dirname + '/gdrive_shared.py')
-        sr += self.Sys_Exec('rm -r ' + self.core_dirname + '/google-drive-list-shared')
+        sr += self.Sys_Exec('cp ' + self.git_install_root + '/google-drive-list-shared/google-drive-list-shared.py ' +  self.core_dirname + '/gdrive_shared.py')
+        sr += self.Sys_Exec('rm -r ' + self.git_install_root + '/google-drive-list-shared')
         print(sr)
 
         
