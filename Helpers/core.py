@@ -151,15 +151,20 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                                                          '''
-    
-    def run_pip_installer(self,custom=False,custom_pip_list=None):
+    def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
         ''' 
-        Run core or custom pip installer
-            Example:
-                self.run_installers(custom=False,custom_list=None)
-                
-            Example:
+            # Run core/custom pip installer
+            # Define:
+                run_pip_installer(self,custom=False,custom_pip_list=None,merge=False) 
+            # Example:
+                # Install core list
+                self.run_installers()
+            # Example:
+                # Install custom list
                 self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'])
+            # Example:
+                # Install merged custom/core list
+                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'], merge=True)
         '''
         self.custom_pip_list = custom_pip_list
         
@@ -167,22 +172,72 @@ class Core:
             'colorama',
             'recognize_faces',
         ]
-        
+        if merge == True;
+            ''' merge the core with the custom pip list'''
+            self.merged_pip_list = self.custom_pip_list.update(self.core_pip_list)
+            
         if custom == True:
+            ''' install custom list '''
             if self.valid_list(self.custom_pip_list):
                 ''' installed custom pip list '''
                 for iter in range(len(self.custom_pip_list)-1):
                     print('[Installing]--> '+ self.custom_pip_list[iter])
                     os.system('pip install ' + self.custom_pip_list[iter])
                     print('[Done!]')
-                return "[Custom list install.]"
+            return "[Custom list installed.]"
+
         else:
-            ''' install core list '''            
-            for iter in range(len(self.core_pip_list)-1):
-                print('[Installing]--> '+ self.core_pip_list[iter])
-                os.system('pip install ' + self.core_pip_list[iter])
-                print('[Done!]')
-            return "[Core pip list install.]"
+            ''' install core list '''
+            if self.valid_list(self.core_pip_list):
+                for iter in range(len(self.core_pip_list)-1):
+                    print('[Installing]--> '+ self.core_pip_list[iter])
+                    os.system('pip install ' + self.core_pip_list[iter])
+                    print('[Done!]')
+            return "[Core pip list installed.]"
+        
+    def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
+        ''' 
+            # Run core/custom pip installer
+            # Define:
+                run_pip_installer(self,custom=False,custom_pip_list=None,merge=False) 
+            # Example:
+                # Install core list
+                self.run_installers()
+            # Example:
+                # Install custom list
+                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'])
+            # Example:
+                # Install merged custom/core list
+                self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'], merge=True)
+        '''
+        self.custom_pip_list = custom_pip_list
+        
+        self.core_pip_list = [
+            'colorama',
+            'recognize_faces',
+        ]
+        if merge == True;
+            ''' merge the core with the custom pip list'''
+            self.merged_pip_list = self.custom_pip_list.update(self.core_pip_list)
+            
+        if custom == True:
+            ''' install custom list '''
+            if self.valid_list(self.custom_pip_list):
+                ''' installed custom pip list '''
+                for iter in range(len(self.custom_pip_list)-1):
+                    print('[Installing]--> '+ self.custom_pip_list[iter])
+                    os.system('pip install ' + self.custom_pip_list[iter])
+                    print('[Done!]')
+            return "[Custom list installed.]"
+
+        else:
+            ''' install core list '''
+            if self.valid_list(self.core_pip_list):
+                for iter in range(len(self.core_pip_list)-1):
+                    print('[Installing]--> '+ self.core_pip_list[iter])
+                    os.system('pip install ' + self.core_pip_list[iter])
+                    print('[Done!]')
+            return "[Core pip list installed.]"
 
         
     def haar_detect(self, in_img, out_img):
