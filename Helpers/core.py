@@ -275,7 +275,7 @@ class Core:
         # no system files without pwd
         if (file.split('.')[1] in ['sh','py','ipynb'] and adm != 'adm'):
             file = None
-        if file == None
+        if file == None:
             file = self.system_log_file
             
         with open(file,'r') as f:
