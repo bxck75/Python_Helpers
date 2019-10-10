@@ -5,9 +5,6 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-
-
-
 from . import ZipUp
 from . import BigHelp
 from . import RepCoList
@@ -24,10 +21,6 @@ from . import resize
 from . import ICL
 from . import FaceGrabber
 
-
-        
-
-        
 class Core:
     '''
     Examples:
@@ -216,13 +209,14 @@ class Core:
         fld2_img_paths = self.GlobX(fld2,ptrn)
         target_list = fld1_img_paths + fld2_img_paths
         target_list.sort()
-        target_list
+        
         os.makedirs(target_folder, exist_ok = True)
         for i in range(len(target_list)-1):
             print(target_list[i])
-            target = target_folder + '/' + ('img_%04d.jpg' % i)
+            targets_new_name = target_folder + '/' + ('img_%04d.jpg' % i)
             print(target)
-            self.sys_com('cp ' + target_list[i] + ' ' +  target )
+            self.sys_com('cp ' + target_list[i] + ' ' +  target_new_name )
+        return len(target_list)
             
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
         ''' 
@@ -519,7 +513,8 @@ class Core:
 #         self.print_warn = ColorPrint.ColorPrint.print_warn
 #         self.print_info = ColorPrint.ColorPrint.print_info
 #         self.print_bold = ColorPrint.ColorPrint.print_bold
-
+    def rainbow(self):
+                
 
     def GlobX(self, path_in, pattern_in):
         ''' Glob folders on pattern '''
