@@ -218,7 +218,9 @@ class Core:
         os.makedirs(target_folder, exist_ok = True)
         for i in range(len(target_list)-1):
             print(target_list[i])
-            self.sys_com('cp ' + target_list[i] + ' ' +  target_folder + '/img_%4d.jpg' % i)
+            target = target_folder + '/img_%4d.jpg' % i
+            print(target)
+            self.sys_com('cp ' + target_list[i] + ' ' +  target )
             
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
         ''' 
