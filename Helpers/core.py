@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os, sys, inspect
-os.system('pip install colorama')
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -96,6 +96,9 @@ class Core:
         ''' Existence checker '''
         self.if_exists = os.path.exists
         
+        # run pip, apt installers
+        self.run_installers()
+        
         # cd root
         self.c_d(self.root)
         print('classes shuffle done!')
@@ -146,7 +149,34 @@ class Core:
     '''###################################################################################################'''   
     '''                               Definitions bellow this line                                        '''
     '''                                                                          '''
-    
+    def run_installers(self,custom=False,custom_list=None):
+        ''' 
+        Install core or custom pip packages from list 
+            Example:
+                # core list install
+                run_installers(custom=False, custom_list=None)
+                # custom list install
+                run_installers(custom=True, custom_list=['colorama', 'gallery-dl'])
+        '''
+        self.pip_list = [
+                    'colorama',
+                    'pywildcard',
+                    'face_recognition',
+                    'gallery-dl',
+        ]
+        if custom == True:
+            if self.valid_list(custom_list):
+                for iter in range(len(self.custom_list)-1):
+                    print('[Installing]--> '+ self.custom_list[iter])
+                    os.system('pip install ' + self.custom_list[iter])
+                    print('[Done!]')
+                    return "Custom pip list installed."
+        else:            
+            for iter in range(len(self.pip_list)-1):
+                print('[Installing]--> '+ self.pip_list[iter])
+                os.system('pip install ' + self.pip_list[iter])
+                print('[Done!]')
+                return "Custom pip list installed."
     
     
     def haar_detect(self, in_img, out_img):
@@ -334,8 +364,7 @@ class Core:
         print(output_path)
         cv2.imwrite(output_path, img)
         
-        
-        
+
     def install_repos(self, repos, inst_dir, sub_repos=False, chadir=False):
         '''
         Example:
@@ -838,7 +867,7 @@ class Core:
     # HELPER FUNCTIONS
     # facial landmarks
     def landmarkdetecter(self,img):
-        self.Me(['pip',['face_recognition']])
+        self.Me(['pip',['face_recognition','gallery-dl']])
         from PIL import Image
         import face_recognition
 
