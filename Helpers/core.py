@@ -296,8 +296,8 @@ class Core:
     def num_files( self, folder ): 
         return len(self.GlobX(folder,'*'))
 
-    def combine_img_folders(self,fld1, fld2, target_folder):
-        ''' combine the images of 2 folders and rename them sequencial'''
+    def combine_pix2pix(self,fld1, fld2, target_folder):
+        ''' combine 2 images of 2 folders and rename them sequencial'''
         # Combine resized images with edge images side by side
         os.makedirs(target_folder, exist_ok = True)
         os.chdir('/content/installed_repos/piss-ant-pix2pix')
@@ -305,6 +305,23 @@ class Core:
         print('combine')
         os.chdir(self.root)
         return self.num_files(target_folder)
+    
+    def combine_img_folders(self,fld1, fld2, target_folder, ptrn="*.*g"):
+        ''' combine the images of 2 folders and rename them sequencial'''
+
+        fld1_img_paths = self.GlobX(fld1,ptrn)
+        fld2_img_paths = self.GlobX(fld2,ptrn)
+        target_list = fld1_img_paths + fld2_img_paths
+        target_list.sort()
+
+        # Combine resized images with edge images side by side
+        os.makedirs(target_folder, exist_ok = True)
+        for i in range(len(target_list)-1):
+            print(target_list[i])
+            target_new_name = target_folder + '/' + ('img_%04d.jpg' % i)
+            print(target_new_name)
+            self.sys_com('cp ' + target_list[i] + ' ' +  target_new_name )
+        return len(target_list)
     
     
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
