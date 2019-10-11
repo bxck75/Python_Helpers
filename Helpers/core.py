@@ -20,7 +20,7 @@ from . import Fileview
 from . import Img
 from . import resize
 from . import ICL
-# from . import FaceGrabber
+from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
 
@@ -129,7 +129,7 @@ class Core:
         self.Logger =       logger
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
-        self.FaceGrabber =  self.FaceRip
+        self.FaceGrabber =  self.Face
         self.DFace =        Dlib_Face
         
         ''' run pip, apt installers '''
