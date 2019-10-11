@@ -477,7 +477,7 @@ class Core:
             self.resize_img(lst[i], self.root + '/content/resized_faces',(256,256))
             
         ''' return resized files list '''    
-        return resize_lst = self.GlobX('/content/resized_faces', '*.*g')
+        return self.GlobX('/content/resized_faces', '*.*g')
         
         
     def haar_detect(self, in_img, out_img):
