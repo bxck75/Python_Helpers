@@ -205,6 +205,7 @@ class Core:
     
     def make_blank_img(self, w, h, black=True):
         ''' make empty image of w x h black or white '''
+        ''' Example: '''
         '''  make_blank_img(self, w, h, black=True)  '''
         import numpy as np
         if black == True:
@@ -216,11 +217,46 @@ class Core:
         return blank_image
     
     def lrange(self,lst):
+        ''' range of length of list '''
+        ''' Example: '''
+        ''' lrange(lst) '''
         return range(len(lst)-1)
+    
+    def combine_AB(self, dir_A, dir_B, out_dir='combine'):
+        ''' combine 2 image folders sidebyside'''
+        ''' Example: '''
+        ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
         
+        import cv2
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+        ''' get files in A '''
+        A_ptrn = 'landmark_blank_face_img_*.*g'
+        lst_A = self.GlobX( dir_A, A_ptrn)
+        lst_A.sort()
+        
+        ''' get files in B '''
+        B_ptrn = 'face_img_*.*g'
+        lst_B = self.GlobX( dir_B, B_ptrn)
+        lst_B.sort()
+        
+        ''' Combine the images sbs'''
+        for i in self.lrange(lst_A):
+            im1 = cv2.imread(lst_A[i])
+            im2 = cv2.imread(lst_B[i])
+            im_h = cv2.hconcat([im1, im2])
+            os.makedirs(self.root+'/'+out_dir, exist_ok=True)
+            ''' write new image '''
+            cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
+            
+        ''' return list of new images '''
+        return self.GlobX(self.root+'/'+out_dir, '*.jpg')
+
     
     def Face(self, img_in, num_points=68): # or num_points=194
         ''' Download and unzip the haar cascaders '''
+        ''' Face(self, img_in, num_points=68) '''
         if num_points == 194:
             predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
             self.GdriveD.GdriveD(predictor_file_194[1],predictor_file_194[0])
