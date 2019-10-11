@@ -477,8 +477,9 @@ class Core:
         ''' resize all of them'''
         os.makedirs(self.root + '/resized_faces', exist_ok=True)
         for i in self.lrange(faces_lst):
-            print(i)
-            self.resize_img(faces_lst[i], self.root + '/resized_faces/face_%04d' % i,256,256)
+            print(faces_lst[i]+'--->',end='')
+            print(faces_lst[i].replace('/faces','/resized_faces'))
+            self.resize_img(faces_lst[i], faces_lst[i].replace('/faces','/resized_faces'),256,256)
             
         ''' return resized files list '''    
         return self.GlobX(self.root + '/resized_faces', '*.jpg')
