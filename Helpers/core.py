@@ -469,7 +469,6 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(im)+'.jpg', orgblank)
             
         ''' get list of saved face images '''
-        /content/faces
         faces_lst = self.GlobX(self.root+'/faces','*.jpg')
             
         ''' resize all of them'''
