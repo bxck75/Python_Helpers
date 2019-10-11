@@ -214,7 +214,9 @@ class Core:
             # white blank image
             blank_image = 255 * np.ones(shape=[512, 512, 3], dtype=np.uint8)
         return blank_image
-
+    
+    def lrange(lst):
+        return range(len(lst)-1)
         
     
     def Face(self, img_in, num_points=68): # or num_points=194
