@@ -218,9 +218,9 @@ class Core:
         ''' Detector predictor load'''
         import dlib
         print(predictor_filename)
-        detector = dlib.get_frontal_face_detector()
-        predictor = dlib.shape_predictor(predictor_filename)
-        self.FaceAligner = self.DFace.AlignDlib(os.path.join(self.git_install_root , predictor_file_68[0]))
+#         detector = dlib.get_frontal_face_detector()
+#         predictor = dlib.shape_predictor(predictor_filename)
+        self.FaceAligner = self.DFace.AlignDlib(predictor_filename)
         R = self.FaceAligner.getAllFaceBoundingBoxes(img_in)
         print(R)
         plt.imshow(R)
