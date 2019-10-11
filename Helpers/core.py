@@ -263,7 +263,7 @@ class Core:
         resized_image = cv2.resize(img, size)
         ''' Write image to out_dir '''
         out_path = out_dir + img_path_arr['file'] + img_path_arr['ext']
-        cv2.imwrite(out_path)
+        cv2.imwrite(out_path, resized_image )
         return out_path
         
 
