@@ -403,19 +403,11 @@ class Core:
 
         ''' glob the folder '''
         lst = self.GlobX(folder,'*.*g')
-        
-        ''' resize all '''
-        for i in self.lrange(lst):
-            print(i)
-            self.resize_img(lst[i], self.root + '/content/resized',(400,400))
-            
-        ''' get resized files list '''    
-        resize_lst = self.GlobX('/content/resized', '*.*g')
-        
-        ''' iterate of the images '''
-        for im in self.lrange(resize_lst):
+
+        ''' iterate of the images and save the faves and landmarks'''
+        for im in self.lrange(lst):
             # load the image
-            img = cv2.imread(resize_lst[im])
+            img = cv2.imread(lst[im])
             org_shape_w, org_shape_h, org_shape_c = img.shape
             
             # make black empty ghost image of size res2
@@ -476,10 +468,16 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_gray_landmarked'+str(im)+'.jpg', gray)
             cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(im)+'.jpg', orgblank)
             
-        ''' return list of saved images '''
-        return self.GlobX(self.root+'/faces','*.*g*')
+        ''' get list of saved face images '''
+        faces_lst = self.GlobX(self.root+'/faces','*.*g*')
             
-        
+        ''' resize all of them'''
+        for i in self.lrange(faces_lst):
+            print(i)
+            self.resize_img(lst[i], self.root + '/content/resized_faces',(256,256))
+            
+        ''' return resized files list '''    
+        return resize_lst = self.GlobX('/content/resized_faces', '*.*g')
         
         
     def haar_detect(self, in_img, out_img):
