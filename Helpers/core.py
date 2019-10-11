@@ -418,7 +418,7 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_org_landmarked'+str(iter)+'.jpg', img)
             cv2.imwrite(self.root + '/proc_images/total/img_gray_landmarked'+str(iter)+'.jpg', gray)
             cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(iter)+'.jpg', orgblank)
-            cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(iter)+'.jpg', transpblank)
+            cv2.imwrite(self.root + '/proc_images/total/img_trans_landmarked'+str(iter)+'.jpg', transpblank)
             iter += 1
         
         
