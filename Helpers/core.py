@@ -373,7 +373,7 @@ class Core:
 
                 # get thelandmarks of the face
                 landmarks = predictor(gray, face)
-                for n in range(0, 194):
+                for n in range(0, num_points):
                     x = landmarks.part(n).x
                     y = landmarks.part(n).y
                     cv2.circle(img, (x, y), 4, (255, 0, 100), -1)
