@@ -202,25 +202,28 @@ class Core:
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
-    def Face(self, img_in):
-        ''' Download and unzip the haar cascader '''
-        predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
-        predictor_file_68 = ['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
-        self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
-#         only it dat file is zipped
-#         os.system('unzip ' + predictor_file_194[0] + ' -d ' + self.git_install_root)
-        
+    def Face(self, img_in,num_points=68): # or num_points=194
+        ''' Download and unzip the haar cascaders '''
+        if num_points == 194:
+            predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
+            self.GdriveD.GdriveD(predictor_file_194[1],predictor_file_194[0])
+            os.system('unzip ' + predictor_file_194[0])
+            predictor_filename = os.path.join(self.git_install_root,predictor_file_194[0]).replace('zip','dat')
+        else:
+            predictor_file_68 = ['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
+            self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
+            predictor_filename = os.path.join(self.git_install_root,predictor_file_68[0])
+
         ''' Detector predictor load'''
         import dlib
-        print(os.path.join(self.git_install_root, predictor_file_68[0]).replace('zip','dat'))
-        predictor = os.path.join(self.git_install_root, predictor_file_68[0]).replace('zip','dat')
+        print(predictor_filename)
         detector = dlib.get_frontal_face_detector()
-        predictor = dlib.shape_predictor(predictor)
+        predictor = dlib.shape_predictor(predictor_filename)
         self.FaceAligner = self.DFace.AlignDlib(os.path.join(self.git_install_root , predictor_file_68[0]))
         R = self.FaceAligner.getAllFaceBoundingBoxes(img_in)
         print(R)
-#         plt.imshow()
-#         plt.show
+        plt.imshow(R)
+        plt.show
     
     def num_files( self, folder ): 
         return len(self.GlobX(folder,'*'))
