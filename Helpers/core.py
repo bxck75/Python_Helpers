@@ -360,9 +360,12 @@ class Core:
             # load the image
             img = cv2.imread(lst[iter])
             org_shape_w, org_shape_h, org_shape_c = img.shape
+            
             # make black empty ghost image of size res2
+            layer1 = np.zeros((org_shape_w, org_shape_h, 4))
+            transpblank =  layer1[:]   
             orgblank  = self.make_blank_img( org_shape_w, org_shape_h, black=True)
-                
+ 
             # make grayscale
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -395,23 +398,27 @@ class Core:
                     cv2.circle(img, (x, y), 4, (255, 0, 100), -1)
                     cv2.circle(gray, (x, y), 4, (255, 100, 0), -1)
                     cv2.circle(orgblank, (x, y), 4, (255, 100, 0), -1)
-
+                    cv2.circle(transpblank, (x, y), 4, (255, 100, 0), -1)
+                
                 # face images
                 org_with_marks = img[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
                 gray_with_marks = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
                 blank_with_marks = orgblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
+                transp_with_marks = transpblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
                 #save face
                 os.makedirs(self.root+'/faces', exist_ok=True)
                 cv2.imwrite(self.root+'/faces/landmark_org_face_img_'+str(iter)+'.jpg', org_with_marks)
                 cv2.imwrite(self.root+'/faces/landmark_gray_face_img_'+str(iter)+'.jpg', gray_with_marks)
                 cv2.imwrite(self.root+'/faces/landmark_blank_face_img_'+str(iter)+'.jpg', blank_with_marks)
+                cv2.imwrite(self.root+'/faces/landmark_blank_face_img_'+str(iter)+'.jpg', transp_with_marks)
 
             # save total  
             os.makedirs(self.root + '/proc_images/total', exist_ok=True)
             cv2.imwrite(self.root + '/proc_images/total/img_org_landmarked'+str(iter)+'.jpg', img)
             cv2.imwrite(self.root + '/proc_images/total/img_gray_landmarked'+str(iter)+'.jpg', gray)
             cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(iter)+'.jpg', orgblank)
+            cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(iter)+'.jpg', transpblank)
             iter += 1
         
         
