@@ -301,7 +301,7 @@ class Core:
         # Combine resized images with edge images side by side
         os.makedirs(target_folder, exist_ok = True)
         os.chdir('/content/installed_repos/piss-ant-pix2pix')
-	    self.sys_com('python tools/process.py --input_dir '+fld1+' --b_dir '+fld2+' --operation combine --output_dir '+target_folder)      
+	self.sys_com('python tools/process.py --input_dir '+fld1+' --b_dir '+fld2+' --operation combine --output_dir '+target_folder)      
         return self.num_files( target_folder ):
             
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
