@@ -316,7 +316,7 @@ class Core:
     import dlib
     import matplotlib.pyplot as plt
 
-    def FaceRip(folder='/content/final_loot'):
+    def FaceRip(self,folder='/content/final_loot'):
         ''' 
             Rip all faces from a images folder
             Example:
