@@ -253,14 +253,15 @@ class Core:
         ''' return list of new images '''
         return self.GlobX(self.root+'/'+out_dir, '*.jpg')
 
-    def resize_img(self, img_path, out_dir, size=(256,256)):
-        ''' resize_img(self, img_path, size=(256,256) '''
+    def resize_img(self, img_path, out_dir, size=[256,256]):
+        ''' resize_img(self, img_path, size=[256,256]) '''
         import scipy,cv2
         img_path_arr = self.path_split(img_path)
-        print(img_path_arr['file'])
+        print(img_path)
+        print(img_path_arr)
         img = cv2.imread(img_path)
         ''' This will resize the image to size (width,height) '''
-        resized_image = cv2.resize(img, size)
+        resized_image = cv2.resize(img, (size[0],size[1]))
         ''' Write image to out_dir '''
         out_path = os.path.join(out_dir , img_path_arr['file'] + '.' + img_path_arr['ext'])
         print(out_path)
@@ -477,7 +478,7 @@ class Core:
         os.makedirs(self.root + '/resized_faces', exist_ok=True)
         for i in self.lrange(faces_lst):
             print(i)
-            self.resize_img(faces_lst[i], self.root + '/resized_faces',(256,256))
+            self.resize_img(faces_lst[i], self.root + '/resized_faces')
             
         ''' return resized files list '''    
         return self.GlobX(self.root + '/resized_faces', '*.jpg')
