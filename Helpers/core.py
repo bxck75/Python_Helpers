@@ -485,10 +485,7 @@ class Core:
         org_faces_lst = self.GlobX(self.root+'/faces/org','*.jpg')
         landmarks_lst = self.GlobX(self.root+'/faces/transp','*.jpg')
         
-        # Resize source images
-        # os.chdir('/content/installed_repos/piss-ant-pix2pix/tools/')
-        # python process.py --input_dir ${input_img_folder} --operation resize --output_dir ${root}${root_tmp_folder}/_resized
-        
+
         ''' resize all of them'''
         os.makedirs(self.root + '/resized_faces/org', exist_ok=True)
         for i in self.lrange(org_faces_lst):
@@ -1439,8 +1436,6 @@ class Core:
   
     def no_action(self):
         return self._vdir()
-    
-
         
 def get_hmm():
     """Get a thought."""
