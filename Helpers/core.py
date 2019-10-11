@@ -491,13 +491,13 @@ class Core:
         
         ''' resize all of them'''
         os.makedirs(self.root + '/resized_faces/org', exist_ok=True)
-        for i in self.lrange(faces_lst):
+        for i in self.lrange(org_faces_lst):
             print(org_faces_lst[i]+'--->',end='')
             print(org_faces_lst[i].replace('/faces','/resized_faces'))
             self.resize_img(org_faces_lst[i], org_faces_lst[i].replace('/faces','/resized_faces'),256,256)
             
         os.makedirs(self.root + '/resized_faces/transp', exist_ok=True)
-        for i in self.lrange(faces_lst):
+        for i in self.lrange(landmarks_lst):
             print(landmarks_lst[i]+'--->',end='')
             print(landmarks_lst[i].replace('/faces','/resized_faces'))
             self.resize_img(landmarks_lst[i], landmarks_lst[i].replace('/faces','/resized_faces'),256,256)
