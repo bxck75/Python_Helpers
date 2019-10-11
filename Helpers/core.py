@@ -447,6 +447,7 @@ class Core:
                 for n in range(0, num_points):
                     x = landmarks.part(n).x
                     y = landmarks.part(n).y
+                    # draw landmarks on all backgrounds
                     cv2.circle(img, (x, y), 4, (255, 0, 100), -1)
                     cv2.circle(gray, (x, y), 4, (255, 100, 0), -1)
                     cv2.circle(orgblank, (x, y), 4, (255, 100, 0), -1)
@@ -458,18 +459,27 @@ class Core:
                 blank_with_marks = orgblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
                 transp_with_marks = transpblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
-                #save face
-                os.makedirs(self.root+'/faces', exist_ok=True)
-                cv2.imwrite(self.root+'/faces/landmark_org_face_img_'+str(im)+'.jpg', org_with_marks)
-                cv2.imwrite(self.root+'/faces/landmark_gray_face_img_'+str(im)+'.jpg', gray_with_marks)
-                cv2.imwrite(self.root+'/faces/landmark_blank_face_img_'+str(im)+'.jpg', blank_with_marks)
-                cv2.imwrite(self.root+'/faces/landmark_blank_face_img_'+str(im)+'.jpg', transp_with_marks)
+                #save face images
+                os.makedirs(self.root+'/faces/org', exist_ok=True)
+                os.makedirs(self.root+'/faces/gray', exist_ok=True)
+                os.makedirs(self.root+'/faces/blank', exist_ok=True)
+                os.makedirs(self.root+'/faces/transp', exist_ok=True)
+                
+                cv2.imwrite(self.root+'/faces/org/face_img_'+str(im)+'.jpg', org_with_marks)
+                cv2.imwrite(self.root+'/faces/gray/face_img_'+str(im)+'.jpg', gray_with_marks)
+                cv2.imwrite(self.root+'/faces/blank/face_img_'+str(im)+'.jpg', blank_with_marks)
+                cv2.imwrite(self.root+'/faces/transp/face_img_'+str(im)+'.jpg', transp_with_marks)
 
             # save total  
-            os.makedirs(self.root + '/proc_images/total', exist_ok=True)
-            cv2.imwrite(self.root + '/proc_images/total/img_org_landmarked'+str(im)+'.jpg', img)
-            cv2.imwrite(self.root + '/proc_images/total/img_gray_landmarked'+str(im)+'.jpg', gray)
-            cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(im)+'.jpg', orgblank)
+            os.makedirs(self.root + '/proc_images/total/img_org', exist_ok=True)
+            os.makedirs(self.root + '/proc_images/total/img_gray', exist_ok=True)
+            os.makedirs(self.root + '/proc_images/total/img_blank', exist_ok=True)
+            os.makedirs(self.root + '/proc_images/total/img_transp', exist_ok=True)
+            
+            cv2.imwrite(self.root + '/proc_images/total/img_org/landmarked_'+str(im)+'.jpg', img)
+            cv2.imwrite(self.root + '/proc_images/total/img_gray/landmarked_'+str(im)+'.jpg', gray)
+            cv2.imwrite(self.root + '/proc_images/total/img_blank/landmarked_'+str(im)+'.jpg', orgblank)
+            cv2.imwrite(self.root + '/proc_images/total/img_transp/landmarked_'+str(im)+'.jpg', transpblank)
             
         ''' get list of saved face images '''
         faces_lst = self.GlobX(self.root+'/faces','*.jpg')
