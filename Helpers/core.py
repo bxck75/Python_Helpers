@@ -951,7 +951,7 @@ class Core:
               return False
     
         except IOError:
-            print('deleting '+ i.format)
+            print('deleting '+ filename)
             os.remove(filename)
             return False
 
