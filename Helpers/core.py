@@ -786,7 +786,7 @@ class Core:
 			i+=1 # up iterator
 		print(str(i)+' images copied!')
 		''' Remove flickr folder when images are moved and renamed'''
-		self.sys_com('rm -r '+str(dest)+'/flickr')
+		self.sys_com('rm -r '+ str(dest)+'/flickr')
 
 		
 	def if_exists(self, path):
