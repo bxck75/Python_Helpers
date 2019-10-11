@@ -303,6 +303,7 @@ class Core:
         os.chdir('/content/installed_repos/piss-ant-pix2pix')
         self.sys_com('python tools/process.py --input_dir ' + fld1 + ' --b_dir ' + fld2 + ' --operation combine --output_dir ' + target_folder)
         print('combine')
+        os.chdir(self.root)
         return self.num_files(target_folder)
     
     
