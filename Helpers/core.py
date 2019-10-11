@@ -337,7 +337,7 @@ class Core:
         predictor = dlib.shape_predictor(predictor_filename)
 
         ''' glob the folder '''
-        lst = HelpCore.GlobX(folder,'*.*g')
+        lst = self.GlobX(folder,'*.*g')
 
         ''' iterate of the images '''
         iter = 0
@@ -367,9 +367,9 @@ class Core:
                 res2_image_gray = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
                 #save 
-                os.makedirs(HelpCore.root+'/faces', exist_ok=True)
-                cv2.imwrite(HelpCore.root+'/faces/face_img_'+str(iter)+'.jpg', res2)
-                cv2.imwrite(HelpCore.root+'/faces/gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
+                os.makedirs(self.root+'/faces', exist_ok=True)
+                cv2.imwrite(self.root+'/faces/face_img_'+str(iter)+'.jpg', res2)
+                cv2.imwrite(self.root+'/faces/gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
 
                 # get thelandmarks of the face
                 landmarks = predictor(gray, face)
@@ -385,14 +385,14 @@ class Core:
                 res2_image_gray = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
                 #save 
-                os.makedirs(HelpCore.root+'/faces', exist_ok=True)
-                cv2.imwrite(HelpCore.root+'/faces/landmark_face_img_'+str(iter)+'.jpg', res2)
-                cv2.imwrite(HelpCore.root+'/faces/landmark_gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
+                os.makedirs(self.root+'/faces', exist_ok=True)
+                cv2.imwrite(self.root+'/faces/landmark_face_img_'+str(iter)+'.jpg', res2)
+                cv2.imwrite(self.root+'/faces/landmark_gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
 
             # save total  
-            os.makedirs(HelpCore.root + '/proc_images/total', exist_ok=True)
-            cv2.imwrite(HelpCore.root + '/proc_images/total/img_'+str(iter)+'.jpg', img)
-            cv2.imwrite(HelpCore.root + '/proc_images/total/gray_img_'+str(iter)+'.jpg', gray)
+            os.makedirs(self.root + '/proc_images/total', exist_ok=True)
+            cv2.imwrite(self.root + '/proc_images/total/img_'+str(iter)+'.jpg', img)
+            cv2.imwrite(self.root + '/proc_images/total/gray_img_'+str(iter)+'.jpg', gray)
             iter += 1
         
     def haar_detect(self, in_img, out_img):
