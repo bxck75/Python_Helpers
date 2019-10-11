@@ -256,14 +256,15 @@ class Core:
     def resize_img(self, img_path, out_dir, size=(256,256)):
         ''' resize_img(self, img_path, size=(256,256) '''
         import scipy,cv2
-        img_path = self.path_split(img_path)
-        print(img_path['file'])
+        img_path_arr = self.path_split(img_path)
+        print(img_path_arr['file'])
         img = cv2.imread(img_path)
         ''' This will resize the image to size (width,height) '''
         resized_image = cv2.resize(img, size)
         ''' Write image to out_dir '''
-        cv2.imwrite(out_dir + img_path['file'] + img_path['ext'])
-        return out_dir + img_path['file'] + img_path['ext']
+        out_path = out_dir + img_path_arr['file'] + img_path_arr['ext']
+        cv2.imwrite(out_path)
+        return out_path
         
 
     def Face(self, img_in, num_points=68): # or num_points=194
