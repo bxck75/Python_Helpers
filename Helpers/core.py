@@ -437,7 +437,7 @@ class Core:
                 os.makedirs(self.root+'/faces', exist_ok=True)
                 
                 # save face withoutmarkers
-                cv2.imwrite(self.root+'/faces/face_img_'+str(iter)+'.jpg', res2)
+                cv2.imwrite(self.root+'/faces/face_img_'+str(im)+'.jpg', res2)
 
                 # get the landmarks of the face
                 landmarks = predictor(gray, face)
