@@ -229,7 +229,7 @@ class Core:
             self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
             predictor_filename = os.path.join(self.git_install_root,predictor_file_68[0])
 
-        ''' Detector predictor load'''
+        ''' Detector predictor loading'''
         import dlib
         print(predictor_filename)
 #         detector = dlib.get_frontal_face_detector()
@@ -359,7 +359,10 @@ class Core:
         for im in range(len(lst)-1):
             # load the image
             img = cv2.imread(lst[iter])
-
+            org_shape_w, org_shape_h, org_shape_c = img.shape
+            # make black empty ghost image of size res2
+            orgblank  = self.make_blank_img( org_shape_w, org_shape_h, black=True)
+                
             # make grayscale
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -372,43 +375,46 @@ class Core:
                 y1 = face.top()
                 x2 = face.right()
                 y2 = face.bottom()
-                # cv2.rectangle(img, (x1-10, y1-10), (x2+10, y2+10), (0, 255, 0), 3) # draw rectangle on the image
 
                 size_increase = 50 # increase size of face image output
 
-                # save face without landmarkers
+                # cut out face without landmarkers
                 res2 = img[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
-                #grayscale of face
-                res2_image_gray = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
-                #save 
+                # make dirs
                 os.makedirs(self.root+'/faces', exist_ok=True)
+                
+                # save face withoutmarkers
                 cv2.imwrite(self.root+'/faces/face_img_'+str(iter)+'.jpg', res2)
-                cv2.imwrite(self.root+'/faces/gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
 
-                # get thelandmarks of the face
+                # get the landmarks of the face
                 landmarks = predictor(gray, face)
                 for n in range(0, num_points):
                     x = landmarks.part(n).x
                     y = landmarks.part(n).y
                     cv2.circle(img, (x, y), 4, (255, 0, 100), -1)
                     cv2.circle(gray, (x, y), 4, (255, 100, 0), -1)
+                    cv2.circle(orgblank, (x, y), 4, (255, 100, 0), -1)
 
-                # face image
-                res2 = img[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
-                #grayscale face image
-                res2_image_gray = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
+                # face images
+                org_with_marks = img[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
+                gray_with_marks = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
+                blank_with_marks = orgblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
-                #save 
+                #save face
                 os.makedirs(self.root+'/faces', exist_ok=True)
-                cv2.imwrite(self.root+'/faces/landmark_face_img_'+str(iter)+'.jpg', res2)
-                cv2.imwrite(self.root+'/faces/landmark_gray_face_img_'+str(iter)+'.jpg', res2_image_gray)
+                cv2.imwrite(self.root+'/faces/landmark_org_face_img_'+str(iter)+'.jpg', org_with_marks)
+                cv2.imwrite(self.root+'/faces/landmark_gray_face_img_'+str(iter)+'.jpg', gray_with_marks)
+                cv2.imwrite(self.root+'/faces/landmark_blank_face_img_'+str(iter)+'.jpg', blank_with_marks)
 
             # save total  
             os.makedirs(self.root + '/proc_images/total', exist_ok=True)
-            cv2.imwrite(self.root + '/proc_images/total/img_'+str(iter)+'.jpg', img)
-            cv2.imwrite(self.root + '/proc_images/total/gray_img_'+str(iter)+'.jpg', gray)
+            cv2.imwrite(self.root + '/proc_images/total/img_org_landmarked'+str(iter)+'.jpg', img)
+            cv2.imwrite(self.root + '/proc_images/total/img_gray_landmarked'+str(iter)+'.jpg', gray)
+            cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(iter)+'.jpg', orgblank)
             iter += 1
+        
+        
         
     def haar_detect(self, in_img, out_img):
         ''' detect faces'''
