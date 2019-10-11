@@ -263,7 +263,7 @@ class Core:
         ''' This will resize the image to size (width,height) '''
         resized_image = cv2.resize(img, (size[0],size[1]))
         ''' Write image to out_dir '''
-        out_path = os.path.join(out_dir ,mg_path_arr['file'] + '.' + path_arr['ext'])
+        out_path = os.path.join(out_dir , img_path_arr['file'] + '.' + img_path_arr['ext'])
         print(out_path)
         cv2.imwrite(out_path, resized_image )
         return out_path
