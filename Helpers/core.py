@@ -482,14 +482,25 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_transp/landmarked_'+str(im)+'.jpg', transpblank)
             
         ''' get list of saved face images '''
-        faces_lst = self.GlobX(self.root+'/faces','*.jpg')
-            
+        org_faces_lst = self.GlobX(self.root+'/faces/org','*.jpg')
+        landmarks_lst = self.GlobX(self.root+'/faces/transp','*.jpg')
+        
+        # Resize source images
+        # os.chdir('/content/installed_repos/piss-ant-pix2pix/tools/')
+        # python process.py --input_dir ${input_img_folder} --operation resize --output_dir ${root}${root_tmp_folder}/_resized
+        
         ''' resize all of them'''
-        os.makedirs(self.root + '/resized_faces', exist_ok=True)
+        os.makedirs(self.root + '/resized_faces/org', exist_ok=True)
         for i in self.lrange(faces_lst):
-            print(faces_lst[i]+'--->',end='')
-            print(faces_lst[i].replace('/faces','/resized_faces'))
-            self.resize_img(faces_lst[i], faces_lst[i].replace('/faces','/resized_faces'),256,256)
+            print(org_faces_lst[i]+'--->',end='')
+            print(org_faces_lst[i].replace('/faces','/resized_faces'))
+            self.resize_img(org_faces_lst[i], org_faces_lst[i].replace('/faces','/resized_faces'),256,256)
+            
+        os.makedirs(self.root + '/resized_faces/transp', exist_ok=True)
+        for i in self.lrange(faces_lst):
+            print(landmarks_lst[i]+'--->',end='')
+            print(landmarks_lst[i].replace('/faces','/resized_faces'))
+            self.resize_img(landmarks_lst[i], landmarks_lst[i].replace('/faces','/resized_faces'),256,256)
             
         ''' return resized files list '''    
         return self.GlobX(self.root + '/resized_faces', '*.jpg')
