@@ -19,7 +19,7 @@ from . import Fileview
 from . import Img
 from . import resize
 from . import ICL
-from . import FaceGrabber
+# from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
 
