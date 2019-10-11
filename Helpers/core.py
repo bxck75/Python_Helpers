@@ -215,7 +215,7 @@ class Core:
             blank_image = 255 * np.ones(shape=[512, 512, 3], dtype=np.uint8)
         return blank_image
     
-    def lrange(lst):
+    def lrange(self,lst):
         return range(len(lst)-1)
         
     
