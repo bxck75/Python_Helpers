@@ -202,6 +202,21 @@ class Core:
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
+    
+    def make_blank_img(self, w, h, black=True):
+        ''' make empty image of w x h black or white '''
+        '''  make_blank_img(self, w, h, black=True)  '''
+        import numpy as np
+        if black == True:
+            # black blank image
+            blank_image = np.zeros(shape=[512, 512, 3], dtype=np.uint8)   
+        else:
+            # white blank image
+            blank_image = 255 * np.ones(shape=[512, 512, 3], dtype=np.uint8)
+        return blank_image
+
+        
+    
     def Face(self, img_in, num_points=68): # or num_points=194
         ''' Download and unzip the haar cascaders '''
         if num_points == 194:
