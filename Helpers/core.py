@@ -477,7 +477,7 @@ class Core:
         os.makedirs(self.root + '/resized_faces', exist_ok=True)
         for i in self.lrange(faces_lst):
             print(i)
-            self.resize_img(lst[i], self.root + '/resized_faces',(256,256))
+            self.resize_img(faces_lst[i], self.root + '/resized_faces',(256,256))
             
         ''' return resized files list '''    
         return self.GlobX(self.root + '/resized_faces', '*.jpg')
