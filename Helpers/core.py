@@ -469,15 +469,17 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_blank_landmarked'+str(im)+'.jpg', orgblank)
             
         ''' get list of saved face images '''
-        faces_lst = self.GlobX(self.root+'/faces','*.*g*')
+        /content/faces
+        faces_lst = self.GlobX(self.root+'/faces','*.jpg')
             
         ''' resize all of them'''
+        os.makedirs(self.root + '/resized_faces', exist_ok=True)
         for i in self.lrange(faces_lst):
             print(i)
-            self.resize_img(lst[i], self.root + '/content/resized_faces',(256,256))
+            self.resize_img(lst[i], self.root + '/resized_faces',(256,256))
             
         ''' return resized files list '''    
-        return self.GlobX('/content/resized_faces', '*.*g')
+        return self.GlobX(self.root + '/resized_faces', '*.jpg')
         
         
     def haar_detect(self, in_img, out_img):
