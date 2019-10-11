@@ -295,15 +295,15 @@ class Core:
     
     def num_files( self, folder ): 
         return len(self.GlobX(folder,'*'))
-        
-    def combine_img_folders(self,fld1, fld2, target_folder):
-	''' combine the images of 2 folders and rename them sequencial'''
-	# Combine resized images with edge images side by side
-	os.makedirs(target_folder, exist_ok = True)
-	os.chdir('/content/installed_repos/piss-ant-pix2pix')
-	self.sys_com('python tools/process.py --input_dir ' + fld1 + ' --b_dir ' + fld2 + ' --operation combine --output_dir ' + target_folder)
-	print('combine')
-	return self.num_files(target_folder)
+
+	def combine_img_folders(self,fld1, fld2, target_folder):
+		''' combine the images of 2 folders and rename them sequencial'''
+		# Combine resized images with edge images side by side
+		os.makedirs(target_folder, exist_ok = True)
+		os.chdir('/content/installed_repos/piss-ant-pix2pix')
+		self.sys_com('python tools/process.py --input_dir ' + fld1 + ' --b_dir ' + fld2 + ' --operation combine --output_dir ' + target_folder)
+		print('combine')
+		return self.num_files(target_folder)
 	
 	
     def run_pip_installer(self,custom=False,custom_pip_list=None,merge=False):
