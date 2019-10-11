@@ -129,7 +129,6 @@ class Core:
         self.Logger =       logger
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
-        self.FaceGrabber =  self.Face
         self.DFace =        Dlib_Face
         
         ''' run pip, apt installers '''
@@ -203,7 +202,7 @@ class Core:
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
-    def Face(self, img_in,num_points=68): # or num_points=194
+    def Face(self, img_in, num_points=68): # or num_points=194
         ''' Download and unzip the haar cascaders '''
         if num_points == 194:
             predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
@@ -317,21 +316,25 @@ class Core:
     import dlib
     import matplotlib.pyplot as plt
 
-    def FaceRip(self,folder='/content/final_loot'):
+    def FaceRip(self,folder='/content/final_loot', num_points=68):
         ''' 
             Rip all faces from a images folder
             Example:
                 FaceRip(folder='/content/portrait')
         '''
-        ''' Download and unzip the haar cascader '''
-        predictor_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
-        self.GdriveD.GdriveD(predictor_file[1],predictor_file[0])
-        os.system('unzip /content/shape_predictor_194_face_landmarks.zip')
-
-        ''' Detector predictor load'''
-        predictor = predictor_file[0].replace('zip','dat')
+        ''' Download and unzip the haar cascaders '''
+        predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
+        predictor_file_68 = ['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
+        if num_points == 194:
+            self.GdriveD.GdriveD(predictor_file_194[1],predictor_file_194[0])
+            os.system('unzip ' + predictor_file_194[0])
+            predictor_filename = os.path.join(self.git_install_root,predictor_file_194[0]).replace('zip','dat')
+        else:            
+            self.GdriveD.GdriveD(predictor_file_68[1],predictor_file_68[0])
+            predictor_filename = os.path.join(self.git_install_root,predictor_file_68[0])
+            
         detector = dlib.get_frontal_face_detector()
-        predictor = dlib.shape_predictor(predictor)
+        predictor = dlib.shape_predictor(predictor_filename)
 
         ''' glob the folder '''
         lst = HelpCore.GlobX(folder,'*.*g')
