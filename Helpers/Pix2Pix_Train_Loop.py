@@ -861,9 +861,9 @@ class Run_Pix2Pix():
 # for x in loaded_json:
 # 	print("%s: %d" % (x, loaded_json[x]))
 
-# parser = empty_class()
-# parser.add_argument("--input_dir", help="path to folder containing images")
-# print(parser)
+parser = empty_class()
+parser.add_argument("--input_dir", help="path to folder containing images")
+print(parser)
 # parser.add_argument("--mode", required=True, choices=["train", "test", "export"])
 # parser.add_argument("--output_dir", required=True, help="where to put output files")
 # parser.add_argument("--seed", type=int, default=0)
