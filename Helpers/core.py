@@ -200,7 +200,9 @@ class Core:
         sr += self.Sys_Exec('rm -r ' + self.git_install_root + '/google-drive-list-shared')
         print(sr)
 
-        
+    def __repr__(self):
+        return self.path
+    
     '''###################################################################################################'''   
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
@@ -1376,9 +1378,6 @@ class Core:
 # #         self.custom_reps_setup()
 # #         if self.sub_repos == True:
 # #             self.get_other_reps()
-            
-        def __repr__(self):
-            return self.path
         
     # get GPU Capabilities    
     def _get_gpu(self):
