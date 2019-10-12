@@ -3,6 +3,8 @@
 import os, sys, inspect
 import numpy as np
 import cv2
+import logging
+logger = logging.getLogger(__name__)
 import dlib
 import matplotlib.pyplot as plt
 
