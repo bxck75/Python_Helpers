@@ -14,7 +14,7 @@ import math
 import time
 from matplotlib import pyplot as plt
 import cv2
-
+class 
 ''' 
     loop  10x
     1 get metric from gdrive
@@ -22,6 +22,8 @@ import cv2
     3 dump metrics to gdrive with the same file id 
 '''
 # os.system('tensorboard --logdir /content/metrics')
+
+
 class Run_Pix2Pix():
     ''' run a pix2pix process to train of predict '''
     def __init__(self, dataset_path, epochs=2, metrics_path='/content/root', mode='train', first_run=True):
