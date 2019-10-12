@@ -448,10 +448,6 @@ class Core:
                 # Install merged custom/core list
                 self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'], merge=True)
         '''
-        # log 
-        log_msg = str([custom,custom_pip_list,merge])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         self.custom_pip_list = custom_pip_list
         
         self.core_pip_list = [
