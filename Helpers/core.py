@@ -244,6 +244,7 @@ class Core:
         self.mode = mode
         self.loops = loops
         self.first_run = first_run
+        self.checkpoint = checkpoint
         
         ''' Set the checkpoint folder '''
         self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
