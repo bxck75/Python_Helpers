@@ -28,12 +28,13 @@ from . import Pix2Pix_Train_Loop
 class empty_class():
     pass
 
-class C():
-    def method(self, arg):
-        super().method(arg) 
-ccc= C()
-p2p = Pix2Pix_Train_Loop
-dir(p2p)
+# class C():
+#     def method(self, arg):
+#         super().method(arg) 
+# ccc= C()
+# p2p = Pix2Pix_Train_Loop
+# dir(p2p)
+
 class Core:
     '''
     Examples:
