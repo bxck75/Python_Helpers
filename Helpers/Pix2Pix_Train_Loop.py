@@ -22,7 +22,8 @@ import cv2
     3 dump metrics to gdrive with the same file id 
 '''
 # os.system('tensorboard --logdir /content/metrics')
-
+class empty_class():
+    pass
 
 class Run_Pix2Pix():
     ''' run a pix2pix process to train of predict '''
