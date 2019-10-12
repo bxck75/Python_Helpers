@@ -23,6 +23,33 @@ import cv2
 '''
 # os.system('tensorboard --logdir /content/metrics')
 class empty_class():
+    mode
+    output_dir
+    seed
+    checkpoint
+    max_steps
+    max_epochs
+    summary_freq
+    progress_freq
+    trace_freq
+    display_freq
+    save_freq
+    aspect_ratio
+    lab_colorization
+    batch_size
+    which_direction
+    ngf
+    ndf
+    scale_size
+    flip
+    no_flip
+    lr
+    beta1
+    l1_weight
+    gan_weight
+    skip_connection
+    patch_gan
+    wgan
     pass
 
 class Run_Pix2Pix():
@@ -865,7 +892,7 @@ class Run_Pix2Pix():
 # 	print("%s: %d" % (x, loaded_json[x]))
 
 parser = empty_class()
-parser.add_argument("--input_dir", help="path to folder containing images")
+parser.input_dir= ''
 print(parser)
 # parser.add_argument("--mode", required=True, choices=["train", "test", "export"])
 # parser.add_argument("--output_dir", required=True, help="where to put output files")
