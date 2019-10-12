@@ -28,6 +28,10 @@ from . import Pix2Pix_Train_Loop
 class empty_class():
     pass
 
+class C(B):
+    def method(self, arg):
+        super().method(arg) 
+ccc= C('test')        
 class Core:
     '''
     Examples:
