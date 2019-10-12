@@ -238,7 +238,7 @@ class Core:
         def run_training(self,loops=2):
             ''' Checkpoint payload '''
             for i in range(loops):
-                if self.first_run == False
+                if self.first_run == False:
                     metrics = ' --checkpoint ' + self.checkpoint_dir
                 else:
                     metrics = ''
