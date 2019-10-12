@@ -298,7 +298,7 @@ class Core:
                                     )
             return r
         
-        run_training(3,self.checkpoint_dir, self.loops, self.first_run, self.checkpoint)
+        run_training(self.loops, self.checkpoint_dir, self.first_run, self.checkpoint)
         os.chdir(self.root)
 
     def make_blank_img(self, w, h, black=True):
