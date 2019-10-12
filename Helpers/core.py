@@ -217,39 +217,52 @@ class Core:
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
     
-    def pix2pix(self, dataset_path, images_set_name, epochs, mode='train', first_run=True):
+    def pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True, checkpoint=None):
         ''' 
         pix2pix Trainer/Predictor
-            pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
-        Example training:
-            python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)    
+            Definition :
+                pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
+            Example training:
+                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)
+            Example test:
+                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False, checkpoint='/content/metrics')
         '''
         os.chdir(self.git_install_root + '/piss-ant-pix2pix')
+        
+        ''' set attributes '''
         self.dataset_path = dataset_path
         self.images_set_name = images_set_name
         self.epochs = str(epochs)
         self.mode = mode
+        self.loops = loops
         self.first_run = first_run
         
         ''' Set the checkpoint folder '''
         self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
    
         ''' Run training '''
-        def run_training(self,loops=2):
+        def run_training(self):
             ''' Checkpoint payload '''
-            for i in range(loops):
+            for i in range(self.loops):
                 if self.first_run == False:
-                    metrics = ' --checkpoint ' + self.checkpoint_dir
+                    if self.checkpoint == None:
+                        metrics = ' --checkpoint ' + self.checkpoint_dir
+                        print('Metrics set to : ' + metrics)
+                    else:
+                        metrics = ' --checkpoint ' + self.checkpoint
+                        print('Metrics set to : ' + metrics)
                 else:
+                    print("First loop! Creating the metrics from scratch!")
                     metrics = ''
+                    
                 ''' Train '''    
                 self.sys_com('python pix2pix.py ' + metrics + ' \
-                                --input_dir ' + self.dataset_path + ' \
-                                --output_dir ' + self.checkpoint_dir + ' \
-                                --progress_freq 50 --mode self.mode  \
-                                --save_freq 100 --summary_freq 50 \
-                                --display_freq 50 --max_epochs '+ self.epochs + ' \
-                                --which_direction "BtoA"')
+                                                --input_dir ' + self.dataset_path + ' \
+                                                --output_dir ' + self.checkpoint_dir + ' \
+                                                --progress_freq 50 --mode self.mode  \
+                                                --save_freq 100 --summary_freq 50 \
+                                                --display_freq 50 --max_epochs '+ self.epochs + ' \
+                                                --which_direction "BtoA"')
                 
                 ''' Loop ended check if first metrics have been saved '''
                 if if_exists(self.GlobX(self.checkpoint_dir,'model-*.*')[0]):
