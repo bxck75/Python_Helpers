@@ -449,7 +449,7 @@ class Core:
                 self.run_installers(custom=True,custom_list=['colorama', 'recognize_faces'], merge=True)
         '''
         self.custom_pip_list = custom_pip_list
-        
+        print("[Custom list installed.]")
         self.core_pip_list = [
             'colorama',
             'recognize_faces',
@@ -466,6 +466,7 @@ class Core:
                     print('[Installing]--> '+ self.custom_pip_list[iter])
                     os.system('pip install ' + self.custom_pip_list[iter])
                     print('[Done!]')
+                    print("[Custom list installed.]")
             return "[Custom list installed.]"
 
         else:
@@ -839,9 +840,9 @@ class Core:
             install_repos(repos, inst_dir)
         '''
         # log 
-        log_msg = str([repos, inst_dir, sub_repos, chadir])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str([repos, inst_dir, sub_repos, chadir])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
         for rep in repos:
@@ -885,10 +886,10 @@ class Core:
         
     def GlobX(self, path_in, pattern_in):
         ''' Glob folders on pattern '''
-        # log 
-        log_msg = str([path_in, pattern_in])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         # log 
+#         log_msg = str([path_in, pattern_in])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         import os
         os.system('sudo pip install pywildcard')
         import pywildcard as fnmatch
