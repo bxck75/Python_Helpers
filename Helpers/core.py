@@ -23,15 +23,16 @@ from . import ICL
 from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
-# from . import Pix2Pix_Train_Loop
+from . import Pix2Pix_Train_Loop
 
-class empty_class():
+class empty_class(Pix2Pix_Train_Loop):
     pass
 
 class C():
     def method(self, arg):
         super().method(arg) 
-ccc= C.method('test')        
+ccc= C()
+
 class Core:
     '''
     Examples:
