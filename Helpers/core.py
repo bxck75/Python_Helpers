@@ -275,7 +275,26 @@ class Core:
                 ''' Loop ended check if first metrics have been saved '''
                 if if_exists(self.GlobX(self.checkpoint_dir,'model-*.*')[0]):
                     self.first_run =  False
-                    print('Model file exists. Setting first_run = ' + self.first_run)        
+                    print('Model file exists. Setting first_run = ' + self.first_run)
+                    ''' Clean up metrics and samples '''
+                    self.cleanup_files(
+                                    keep=9,
+                                    cleanup_path=self.checkpoint_dir + '/images',
+                                    search_pattern='*.*g',
+                                    show_keepers=True
+                                    )
+                    self.cleanup_files(
+                                    keep=9,
+                                    cleanup_path=self.checkpoint_dir,
+                                    search_pattern='model-*',
+                                    show_keepers=False # only works on images
+                                    )
+                    self.cleanup_files(
+                                    keep=9,
+                                    cleanup_path=self.checkpoint_dir,
+                                    search_pattern='event*',
+                                    show_keepers=False # only works on images
+                                    )
         
         run_training(3)
         os.chdir(self.root, self.loops)
@@ -1084,7 +1103,8 @@ class Core:
         import matplotlib.pyplot as plt
         # clean up images
         img_list = self.H.Me(['globx', cleanup_path, search_pattern])
-        img_list = sorted(img_list)
+        img_list.sort(key=lambda f: os.path.getmtime(os.path.join(cleanup_path, f)))
+#         img_list = sorted(img_list)
         print(img_list)
         if len(img_list) > keep:
             if show_keepers == True:  
