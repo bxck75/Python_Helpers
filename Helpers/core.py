@@ -23,7 +23,7 @@ from . import ICL
 from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
-from . import Pix2Pix_Train_Loop
+
 
 class empty_class():
     pass
@@ -217,6 +217,48 @@ class Core:
     '''                               sub methodes definitions bellow this line                           '''
     '''###################################################################################################'''
     
+    def pix2pix(self, dataset_path, images_set_name, epochs, mode='train', first_run=True):
+        ''' 
+        pix2pix Trainer/Predictor
+            pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
+        Example training:
+            python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)    
+        '''
+        os.chdir(self.git_install_root + '/piss-ant-pix2pix')
+        self.dataset_path = dataset_path
+        self.images_set_name = images_set_name
+        self.epochs = str(epochs)
+        self.mode = mode
+        self.first_run = first_run
+        
+        ''' Set the checkpoint folder '''
+        self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
+   
+        ''' Run training '''
+        def run_training(self,loops=2):
+            ''' Checkpoint payload '''
+            for i in range(loops):
+                if self.first_run == False
+                    metrics = ' --checkpoint ' + self.checkpoint_dir
+                else:
+                    metrics = ''
+                ''' Train '''    
+                self.sys_com('python pix2pix.py ' + metrics + ' \
+                                --input_dir ' + self.dataset_path + ' \
+                                --output_dir ' + self.checkpoint_dir + ' \
+                                --progress_freq 50 --mode self.mode  \
+                                --save_freq 100 --summary_freq 50 \
+                                --display_freq 50 --max_epochs '+ self.epochs + ' \
+                                --which_direction "BtoA"')
+                
+                ''' Loop ended check if first metrics have been saved '''
+                if if_exists(self.GlobX(self.checkpoint_dir,'model-*.*')[0]):
+                    self.first_run =  False
+                    print('Model file exists. Setting first_run = ' + self.first_run)        
+        
+        run_training(3)
+        os.chdir(self.root)
+
     def make_blank_img(self, w, h, black=True):
         ''' make empty image of w x h black or white '''
         ''' Example: '''
