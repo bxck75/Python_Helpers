@@ -1,5 +1,7 @@
 # a list of repos for machinelearning
 reps=[
+        'bxck75/TowardsDataScience',
+        'bxck75/perceptron-benchmark',
         'bxck75/Facial-Landmark-Detector',
         'CMU-Perceptual-Computing-Lab/openpose',
         'mrgloom/Face-landmarks-detection-benchmark',
@@ -84,4 +86,8 @@ reps=[
         'keras-team/keras-contrib',
         'mnicnc404/CartoonGan-tensorflow',
 ]
+
 repos_sorted = sorted(reps)
+matchers = ['bxck75']
+bxck75_repos = [s for s in repos_sorted if any(xs in s for xs in matchers)]
+bxck75_repos.sort()
