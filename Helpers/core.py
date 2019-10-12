@@ -296,8 +296,8 @@ class Core:
                                     show_keepers=False # only works on images
                                     )
         
-        run_training(3)
-        os.chdir(self.root, self.loops)
+        run_training(3, self.loops)
+        os.chdir(self.root)
 
     def make_blank_img(self, w, h, black=True):
         ''' make empty image of w x h black or white '''
