@@ -52,7 +52,7 @@ class empty_class():
 #     wgan
     pass
 
-class Run_Pix2Pix(Core):
+class Run_Pix2Pix():
     ''' run a pix2pix process to train of predict '''
     def __init__(self, dataset_path, epochs=2, metrics_path='/content/root', mode='train', first_run=True):
         ''' Init vars '''
