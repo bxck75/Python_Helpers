@@ -958,9 +958,9 @@ class Core:
             run subprocess from self.CMD
         '''
         import subprocess
-        log_msg = str(self.Sys_Cmd)
-        func_name=inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )                          
+#         log_msg = str(self.Sys_Cmd)
+#         func_name=inspect.stack()[0][3]
+#         self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )                          
         # check if is valid command string
         if ( self.Sys_Cmd != None and len( self.Sys_Cmd ) > 0 ):
             # run the subprocess
@@ -1049,6 +1049,9 @@ class Core:
                 valid_img(filename, type_img='png')
         '''
         from PIL import Image
+        log_msg = str(filename)
+        func_name=inspect.stack()[0][3]
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )      
         try:
             i=Image.open(filename)
             if type_img == 'jpg':
@@ -1073,6 +1076,9 @@ class Core:
             validate list if not empty
             valid_list(self, lst)
         '''
+        log_msg = str(lst)
+        func_name = inspect.stack()[0][3]
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
         if len(lst) > 0:
             return True
         else:
@@ -1084,6 +1090,9 @@ class Core:
             check images list and remove bad files 
                 check_img_list((img_list, ext='png')
         '''
+        log_msg = str([img_lst, ext])
+        func_name = inspect.stack()[0][3]
+        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
         img_list = sorted(img_list)
         print('checking images list')
         if self.valid_list(img_list):
@@ -1144,6 +1153,11 @@ class Core:
                 func='clear_output'
                 into_func(mod, meth, func)
         '''
+        # log 
+        log_msg = str([mod,meth,func])
+        func_name = str(inspect.stack()[0][3])
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
+        
         import importlib
         module=mod
         method=meth
