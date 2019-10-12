@@ -545,11 +545,13 @@ class Core:
 
                 # cut out face without landmarkers
                 res2 = img[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
+                gray2 = gray[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
                 # make dirs
                 os.makedirs(self.root+'/faces/not_marked', exist_ok=True)
                 
                 # save face withoutmarkers
+                cv2.imwrite(self.root+'/faces/not_marked/face_img_'+str(im)+'.jpg', res2)
                 cv2.imwrite(self.root+'/faces/not_marked/face_img_'+str(im)+'.jpg', res2)
 
                 # get the landmarks of the face
@@ -570,15 +572,15 @@ class Core:
                 transp_with_marks = transpblank[y1-size_increase :y2+size_increase ,x1-size_increase :x2+size_increase ]
 
                 #save face images
-                os.makedirs(self.root+'/faces/org', exist_ok=True)
-                os.makedirs(self.root+'/faces/gray', exist_ok=True)
-                os.makedirs(self.root+'/faces/blank', exist_ok=True)
+#                 os.makedirs(self.root+'/faces/org', exist_ok=True)
+#                 os.makedirs(self.root+'/faces/gray', exist_ok=True)
+#                 os.makedirs(self.root+'/faces/blank', exist_ok=True)
                 os.makedirs(self.root+'/faces/transp', exist_ok=True)
                 
-                cv2.imwrite(self.root+'/faces/org/face_img_'+str(im)+'.jpg', org_with_marks)
-                cv2.imwrite(self.root+'/faces/gray/face_img_'+str(im)+'.jpg', gray_with_marks)
-                cv2.imwrite(self.root+'/faces/blank/face_img_'+str(im)+'.jpg', blank_with_marks)
-                cv2.imwrite(self.root+'/faces/transp/face_img_'+str(im)+'.jpg', transp_with_marks)
+#                 cv2.imwrite(self.root+'/faces/org/face_img_'+str(im)+'.jpg', org_with_marks)
+#                 cv2.imwrite(self.root+'/faces/gray/face_img_'+str(im)+'.jpg', gray_with_marks)
+#                 cv2.imwrite(self.root+'/faces/blank/face_img_'+str(im)+'.jpg', blank_with_marks)
+                cv2.imwrite(self.root+'/faces/transp_marks/face_img_'+str(im)+'.jpg', transp_with_marks)
 
             # save total  
             os.makedirs(self.root + '/proc_images/total/img_org', exist_ok=True)
