@@ -21,7 +21,7 @@ import cv2
     2 train 5 epochs
     3 dump metrics to gdrive with the same file id 
 '''
-os.system('tensorboard --logdir /content/metrics')
+# os.system('tensorboard --logdir /content/metrics')
 class Run_Pix2Pix():
     ''' run a pix2pix process to train of predict '''
     def __init__(self, dataset_path, epochs=2, metrics_path='/content/root', mode='train', first_run=True):
@@ -853,19 +853,17 @@ class Run_Pix2Pix():
                     if sv.should_stop():
                         break
 
-class empty_class():
-    pass
 
-parsed_json = (json.loads(json_data))
-print(json.dumps(parsed_json, indent=4, sort_keys=True))
+# parsed_json = (json.loads(json_data))
+# print(json.dumps(parsed_json, indent=4, sort_keys=True))
 
-loaded_json = json.loads(json_data)
-for x in loaded_json:
-	print("%s: %d" % (x, loaded_json[x]))
+# loaded_json = json.loads(json_data)
+# for x in loaded_json:
+# 	print("%s: %d" % (x, loaded_json[x]))
 
-parser = empty_class()
-parser.add_argument("--input_dir", help="path to folder containing images")
-print(parser)
+# parser = empty_class()
+# parser.add_argument("--input_dir", help="path to folder containing images")
+# print(parser)
 # parser.add_argument("--mode", required=True, choices=["train", "test", "export"])
 # parser.add_argument("--output_dir", required=True, help="where to put output files")
 # parser.add_argument("--seed", type=int, default=0)
