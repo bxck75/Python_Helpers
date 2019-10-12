@@ -223,9 +223,17 @@ class Core:
             Definition :
                 pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
             Example training:
+                # new metrics 
                 python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)
+                # default /content/metrics 
+                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=False)
+                # custom metrics 
+                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=False, checkpoint='/content/metrics_abc')
             Example test:
-                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False, checkpoint='/content/metrics')
+                # default metrics forlder
+                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False)
+                # custom metrics
+                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False, checkpoint='/content/metrics_abc')
         '''
         os.chdir(self.git_install_root + '/piss-ant-pix2pix')
         
@@ -241,9 +249,9 @@ class Core:
         self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
    
         ''' Run training '''
-        def run_training(self):
+        def run_training(self, loops):
             ''' Checkpoint payload '''
-            for i in range(int(self.loops)):
+            for i in range(int(loops)):
                 if self.first_run == False:
                     if self.checkpoint == None:
                         metrics = ' --checkpoint ' + self.checkpoint_dir
@@ -270,7 +278,7 @@ class Core:
                     print('Model file exists. Setting first_run = ' + self.first_run)        
         
         run_training(3)
-        os.chdir(self.root)
+        os.chdir(self.root, self.loops)
 
     def make_blank_img(self, w, h, black=True):
         ''' make empty image of w x h black or white '''
