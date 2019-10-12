@@ -28,10 +28,10 @@ from . import Dlib_Face
 class empty_class():
     pass
 
-class C(B):
+class C():
     def method(self, arg):
         super().method(arg) 
-ccc= C('test')        
+ccc= C.method('test')        
 class Core:
     '''
     Examples:
