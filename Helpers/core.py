@@ -264,7 +264,7 @@ class Core:
                     metrics = ''
                     
                 ''' Train '''    
-                self.sys_com('python pix2pix.py ' + metrics + ' \
+                r = self.sys_com('python pix2pix.py ' + metrics + ' \
                                                 --input_dir ' + self.dataset_path + ' \
                                                 --output_dir ' + self.checkpoint_dir + ' \
                                                 --progress_freq 50 --mode self.mode  \
@@ -295,6 +295,7 @@ class Core:
                                     search_pattern='event*',
                                     show_keepers=False # only works on images
                                     )
+            return r
         
         run_training(3,self.checkpoint_dir, self.loops, self.first_run, self.checkpoint)
         os.chdir(self.root)
