@@ -243,7 +243,7 @@ class Core:
         ''' Run training '''
         def run_training(self):
             ''' Checkpoint payload '''
-            for i in range(self.loops):
+            for i in range(int(self.loops)):
                 if self.first_run == False:
                     if self.checkpoint == None:
                         metrics = ' --checkpoint ' + self.checkpoint_dir
@@ -291,36 +291,36 @@ class Core:
         ''' lrange(lst) '''
         return range(len(lst)-1)
     
-    def combine_AB(self, dir_A, dir_B, out_dir='combine'):
-        ''' combine 2 image folders sidebyside'''
-        ''' Example: '''
-        ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
+#     def combine_AB(self, dir_A, dir_B, out_dir='combine'):
+#         ''' combine 2 image folders sidebyside'''
+#         ''' Example: '''
+#         ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
         
-        import cv2
-        import matplotlib.pyplot as plt
-        import numpy as np
+#         import cv2
+#         import matplotlib.pyplot as plt
+#         import numpy as np
 
-        ''' get files in A '''
-        A_ptrn = 'landmark_blank_face_img_*.*g'
-        lst_A = self.GlobX( dir_A, A_ptrn)
-        lst_A.sort()
+#         ''' get files in A '''
+#         A_ptrn = 'landmark_blank_face_img_*.*g'
+#         lst_A = self.GlobX( dir_A, A_ptrn)
+#         lst_A.sort()
         
-        ''' get files in B '''
-        B_ptrn = 'face_img_*.*g'
-        lst_B = self.GlobX( dir_B, B_ptrn)
-        lst_B.sort()
+#         ''' get files in B '''
+#         B_ptrn = 'face_img_*.*g'
+#         lst_B = self.GlobX( dir_B, B_ptrn)
+#         lst_B.sort()
         
-        ''' Combine the images sbs'''
-        for i in self.lrange(lst_A):
-            im1 = cv2.imread(lst_A[i])
-            im2 = cv2.imread(lst_B[i])
-            im_h = cv2.hconcat([im1, im2])
-            os.makedirs(self.root+'/'+out_dir, exist_ok=True)
-            ''' write new image '''
-            cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
+#         ''' Combine the images sbs'''
+#         for i in self.lrange(lst_A):
+#             im1 = cv2.imread(lst_A[i])
+#             im2 = cv2.imread(lst_B[i])
+#             im_h = cv2.hconcat([im1, im2])
+#             os.makedirs(self.root+'/'+out_dir, exist_ok=True)
+#             ''' write new image '''
+#             cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
             
-        ''' return list of new images '''
-        return self.GlobX(self.root+'/'+out_dir, '*.jpg')
+#         ''' return list of new images '''
+#         return self.GlobX(self.root+'/'+out_dir, '*.jpg')
 
     def resize_img(self, img_path, out_path,w=256,h=256):
         ''' resize_img(self, img_path, w=256,h=256) '''
