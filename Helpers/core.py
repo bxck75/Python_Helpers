@@ -23,6 +23,7 @@ from . import ICL
 from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
+from . import Pix2Pix_Train_Loop
 
 class Core:
     '''
@@ -130,6 +131,7 @@ class Core:
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
         self.DFace =        Dlib_Face
+        self.Pix2Pix =      Pix2Pix_Train_Loop
         
         ''' run pip, apt installers '''
         print('[Running pip installer]')
