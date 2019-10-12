@@ -1419,7 +1419,7 @@ class Core:
             if attr.startswith("_"): continue
             try:
                 if callable(getattr(self.method_args[0],str(attr),None)):
-                    print(f"{attr}{str(inspect.signature(getattr(self.method_args[0],str(attr), None)))}:")
+                    print("{attr}{str(inspect.signature(getattr(self.method_args[0],str(attr), None)))}:")
                     if lr==True: print()
             except: pass
 
