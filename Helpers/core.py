@@ -249,15 +249,15 @@ class Core:
         self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
    
         ''' Run training '''
-        def run_training(self, loops):
+        def run_training(self, loops, checkpoint_dir, first_run, checkpoint):
             ''' Checkpoint payload '''
             for i in range(int(loops)):
-                if self.first_run == False:
-                    if self.checkpoint == None:
-                        metrics = ' --checkpoint ' + self.checkpoint_dir
+                if first_run == False:
+                    if checkpoint == None:
+                        metrics = ' --checkpoint ' + checkpoint_dir
                         print('Metrics set to : ' + metrics)
                     else:
-                        metrics = ' --checkpoint ' + self.checkpoint
+                        metrics = ' --checkpoint ' + checkpoint
                         print('Metrics set to : ' + metrics)
                 else:
                     print("First loop! Creating the metrics from scratch!")
@@ -296,7 +296,7 @@ class Core:
                                     show_keepers=False # only works on images
                                     )
         
-        run_training(3, self.loops)
+        run_training(3,self.checkpoint_dir, self.loops, self.first_run, self.checkpoint)
         os.chdir(self.root)
 
     def make_blank_img(self, w, h, black=True):
