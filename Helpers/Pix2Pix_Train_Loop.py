@@ -53,7 +53,7 @@ class Run_Pix2Pix():
 #                         --mode ' + self.mode + ' --output_dir ' + self.metrics_path + ' --progress_freq 50 \
 #                         --save_freq 50 --summary_freq 50 --display_freq 250 --max_epochs ' + self.epochs + ' \
 #                         --input_dir ' + self.dataset_path + ' --which_direction "BtoA"'
-                )
+#                 )
         os.chdir('/content')
 
     def preprocess(self, image):
