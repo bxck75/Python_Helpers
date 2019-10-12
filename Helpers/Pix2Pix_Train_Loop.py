@@ -965,4 +965,4 @@ print(parser)
 
     # delete old metrics before unpacking new in the beginning of the loop
     # os.remove('/content/metrics')
-    os.remove('/content/' + images_set_name + 'model.zip')
+#     os.remove('/content/' + images_set_name + 'model.zip')
