@@ -14,7 +14,7 @@ import math
 import time
 from matplotlib import pyplot as plt
 import cv2
-class 
+
 ''' 
     loop  10x
     1 get metric from gdrive
