@@ -19,7 +19,7 @@ setup(
     long_description=readme,
     url='https://github.com/bxck75/Python_Helpers',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))'
+    packages=find_packages(exclude=('tests', 'docs'))
     install_requires=[
         "google-api-python-client >= 1.2",
         "oauth2client >= 4.0.0",
