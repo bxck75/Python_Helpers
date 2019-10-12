@@ -354,9 +354,9 @@ class Core:
     def resize_img(self, img_path, out_path,w=256,h=256):
         ''' resize_img(self, img_path, w=256,h=256) '''
         # log 
-        log_msg = str([img_path, out_path,w,h])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str([img_path, out_path,w,h])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         import scipy,cv2
 #         img_path_arr = self.path_split(img_path)
         print(img_path)
@@ -401,9 +401,9 @@ class Core:
     def combine_pix2pix(self,fld1, fld2, target_folder):
         ''' combine 2 images of 2 folders and rename them sequencial'''
         # log 
-        log_msg = str([fld1, fld2, target_folder])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str([fld1, fld2, target_folder])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         # Combine resized images with edge images side by side
         os.makedirs(target_folder, exist_ok = True)
         os.chdir('/content/installed_repos/piss-ant-pix2pix')
@@ -414,10 +414,10 @@ class Core:
     
     def combine_img_folders(self,fld1, fld2, target_folder, ptrn="*.*g"):
         ''' combine the images of 2 folders and rename them sequencial'''
-        # log 
-        log_msg = str([fld1, fld2, target_folder])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         # log 
+#         log_msg = str([fld1, fld2, target_folder])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         fld1_img_paths = self.GlobX(fld1,ptrn)
         fld2_img_paths = self.GlobX(fld2,ptrn)
         target_list = fld1_img_paths + fld2_img_paths
@@ -513,10 +513,10 @@ class Core:
                 FaceRip(folder='/content/portrait')
         '''
         ''' Download and unzip the haar cascaders '''
-        # log 
-        log_msg = str([folder, num_points])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         # log 
+#         log_msg = str([folder, num_points])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         predictor_file_194 = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
         predictor_file_68 = ['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2']
         if num_points == 194:
@@ -910,9 +910,9 @@ class Core:
                 flickr_scrape(search_list,qty,img_dir)
         '''
         # log 
-        log_msg = str([query,qty,dest])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str([query,qty,dest])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
         print("Running queries:"+str(query)+' qty:'+str(qty)+' dest:'+dest)
         if (len(query) > 0 and str(qty) != '' and dest != '' ):
             ''' Let the scapers scrape! '''
@@ -996,7 +996,7 @@ class Core:
         else:
             # log 
             log_msg = "Empty command string. did you first set the CMD arg?"
-            self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]))
+#             self.sys_log(str([self.insp(), ' <~[LOGGED]~> ', log_msg]))
             return log_msg
         while(True):
             # returns None while subprocess is running and 0 when finished
@@ -1016,9 +1016,9 @@ class Core:
             cmd = 'ls'
             sys_com(cmd)
         '''  
-        log_msg = cmd
-        func_name=inspect.stack()[0][3]
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg)
+#         log_msg = cmd
+#         func_name=inspect.stack()[0][3]
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg)
         results = []
         #  for lines in output of the subprocess
         self.Sys_Cmd = cmd.split(' ')
@@ -1077,9 +1077,9 @@ class Core:
                 valid_img(filename, type_img='png')
         '''
         from PIL import Image
-        log_msg = str(filename)
-        func_name=inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )      
+#         log_msg = str(filename)
+#         func_name=inspect.stack()[0][3]
+#         self.sys_log(func_name + '<~[LOGGED]~>' + log_msg )      
         try:
             i=Image.open(filename)
             if type_img == 'jpg':
@@ -1104,9 +1104,9 @@ class Core:
             validate list if not empty
             valid_list(self, lst)
         '''
-        log_msg = str(lst)
-        func_name = inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str(lst)
+#         func_name = inspect.stack()[0][3]
+#         self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
         if len(lst) > 0:
             return True
         else:
@@ -1118,9 +1118,9 @@ class Core:
             check images list and remove bad files 
                 check_img_list((img_list, ext='png')
         '''
-        log_msg = str([img_lst, ext])
-        func_name = inspect.stack()[0][3]
-        self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
+#         log_msg = str([img_lst, ext])
+#         func_name = inspect.stack()[0][3]
+#         self.sys_log(func_name + '<~[LOGGED]~>' + log_msg ) 
         img_list = sorted(img_list)
         print('checking images list')
         if self.valid_list(img_list):
@@ -1140,9 +1140,9 @@ class Core:
             show_keepers only works with images else will crash the process
         '''
         # log 
-        log_msg = str([keep, cleanup_path, search_pattern, show_keepers])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )    
+#         log_msg = str([keep, cleanup_path, search_pattern, show_keepers])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )    
         import dlib
         import matplotlib.pyplot as plt
         # clean up images
@@ -1181,10 +1181,10 @@ class Core:
                 func='clear_output'
                 into_func(mod, meth, func)
         '''
-        # log 
-        log_msg = str([mod,meth,func])
-        func_name = str(inspect.stack()[0][3])
-        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
+#         # log 
+#         log_msg = str([mod,meth,func])
+#         func_name = str(inspect.stack()[0][3])
+#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
         
         import importlib
         module=mod
