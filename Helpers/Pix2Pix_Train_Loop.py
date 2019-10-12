@@ -23,36 +23,36 @@ import cv2
 '''
 # os.system('tensorboard --logdir /content/metrics')
 class empty_class():
-    mode
-    output_dir
-    seed
-    checkpoint
-    max_steps
-    max_epochs
-    summary_freq
-    progress_freq
-    trace_freq
-    display_freq
-    save_freq
-    aspect_ratio
-    lab_colorization
-    batch_size
-    which_direction
-    ngf
-    ndf
-    scale_size
-    flip
-    no_flip
-    lr
-    beta1
-    l1_weight
-    gan_weight
-    skip_connection
-    patch_gan
-    wgan
+#     mode
+#     output_dir
+#     seed
+#     checkpoint
+#     max_steps
+#     max_epochs
+#     summary_freq
+#     progress_freq
+#     trace_freq
+#     display_freq
+#     save_freq
+#     aspect_ratio
+#     lab_colorization
+#     batch_size
+#     which_direction
+#     ngf
+#     ndf
+#     scale_size
+#     flip
+#     no_flip
+#     lr
+#     beta1
+#     l1_weight
+#     gan_weight
+#     skip_connection
+#     patch_gan
+#     wgan
     pass
 
-class Run_Pix2Pix():
+class Run_Pix2Pix(Core):
     ''' run a pix2pix process to train of predict '''
     def __init__(self, dataset_path, epochs=2, metrics_path='/content/root', mode='train', first_run=True):
         ''' Init vars '''
