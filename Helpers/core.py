@@ -23,7 +23,7 @@ from . import ICL
 from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
-from . import Pix2Pix_Train_Loop
+# from . import Pix2Pix_Train_Loop
 
 class empty_class():
     pass
