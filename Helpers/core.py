@@ -594,12 +594,15 @@ class Core:
             cv2.imwrite(self.root + '/proc_images/total/img_transp/landmarked_'+str(im)+'.jpg', transpblank)
             
         ''' get list of saved face images '''
-        org_faces_lst = self.GlobX(self.root+'/faces/org','*.jpg')
-        landmarks_lst = self.GlobX(self.root+'/faces/transp','*.jpg')
+        folder_A = self.root+'/faces/not_marked'
+        folder_B = self.root+'/faces/transp'
+        
+        org_faces_lst = self.GlobX(folder_A, '*.jpg')
+        landmarks_lst = self.GlobX(folder_B, '*.jpg')
         
 
         ''' resize all of them'''
-        os.makedirs(self.root + '/resized_faces/org', exist_ok=True)
+        os.makedirs(folder_A, exist_ok=True)
         for i in self.lrange(org_faces_lst):
             if self.valid_img(org_faces_lst[i],'jpg'):
                 print(org_faces_lst[i]+'--->',end='')
@@ -610,7 +613,7 @@ class Core:
                     print([org_faces_lst[i], org_faces_lst[i].replace('/faces','/resized_faces'),256,256])
                     pass                        
             
-        os.makedirs(self.root + '/resized_faces/transp', exist_ok=True)
+        os.makedirs(folder_B, exist_ok=True)
         for i in self.lrange(landmarks_lst):
             if self.valid_img(landmarks_lst[i],'jpg'):
                 print(landmarks_lst[i]+'--->',end='')
@@ -622,7 +625,7 @@ class Core:
                     pass
             
         ''' return resized files list '''    
-        return self.GlobX(self.root + '/resized_faces', '*.jpg')
+        return self.GlobX(self.root + '/resized_faces', '*.jpg')[:].sort()
         
         
     def haar_detect(self, in_img, out_img):
