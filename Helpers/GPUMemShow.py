@@ -1,7 +1,8 @@
-!ln -sf /opt/bin/nvidia-smi /usr/bin/nvidia-smi
-!pip install gputil
-!pip install psutil
-!pip install humanize
+import os
+os.system('ln -sf /opt/bin/nvidia-smi /usr/bin/nvidia-smi')
+# os.system('pip install gputil')
+# os.system('pip install psutil')
+# os.system('pip install humanize')
 import psutil
 import humanize
 import os, time

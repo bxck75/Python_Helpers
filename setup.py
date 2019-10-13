@@ -26,8 +26,15 @@ setup(
         "PyYAML >= 3.0",
         "pydrive >= 1.3",
         "colorama",
+        "icrawler",
+        "dlib",
+        "gputil",
+        "psutil",
+        "humanize",
+        
     ],
 )
+
 # Example bellow
 
 # from setuptools import setup

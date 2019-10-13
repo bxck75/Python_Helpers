@@ -1,9 +1,13 @@
 import os
-os.system('pip install -U -q PyDrive')
-from google.colab import files
+try:
+    from google.colab import files
+    from google.colab import auth
+except:
+    print('Not in a colab env!')
+    
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
-from google.colab import auth
+
 from oauth2client.client import GoogleCredentials
 import zipfile
 import os

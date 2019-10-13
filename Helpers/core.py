@@ -1,15 +1,24 @@
-# -*- coding: utf-8 -*-
+from __future__ import print_function
+import os, sys, inspect , pydrive, icrawler
 
-import os, sys, inspect
-import numpy as np
-import cv2
+''' Python 2/3 compatibility '''
+PY3 = sys.version_info[0] == 3
+if PY3:
+    xrange = range
+
+''' import and get the logger '''
 import logging
 logger = logging.getLogger(__name__)
+
+''' regular imports'''
+import numpy as np
+import cv2
 import dlib
+from pathlib import Path
 import matplotlib.pyplot as plt
 
+''' Helper import '''
 from . import ZipUp
-from . import BigHelp
 from . import RepCoList
 from . import resize
 from . import GdriveD
@@ -28,14 +37,163 @@ from . import Dlib_Face
 
 
 class empty_class():
-    pass
+    ''' empty class to inject'''
+    
+    def __init__(self):
+        self.project_root = self.get_project_root()
+        print(self.project_root)
+        pass
 
-# class C():
-#     def method(self, arg):
-#         super().method(arg) 
-# ccc= C()
-# p2p = Pix2Pix_Train_Loop
-# dir(p2p)
+    ''' get project root '''
+    def get_project_root(self) -> Path:
+        """Returns project root folder."""
+        return Path(__file__).parent.parent
+
+
+class get_detector_stuff():
+    def __init__(self, parent):
+        ''' make short routes to all models '''
+        dir(parent)
+        self.parent = parent
+        self.git_install_root = parent.git_install_root
+        self.detector_models_dir = parent.git_install_root+'/Face_Detect_Assets'
+        self.detect_method = [
+                'haar_cascade', # https://drive.google.com/open?id=14KF-LmE2QPzoxZHa_iDnPef8Wt25FmEj
+                'dlib_lm_68',   # https://drive.google.com/open?id=1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2
+                'dlib_lm_194'   # https://drive.google.com/open?id=1KJRSVoNwfAsnrBc5BH8QHKg7YgUD2pqC
+            ]
+        self.haar_cascade = empty_class() # empty class to inject the attributes in to
+        self.haar_cascade.all_haar_sources = ['haarcascade_files.zip','14KF-LmE2QPzoxZHa_iDnPef8Wt25FmEj']
+        self.haar_cascade.frontal_cat_sources=[
+                'haarcascade_frontalcatface_extended.xml',
+                'haarcascade_frontalcatface.xml',
+            ]
+        self.haar_cascade.nested_face_sources = [
+                'haarcascade_smile.xml',    
+                'haarcascade_eye.xml',
+                'haarcascade_righteye_2splits.xml',
+                'haarcascade_lefteye_2splits.xml',
+                'haarcascade_eye_tree_eyeglasses.xml',
+            ]
+        self.haar_cascade.default_face_sources = [
+                'haarcascade_frontalface_default.xml',
+                'haarcascade_frontalface_alt.xml',  
+                'haarcascade_frontalface_alt2.xml',
+                'haarcascade_frontalface_alt_tree.xml',
+                'haarcascade_profileface.xml',
+            ]
+        self.haar_cascade.full_body_sources = [
+            'haarcascade_fullbody.xml',
+            'haarcascade_lowerbody.xml',
+            'haarcascade_upperbody.xml',
+            ]
+        self.dlib_landmarks = empty_class() # empty class to inject the attributes in to
+        self.dlib_landmarks.detector_sources = {
+                'dlib_lm_68':['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2'],
+                'dlib_lm_194':['shape_predictor_194_face_landmarks.dat','1KJRSVoNwfAsnrBc5BH8QHKg7YgUD2pqC']
+            }
+
+        # check if already downloaded else download
+        if (not self.parent.if_exists(os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0])) and not self.parent.if_exists(os.path.join(self.detector_models_dir, self.dlib_landmarks.detector_sources[self.detect_method[1]][0]))):
+            ''' detector files not in the folder so downloading.... '''
+            print('Downloading detector models')
+            self.download_stuff()
+        else:
+            print('Detector files in place!')
+        return self.parent.GlobX(self.detector_models_dir,'*.*')
+
+
+    def download_stuff(self):
+        ''' Download and unzip all detector sources '''
+        os.makedirs(self.detector_models_dir, exist_ok = True)
+        os.chdir(self.detector_models_dir)
+
+        # download all haar models
+        self.parent.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
+        self.parent.sys_com('unzip ' + os.path.join(self.root, self.haar_cascade.all_haar_sources[0]))
+        os.remove( os.path.join(self.root, self.haar_cascade.all_haar_sources[0]))
+
+        # download the 2 dlib landmark models
+        self.parent.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
+        self.parent.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
+        os.chdir(self.root)
+
+    def method(self, arg):
+        super().method(arg)
+
+
+class detect_squares():
+    '''
+    Simple "Square Detector" program.
+    Loads several images sequentially and tries to find squares in each image.
+    '''
+    def __init__(self, parent, img_folder):
+        self.img_folder = img_folder
+        self.parent = parent
+        self.run_square_detect()
+
+    def angle_cos(self,p0, p1, p2):
+        d1, d2 = (p0-p1).astype('float'), (p2-p1).astype('float')
+        return abs( np.dot(d1, d2) / np.sqrt( np.dot(d1, d1)*np.dot(d2, d2) ) )
+
+    def find_squares(self,img):
+        img = cv.GaussianBlur(img, (5, 5), 0)
+        squares = []
+        for gray in cv.split(img):
+            for thrs in xrange(0, 255, 26):
+                if thrs == 0:
+                    bin = cv.Canny(gray, 0, 50, apertureSize=5)
+                    bin = cv.dilate(bin, None)
+                else:
+                    _retval, bin = cv.threshold(gray, thrs, 255, cv.THRESH_BINARY)
+                contours, _hierarchy = cv.findContours(bin, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+                for cnt in contours:
+                    cnt_len = cv.arcLength(cnt, True)
+                    cnt = cv.approxPolyDP(cnt, 0.02*cnt_len, True)
+                    if len(cnt) == 4 and cv.contourArea(cnt) > 1000 and cv.isContourConvex(cnt):
+                        cnt = cnt.reshape(-1, 2)
+                        max_cos = np.max([angle_cos( cnt[i], cnt[(i+1) % 4], cnt[(i+2) % 4] ) for i in xrange(4)])
+                        if max_cos < 0.1:
+                            squares.append(cnt)
+        return squares
+
+    def run_square_detect(self):
+        ''' detect squares in images '''
+
+        for fn in self.parent.GlobX(self.img_folder,'*.*g'):
+            img = cv2.imread(fn)
+            img_org = img.copy()
+            w,h,c = img.shape
+            img_black = self.make_blank_img( w, h, black=True)
+
+            squares = find_squares(img)
+            cv2.drawContours( img, squares, -1, (0, 255, 0), 3 )
+            cv2.drawContours( img_black, squares, -1, (0, 255, 0), 3 )
+            plt.imshow('squares on img', img)
+            plt.figure()
+            plt.imshow('squares on black', img_black)
+
+            img_file_path = path_split(fn)['path']
+            img_file_name = os.path.join(path_split(fn)['filename'], path_split(fn)['ext']) 
+              
+            cv2.imwrite(os.path.join(img_file_path, 'org', img_file_name), img_org)
+            cv2.imwrite(os.path.join(img_file_path, 'img_sqrd', img_file_name), img)
+            cv2.imwrite(os.path.join(img_file_path, 'img_black_sqrd', img_file_name), img_black)
+
+        print('Done')
+        return self.parent.GlobX(img_file_path,'*.*g')
+
+
+        def detect_cat_faces(self, img_in, img_out):
+
+            # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
+
+            #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
+            face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+            #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_eye.xml
+            eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+
+            cap = cv2.VideoCapture(0)
 
 class Core:
     '''
@@ -66,7 +224,7 @@ class Core:
          'Resize',
          'ShowImg',
          'Sys_Cmd',
-         'Sys_Exec',
+         'sys_com',
          'Temp',
          'ZipUp']
          
@@ -129,7 +287,6 @@ class Core:
         
         ''' Inject functionality into the object '''
         print('[Running func injection]')
-        self.BigHelp =      BigHelp
         self.Ops =          ops
         self.Repo_List =    RepCoList
         self.ColorPrint =   pprint_color.pprint_color
@@ -143,8 +300,9 @@ class Core:
         self.ImgTools =     Img.Tools
         self.ICrawL =       ICL.ICL
         self.DFace =        Dlib_Face
-#         self.Pix2Pix =      Pix2Pix_Train_Loop
-        
+        self.Pix2Pix =      self.pix2pix
+
+
         ''' run pip, apt installers '''
         print('[Running pip installer]')
         self.run_pip_installer()
@@ -162,7 +320,7 @@ class Core:
         ''' Many repos in this list!!! '''
         self.sorted_repos = self.Repo_List.repos_sorted
         ''' Sys.exec en sys.log '''
-        self.Sys_Exec = self.sys_com
+        self.sys_com = self.sys_com
         self.Logger.sys_log = self.sys_log
         ''' Better change dir '''
         self.c_d = self.cd       
@@ -202,15 +360,11 @@ class Core:
         self.install_repos(pix2pix_rps, inst_dir,False,True)
         print('[Installing repos Done]')
         
-        ''' PyDrive install '''
-        print('[Installing PyDrive]')
-        sr = self.Sys_Exec('python ' + self.git_install_root + '/PyDrive/setup.py install')
-        import pydrive
-        ''' google shared wrapper '''
-        print('[Installing google wrapper]')
-        sr += self.Sys_Exec('cp ' + self.git_install_root + '/google-drive-list-shared/google-drive-list-shared.py ' +  self.core_dirname + '/gdrive_shared.py')
-        sr += self.Sys_Exec('rm -r ' + self.git_install_root + '/google-drive-list-shared')
-        print(sr)
+
+
+        detect_model_locs = get_detector_stuff(self)
+
+        print(detect_model_locs)
 
     def __repr__(self):
         return self.path
@@ -303,6 +457,22 @@ class Core:
         run_training(self.loops, self.checkpoint_dir, self.first_run, self.checkpoint)
         os.chdir(self.root)
 
+
+    # Method discloser
+    def ViR(self, mod_lst ):
+        ''' Method crawl '''
+        if len(mod_lst)==0:
+            return [x for x in dir(self) if not x.startswith('__')]
+        else:
+            if isinstance(mod_lst, list):
+                elem=[]
+                for m in mod_lst:
+                    elem.append([m.__name__,[x for x in dir(m) if not x.startswith('__')]])
+                return elem 
+            else:   
+                return [x for x in dir(mod_lst) if not x.startswith('__')]
+
+
     def make_blank_img(self, w, h, black=True):
         ''' make empty image of w x h black or white '''
         ''' Example: '''
@@ -322,36 +492,36 @@ class Core:
         ''' lrange(lst) '''
         return range(len(lst)-1)
     
-#     def combine_AB(self, dir_A, dir_B, out_dir='combine'):
-#         ''' combine 2 image folders sidebyside'''
-#         ''' Example: '''
-#         ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
+    # def combine_AB(self, dir_A, dir_B, out_dir='combine'):
+    #     ''' combine 2 image folders sidebyside'''
+    #     ''' Example: '''
+    #     ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
         
-#         import cv2
-#         import matplotlib.pyplot as plt
-#         import numpy as np
+    #     import cv2
+    #     import matplotlib.pyplot as plt
+    #     import numpy as np
 
-#         ''' get files in A '''
-#         A_ptrn = 'landmark_blank_face_img_*.*g'
-#         lst_A = self.GlobX( dir_A, A_ptrn)
-#         lst_A.sort()
+    #     ''' get files in A '''
+    #     A_ptrn = 'landmark_blank_face_img_*.*g'
+    #     lst_A = self.GlobX( dir_A, A_ptrn)
+    #     lst_A.sort()
         
-#         ''' get files in B '''
-#         B_ptrn = 'face_img_*.*g'
-#         lst_B = self.GlobX( dir_B, B_ptrn)
-#         lst_B.sort()
+    #     ''' get files in B '''
+    #     B_ptrn = 'face_img_*.*g'
+    #     lst_B = self.GlobX( dir_B, B_ptrn)
+    #     lst_B.sort()
         
-#         ''' Combine the images sbs'''
-#         for i in self.lrange(lst_A):
-#             im1 = cv2.imread(lst_A[i])
-#             im2 = cv2.imread(lst_B[i])
-#             im_h = cv2.hconcat([im1, im2])
-#             os.makedirs(self.root+'/'+out_dir, exist_ok=True)
-#             ''' write new image '''
-#             cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
+    #     ''' Combine the images sbs'''
+    #     for i in self.lrange(lst_A):
+    #         im1 = cv2.imread(lst_A[i])
+    #         im2 = cv2.imread(lst_B[i])
+    #         im_h = cv2.hconcat([im1, im2])
+    #         os.makedirs(self.root+'/'+out_dir, exist_ok=True)
+    #         ''' write new image '''
+    #         cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
             
-#         ''' return list of new images '''
-#         return self.GlobX(self.root+'/'+out_dir, '*.jpg')
+    #     ''' return list of new images '''
+    #     return self.GlobX(self.root+'/'+out_dir, '*.jpg')
 
     def resize_img(self, img_path, out_path,w=256,h=256):
         ''' resize_img(self, img_path, w=256,h=256) '''
@@ -387,7 +557,7 @@ class Core:
             predictor_filename = os.path.join(self.git_install_root,predictor_file_68[0])
 
         ''' Detector predictor loading'''
-        import dlib
+        # import dlib
         print(predictor_filename)
 #         detector = dlib.get_frontal_face_detector()
 #         predictor = dlib.shape_predictor(predictor_filename)
@@ -498,14 +668,13 @@ class Core:
             line = f.read()
             file_list.append(line)
         return file_list
+
     import sys
-    
     import os
-    import dlib
     import glob
     import cv2
     import numpy as np
-    import dlib
+    # import dlib
     import matplotlib.pyplot as plt
 
     def FaceRip(self,folder='/content/final_loot', num_points=68):
@@ -1145,7 +1314,7 @@ class Core:
 #         log_msg = str([keep, cleanup_path, search_pattern, show_keepers])
 #         func_name = str(inspect.stack()[0][3])
 #         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )    
-        import dlib
+        # import dlib
         import matplotlib.pyplot as plt
         # clean up images
         img_list = self.H.Me(['globx', cleanup_path, search_pattern])
@@ -1459,21 +1628,10 @@ class Core:
     # TODO: make this the main gallery-dl wrapper class and include it 
     # I can then us the API to it full sambal power and scrape 200+ galleries!!!
 
-    # Method discloser
-    def _vdir(self):
-        if len(self.method_args)==0:
-            return [x for x in dir(self) if not x.startswith('__')]
-        else:
-            if isinstance(self.method_args[0], list):
-                elem=[]
-                for m in self.method_args[0]:
-                    elem.append([m.__name__,[x for x in dir(m) if not x.startswith('__')]])
-                return elem 
-            else:   
-                return [x for x in dir(self.method_args[0]) if not x.startswith('__')]
+    
     
     # Pip installer
-    def _pip(self):
+    def pip(self):
         import os
         print()
         self.pip_install_list = self.method_args[0]
