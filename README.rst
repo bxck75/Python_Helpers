@@ -1,22 +1,13 @@
-Sample Module Repository
-========================
-
-This simple project is an example repo for Python projects.
-
-`Learn more <http://www.kennethreitz.org/essays/repository-structure-and-python>`_.
+# Python Helpers
 
 ---------------
 
-If you want to learn more about ``setup.py`` files, check out `this repository <https://github.com/kennethreitz/setup.py>`_.
-Colab starter :
+install:
+run this command to get the starter gist
 '''
-# remove defaults
-!rm -r sample_data
-# Clone the frame
-!git clone https://github.com/bxck75/Python_Helpers.git
-# Change dir
-%cd /content/Python_Helpers
-# install
-!python setup.py install
-import main
+wget https://gist.githubusercontent.com/bxck75/3858594937afd9a9595f005bba2bae15/raw/e36238d4a96ff71c8db0e10098990ec12d90e960/Python_Helper_local_jumpstart.py
 '''
+Then run the starter with Python_Helper_local_jumpstart.py
+'''
+Change dir to /content/installed_repos/Python_Helpers and run cli_main.py or main.py if you run in Colab or Jupyter notebook
+
