@@ -4,7 +4,7 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 import sys
-import dlib
+# import dlib
 import os
 import json
 import glob

@@ -47,7 +47,7 @@
 
 import sys
 import os
-import dlib
+# import dlib
 import glob
 
 if len(sys.argv) != 3:

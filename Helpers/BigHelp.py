@@ -1,4 +1,5 @@
-# import os,sys,inspect,fastai
+import os,sys,inspect,fastai
+print('old crap already implementen in core')
 # class Helpers(object):
 #     ''' 
 #     Input a list of which the first element is the helpers name

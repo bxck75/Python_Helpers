@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 ''' regular imports'''
 import numpy as np
 import cv2
-import dlib
+# import dlib
 from pathlib import Path
 import matplotlib.pyplot as plt
 

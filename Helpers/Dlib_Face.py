@@ -15,7 +15,7 @@
 """Module for dlib-based alignment."""
 
 import cv2
-import dlib
+# import dlib
 import numpy as np
 
 TEMPLATE = np.float32([

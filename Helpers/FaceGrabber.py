@@ -1,10 +1,9 @@
 import sys
 import os
-import dlib
 import glob
 import cv2
 import numpy as np
-import dlib
+# import dlib
 import matplotlib.pyplot as plt
 
 def FaceRip(folder='/content/portrait'):

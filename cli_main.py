@@ -1,7 +1,7 @@
 import os, sys, inspect
 from pathlib import Path
 import Helpers
-import dlib
+from dlib_local import dlib
 from pprint import pprint
 
 
@@ -43,9 +43,9 @@ class cli_main():
 		cli_core = Helpers.Core
 		pass
 
-m = cli_main()
+# cli_main()
 
-pprint(Helpers.Core.__dict__)	
+# pprint(Helpers.Core.__dict__)	
 # ''' run pip, apt installers '''
 # print('[Runnsing pip installer]')
 # self.run_pip_installer()
