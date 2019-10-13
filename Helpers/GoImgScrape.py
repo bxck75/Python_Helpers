@@ -1,5 +1,4 @@
 import json,os
-os.system('pip install icrawler')
 from bs4 import BeautifulSoup
 from six.moves.urllib.parse import urlencode
 from icrawler import Crawler, Feeder, Parser, ImageDownloader
@@ -7,12 +6,9 @@ from icrawler import Crawler, Feeder, Parser, ImageDownloader
   Usage:
     crawler = GoogleImageCrawler()
     crawler.crawl('faces',max_num=10)
-
-
 '''
 
 class GoogleFeeder(Feeder):
-
     def feed(self, keyword, offset, max_num, date_min, date_max):
         base_url = 'https://www.google.com/search?'
         for i in range(offset, offset + max_num, 100):
@@ -33,7 +29,6 @@ class GoogleFeeder(Feeder):
 
 
 class GoogleParser(Parser):
-
     def parse(self, response):
         soup = BeautifulSoup(response.content, 'lxml')
         image_divs = soup.find_all('div', class_='rg_meta')
@@ -44,7 +39,6 @@ class GoogleParser(Parser):
 
 
 class GoogleImageCrawler(Crawler):
-
     def __init__(self,
                  feeder_cls=GoogleFeeder,
                  parser_cls=GoogleParser,

@@ -49,7 +49,6 @@ class empty_class():
         """Returns project root folder."""
         return Path(__file__).parent.parent
 
-
 class get_detector_stuff():
     def __init__(self, parent):
         ''' make short routes to all models '''
@@ -100,6 +99,7 @@ class get_detector_stuff():
             self.download_stuff()
         else:
             print('Detector files in place!')
+            print(self.detector_models_dir)
         return self.parent.GlobX(self.detector_models_dir,'*.*')
 
 
@@ -107,15 +107,15 @@ class get_detector_stuff():
         ''' Download and unzip all detector sources '''
         os.makedirs(self.detector_models_dir, exist_ok = True)
         os.chdir(self.detector_models_dir)
-
+        # print(dir(self.parent.GdriveD))
         # download all haar models
-        self.parent.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
-        self.parent.sys_com('unzip ' + os.path.join(self.root, self.haar_cascade.all_haar_sources[0]))
-        os.remove( os.path.join(self.root, self.haar_cascade.all_haar_sources[0]))
+        self.parent.GdriveD.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
+        self.parent.sys_com('unzip ' + os.path.join(self.parent.root, self.haar_cascade.all_haar_sources[0]))
+        os.remove( os.path.join(self.parent.root, self.haar_cascade.all_haar_sources[0]))
 
         # download the 2 dlib landmark models
-        self.parent.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
-        self.parent.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
+        self.parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
+        self.parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
         os.chdir(self.root)
 
     def method(self, arg):
@@ -202,79 +202,7 @@ class Core:
         lm_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
         HelpCore.GdriveD.GdriveD(lm_file[1],lm_file[0])
         ###
-        
-    Main Functions:      
-         ['BigHelp',
-         'ColorPrint',
-         'DelDig',
-         'FaceGrabber',
-         'FileView',
-         'FlickrS',
-         'GdriveD',
-         'GlobX',
-         'GooScrape',
-         'HaarDetect',
-         'ICrawL',
-         'ImgCrawler',
-         'ImgTools',
-         'Logger',
-         'MethHelp',
-         'Ops',
-         'Repo_List',
-         'Resize',
-         'ShowImg',
-         'Sys_Cmd',
-         'sys_com',
-         'Temp',
-         'ZipUp']
-         
-    Sub functions:
-         ['c_d',
-         'cd',
-         'cdr',
-         'check_img_list',
-         'cleanup_files',
-         'cloner',
-         'colab_root',
-         'core_dirname',
-         'core_filename',
-         'core_pip_list',
-         'cprint',
-         'custom_pip_list',
-         'custom_reps_setup',
-         'docu',
-         'explore_mod',
-         'flickr_scrape',
-         'gdrive_root',
-         'getImagesWithID',
-         'get_gdrive_dataset',
-         'get_other_reps',
-         'git_install_root',
-         'haar_detect',
-         'if_exists',
-         'img_batch_rename',
-         'importTboard',
-         'install_repos',
-         'into_func',
-         'landmarkdetect',
-         'landmarkdetecter',
-         'landmarker',
-         'list_to_file',
-         'no_action',
-         'path',
-         'path_split',
-         'rec_walk_folder',
-         'rep',
-         'root',
-         'runProcess',
-         'run_pip_installer',
-         'set_maker',
-         'sorted_repos',
-         'sys_com',
-         'sys_log',
-         'system_log_file',
-         'valid_img',
-         'valid_list']
+
     '''
     def __init__(self):
         ''' set root paths '''
@@ -306,7 +234,8 @@ class Core:
         ''' run pip, apt installers '''
         print('[Running pip installer]')
         self.run_pip_installer()
-        
+        import pywildcard as fnmatch
+
         ''' Setting some shortcuts '''
         print('[Shuffle Shit...]')
         ''' Facial landmark detector '''
@@ -360,18 +289,19 @@ class Core:
         self.install_repos(pix2pix_rps, inst_dir,False,True)
         print('[Installing repos Done]')
         
+        self.detect_model_locs = get_detector_stuff(self)
 
-
-        detect_model_locs = get_detector_stuff(self)
-
-        print(detect_model_locs)
-
+        # print(detect_model_locs)
+        ''' ############################################################################################ '''
+        # pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
+        ''' ############################################################################################ '''
+    
     def __repr__(self):
         return self.path
     
-    '''###################################################################################################'''   
-    '''                               sub methodes definitions bellow this line                           '''
-    '''###################################################################################################'''
+    ''' ################################################################################################## '''   
+    '''                               sub methodes definitions bellow this line                            '''
+    ''' ################################################################################################## '''
     
     def pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True, checkpoint=None):
         ''' 
@@ -380,18 +310,18 @@ class Core:
                 pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
             Example training:
                 # new metrics 
-                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)
+                python pix2pix('/content/final_images/train', 'faces', epochs=2, loops=2, mode='train', first_run=True)
                 # default /content/metrics 
-                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=False)
+                python pix2pix('/content/final_images/train', 'faces', epochs=2, loops=2, mode='train', first_run=False)
                 # custom metrics 
-                python pix2pix('/content/final_mages/train', 'faces', epochs=2, loops=2, mode='train', first_run=False, checkpoint='/content/metrics_abc')
+                python pix2pix('/content/final_images/train', 'faces', epochs=2, loops=2, mode='train', first_run=False, checkpoint='/content/metrics_abc')
             Example test:
                 # default metrics forlder
-                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False)
+                python pix2pix('/content/final_images/train', 'faces', epochs=1, loops=1, mode='test', first_run=False)
                 # custom metrics
-                python pix2pix('/content/final_mages/train', 'faces', epochs=1, loops=1, mode='test', first_run=False, checkpoint='/content/metrics_abc')
+                python pix2pix('/content/final_images/train', 'faces', epochs=1, loops=1, mode='test', first_run=False, checkpoint='/content/metrics_abc')
         '''
-        os.chdir(self.git_install_root + '/piss-ant-pix2pix')
+        os.chdir(os.path.join(self.git_install_root,'/piss-ant-pix2pix'))
         
         ''' set attributes '''
         self.dataset_path = dataset_path
@@ -403,7 +333,7 @@ class Core:
         self.checkpoint = checkpoint
         
         ''' Set the checkpoint folder '''
-        self.checkpoint_dir = self.root +'/' + self.images_set_name + '/metrics'
+        self.checkpoint_dir = os.path.join(self.root, self.images_set_name,'/metrics')
    
         ''' Run training '''
         def run_training(self, loops, checkpoint_dir, first_run, checkpoint):
@@ -491,37 +421,6 @@ class Core:
         ''' Example: '''
         ''' lrange(lst) '''
         return range(len(lst)-1)
-    
-    # def combine_AB(self, dir_A, dir_B, out_dir='combine'):
-    #     ''' combine 2 image folders sidebyside'''
-    #     ''' Example: '''
-    #     ''' combine_AB(dir_A, dir_B, out_dir='combine') '''
-        
-    #     import cv2
-    #     import matplotlib.pyplot as plt
-    #     import numpy as np
-
-    #     ''' get files in A '''
-    #     A_ptrn = 'landmark_blank_face_img_*.*g'
-    #     lst_A = self.GlobX( dir_A, A_ptrn)
-    #     lst_A.sort()
-        
-    #     ''' get files in B '''
-    #     B_ptrn = 'face_img_*.*g'
-    #     lst_B = self.GlobX( dir_B, B_ptrn)
-    #     lst_B.sort()
-        
-    #     ''' Combine the images sbs'''
-    #     for i in self.lrange(lst_A):
-    #         im1 = cv2.imread(lst_A[i])
-    #         im2 = cv2.imread(lst_B[i])
-    #         im_h = cv2.hconcat([im1, im2])
-    #         os.makedirs(self.root+'/'+out_dir, exist_ok=True)
-    #         ''' write new image '''
-    #         cv2.imwrite(self.root+'/'+out_dir+'/combined_img_%04d.jpg' % i, im_h)
-            
-    #     ''' return list of new images '''
-    #     return self.GlobX(self.root+'/'+out_dir, '*.jpg')
 
     def resize_img(self, img_path, out_path,w=256,h=256):
         ''' resize_img(self, img_path, w=256,h=256) '''
@@ -529,15 +428,13 @@ class Core:
 #         log_msg = str([img_path, out_path,w,h])
 #         func_name = str(inspect.stack()[0][3])
 #         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
-        import scipy,cv2
-#         img_path_arr = self.path_split(img_path)
+        import scipy, cv2
         print(img_path)
 #         print(img_path_arr)
         img = cv2.imread(img_path)
         ''' This will resize the image to size (width,height) '''
         resized_image = cv2.resize(img, (w,h))
         ''' Write image to out_dir '''
-#         out_path = os.path.join(out_dir , img_path_arr['file'] + '.' + img_path_arr['ext'])
         print(out_path)
         cv2.imwrite(out_path, resized_image )
         return out_path
@@ -557,10 +454,7 @@ class Core:
             predictor_filename = os.path.join(self.git_install_root,predictor_file_68[0])
 
         ''' Detector predictor loading'''
-        # import dlib
         print(predictor_filename)
-#         detector = dlib.get_frontal_face_detector()
-#         predictor = dlib.shape_predictor(predictor_filename)
         self.FaceAligner = self.DFace.AlignDlib(predictor_filename)
         R = self.FaceAligner.getAllFaceBoundingBoxes(img_in)
         print(R)
@@ -624,7 +518,7 @@ class Core:
         print("[Custom list installed.]")
         self.core_pip_list = [
             'colorama',
-            'recognize_faces',
+            'pywildcard',
         ]
         if merge == True:
             ''' merge the core with the custom pip list'''
@@ -1010,10 +904,11 @@ class Core:
             repos=['bxck75/piss_ant_pix2pix','bxck75/opencv']
             install_repos(repos, inst_dir)
         '''
-        # log 
-#         log_msg = str([repos, inst_dir, sub_repos, chadir])
-#         func_name = str(inspect.stack()[0][3])
-#         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
+
+        log_msg = str([repos, inst_dir, sub_repos, chadir])
+        func_name = str(inspect.stack()[0][3])
+        self.sys_log( func_name + '<~[LOGGED]~>' + log_msg )
+
         self.sys_com('mkdir -p '+self.git_install_root)
 #         print(self.git_install_root)
         for rep in repos:
@@ -1061,8 +956,8 @@ class Core:
 #         log_msg = str([path_in, pattern_in])
 #         func_name = str(inspect.stack()[0][3])
 #         self.sys_log( func_name + '<~[LOGGED]~>' + log_msg ) 
-        import os
-        os.system('sudo pip install pywildcard')
+
+
         import pywildcard as fnmatch
         treeroot=path_in
         pattern=pattern_in
@@ -1465,21 +1360,10 @@ class Core:
         '''load tensorboard'''
         import datetime, os ,tensorboard 
         
-#     def load_helpers(self):
-#         '''load BigHelp to gdrive obj'''
-# #         self.C = BigHelp
-# #         return BigHelp.Helpers()
-
-#     def load_zipper(self):
-#         '''load zipup to gdrive obj'''
-# #         self.C = BigHelp
-# #         return ZipUp.ZipUp
-
     def set_maker(_in_,_mode_,_out_):
         '''
            set_maker(_in_,_mode_,_out_):
         '''
-        #     global r
         self.sys_com('python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(self.root_dirname)+'/images_resized')
         #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(_in_)+' --operation resize --output_dir '+str(M.root_dirname)+'/images_resized')
         self.sys_com('echo python '+str(self.root_dirname)+'/tools/process.py --input_dir '+str(self.root_dirname)+'/images_resized --operation blank --output_dir '+str(self.root_dirname)+'/images_blank')
@@ -1488,32 +1372,11 @@ class Core:
         #     os.system('python '+str(M.root_dirname)+'/tools/process.py --input_dir '+str(M.root_dirname)+'/images_resized --operation edge --output_dir '+str(M.root_dirname)+'/images_edge')
         if _mode_ != '':
             self.sys_com('echo python ' + str(self.root_dirname)+'/tools/process.py --input_dir ' + str(self.root_dirname)+'/images_' + _mode_ +' --operation combine --output_dir ' + str(_out_))
-        #         os.system('echo python ' + str(M.root_dirname)+'/tools/process.py \
-        #             --input_dir ' + str(M.root_dirname)+'/images_' + _mode_ + ' \
-        #             --operation combine \
-        #             --output_dir ' + str(_out_))
+            os.system('echo python ' + str(self.root_dirname)+'/tools/process.py \
+                --input_dir ' + str(self.root_dirname)+'/images_' + _mode_ + ' \
+                --operation combine \
+                --output_dir ' + str(_out_))
 
-        
-        
-
-# #     old method router
-#     def Me(self, args):
-#         """Dispatch method"""
-#         # glob the args
-#         self.root_path='/content/'
-# #         print(self.root_path)
-#         self.args = args
-#         print('[Running-->]'+str(self.args))
-#         self.method= self.args[0]
-#         self.method_args= self.args[1:]
-#         method_args = self.method_args
-#         method_name = '_' + str(self.method)
-#         # Get the method from 'self'. Default to a lambda.
-#         method = getattr(self, method_name, lambda: self.no_action())
-#         # Call the method as its returned
-#         return method()
-
-    # HELPER FUNCTIONS
     # facial landmarks
     def landmarkdetecter(self,img):
         self.Me(['pip',['face_recognition']])
@@ -1591,44 +1454,6 @@ class Core:
                     print("{attr}{str(inspect.signature(getattr(self.method_args[0],str(attr), None)))}:")
                     if lr==True: print()
             except: pass
-
-    # Folder globber
-#     def _globx(self):
-#         import os
-#         os.system('sudo pip install pywildcard')
-#         import pywildcard as fnmatch
-# #         print(self.args)
-#         treeroot=self.method_args[0]
-#         pattern=self.method_args[1]
-#         Sheisterhaufen = []
-#         for base, dirs, files in os.walk(treeroot):
-#             goodfiles = fnmatch.filter(files, pattern)
-#             Sheisterhaufen.extend(os.path.join(base, f) for f in goodfiles)
-#         return Sheisterhaufen
-
-#     # CMD-LINE subprocess spawner
-#     def _cml(self): 
-#         Sheisterhaufen =[]
-#         cmd=self.method_args[0]
-#         if len(self.method_args) > 1:
-#             fi=self.method_args[1]
-#         else: # only False needs to be fed
-#             fi=True
-#         nepopso = os.popen(cmd)
-#         try: # Yeah try that u popo!!!
-#             for line in nepopso:
-# #                 line.encode("utf-8") Mightbe on older python
-#                 if fi == True:
-#                     Sheisterhaufen.append(line.replace('\n',''))
-#         finally: # yeah finally done pooping!!!!!
-#             nepopso.close()
-#         return Sheisterhaufen
-    
-    # Flickr scraper
-    # TODO: make this the main gallery-dl wrapper class and include it 
-    # I can then us the API to it full sambal power and scrape 200+ galleries!!!
-
-    
     
     # Pip installer
     def pip(self):
@@ -1656,31 +1481,7 @@ class Core:
         else:
             os.makedirs(self.method_args[1]+'/'+self.method_args[0], exist_ok = True)
             
-#     # Pull all selected reps  
-#     def _inst_reps(self):
-#         self.repo_list=self.method_args[0]      
-#         self.git_install_root=self.method_args[1]
-#         self.sub_repos=self.method_args[2]
-#         self.chadir=self.method_args[3]
-#         self.sys_com('mkdir -p '+self.git_install_root)
-# #         print(self.git_install_root)
-#         for rep in self.repo_list:
-#             self.rep=rep.split('/')
-#             # change folder check
-#             if self.chadir == True:
-#                 #Switch to path
-#                 os.chdir(self.git_install_root)
-#                 # pull the git repo
-#                 self.sys_com('git clone https://github.com/'+self.rep[0]+'/'+self.rep[1]+'.git')
-#                 # Set the return value for rep rootpath
-#                 self.path=self.git_install_root+'/'+self.rep[1]
-#         # show imported files
-#         self.sys_com('ls ' +self.path)
-#         # run custom setups and get other reps
-# #         self.custom_reps_setup()
-# #         if self.sub_repos == True:
-# #             self.get_other_reps()
-        
+
     # get GPU Capabilities    
     def _get_gpu(self):
     #     check gpu
@@ -1723,17 +1524,15 @@ class Core:
             self.sys_com("pip install -e . |grep 'succes'",True)      
         # switch backt to root
         os.chdir(self.git_install_root)
-        
-    #   --grab the username if a repos is installed
-    #   --generate a txt file of all other reps of the user    
-    def get_other_reps(self):          
+
+    def get_other_reps(self): 
+        ''' gets all reps of git user '''          
         for r in self.repo_list:
             self.GitUsers=[]
             self.sub_repo_list=[]
             self.GUSER=r.split('/')[0]
             self.repo_name=r.split('/')[1]
             self.GitUsers.append(self.GUSER)
-            h=Helpers()
 
             CURL_CMD="curl https://api.github.com/users/{self.GUSER}/repos?per_page=100 | grep -o '"
             CURL_CMD+='git@[^"]*' + ' > '+self.git_install_root+'/info.txt'
@@ -1745,24 +1544,10 @@ class Core:
                     cline=line.split(':')[1].split('.')[0]
                     self.sub_repo_list.append(cline),
 
-        print(self.sub_repo_list)
-
-    # END OF HELPER FUNCTIONS
-  
-    def no_action(self):
-        return self._vdir()
+        return self.sub_repo_list
         
-def get_hmm():
-    """Get a thought."""
-#     help(ZipUp)
-    return 'hmmm...'
+    def Zip(zipname, foldername): 
+        """zips a folder and uploads it to gdrive"""
+        os.system('zip -r ' + zipname + ' ' + foldername) 
 
-def hmm(tool):
-    """Contemplation..."""
-    print( helpers.get_answer() )
-    if helpers.get_answer():
-        print(get_hmm())
 
-# def ZipUp(zipname, foldername, target_dir): 
-#     """zips a folder and uploads it to gdrive"""
-#     Zipup.ZipUp(zipname, foldername, target_dir)

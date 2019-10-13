@@ -4,13 +4,15 @@ import Helpers
 from dlib_local import dlib
 from pprint import pprint
 
-
-
 class cli_main():
+
 	def __init__(self):
 		''' main startup class '''
+
+		self.helpers = Helpers
 		self.main_root =  self.get_project_root()
-		self.colab_env = self.check_colab_env()	
+		self.colab_env = self.check_colab_env()
+		# self.dynamic_helpers_lst = Helpers.__dict__ + Helpers.Core.__dict__
 		self.helpers_lst = [
 		'ColorPrint', 'Core', 'Dlib_Face', 'FaceGrabber', 'Fileview', 'GdriveD', 'GoImgScrape', 'ICL', 
 		'Img', 'RepCoList', 'ZipUp', 'core', 'dlib', 'gscrape', 'logger', 'ops', 'pprint_color', 'resize', 'DelDig', 
@@ -24,17 +26,19 @@ class cli_main():
 		'rec_walk_folder', 'resize_img', 'runProcess', 'run_pip_installer', 
 		'set_maker', 'sys', 'sys_com', 'sys_log', 'valid_img', 'valid_list'
 		]
-		print(len(self.helpers_lst))
+		# print(len(self.helpers_lst))
 
-	def check_colab_env():
-		global IN_COLAB	
+	def check_colab_env(self):
+		
 		try:
 		  import google.colab
 
 		  IN_COLAB = True
+
 		except:
 		  IN_COLAB = False
-		return IN_COLAB
+
+
 
 	def get_project_root(self) -> Path:
 		"""Returns project root folder."""
@@ -43,48 +47,4 @@ class cli_main():
 		cli_core = Helpers.Core
 		pass
 
-# cli_main()
-
-# pprint(Helpers.Core.__dict__)	
-# ''' run pip, apt installers '''
-# print('[Runnsing pip installer]')
-# self.run_pip_installer()
-# if 'pydrive' not in sys.modules:
-# 	os.system('pip install -U -q PyDrive')
-# 	''' PyDrive install '''
-# 	print('[Installing PyDrive]')
-# 	sr = self.sys_com('python ' + self.git_install_root + '/PyDrive/setup.py install')
-
-# if 'icrawler' not in sys.modules:
-# 	os.system('pip install icrawler')
-
-
-# ''' needed googledrive repos '''
-# gdrive_rps=[
-#     'bxck75/google-drive-list-shared', 
-#     'bxck75/PyDrive'
-# ]
-# Helpers.Core().install_repos(gdrive_rps, inst_dir, False, True)
-
-
-# import pydrive
-# ''' google shared wrapper '''
-# print('[Installing google wrapper]')
-# sr += Helpers.Core().sys_com('cp ' + self.git_install_root + '/google-drive-list-shared/google-drive-list-shared.py ' +  self.core_dirname + '/gdrive_shared.py')
-# sr += Helpers.Core().sys_com('rm -r ' + self.git_install_root + '/google-drive-list-shared')
-# print(sr)
-
-# pprint(str(str(dir(dlib)).split('face')[0]))
-
-
-
-# class cli_local_run:
-# 	''' class for use when opperating from cli '''
-# 	def __init__(self):
-# 		print('Init ' + __name__)
-
-# class main:
-#     ''' This and the core.py file are the main frontier of development '''
-#     def __init__(self):
-#         ''' set root paths '''
-#         print('init ' + __name__ )
+main = cli_main()
