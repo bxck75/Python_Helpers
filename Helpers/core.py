@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os, sys, inspect , pydrive, icrawler
-
+from pprint import pprint
 ''' Python 2/3 compatibility '''
 PY3 = sys.version_info[0] == 3
 if PY3:
@@ -34,34 +34,27 @@ from . import ICL
 from . import FaceGrabber
 from . import pprint_color
 from . import Dlib_Face
+from . import PeeWeeSql
 
-
-class empty_class():
+class spawner_class():
     ''' empty class to inject'''
-    
     def __init__(self):
-        self.project_root = self.get_project_root()
+        self.project_root = Path(__file__).parent.parent
         print(self.project_root)
-        pass
-
-    ''' get project root '''
-    def get_project_root(self) -> Path:
-        """Returns project root folder."""
-        return Path(__file__).parent.parent
 
 class get_detector_stuff():
     def __init__(self, parent):
         ''' make short routes to all models '''
-        dir(parent)
-        self.parent = parent
-        self.git_install_root = parent.git_install_root
-        self.detector_models_dir = parent.git_install_root+'/Face_Detect_Assets'
+        global Parent
+        Parent = parent
+        self.git_install_root = Parent.git_install_root
+        self.detector_models_dir = Parent.git_install_root+'/Face_Detect_Assets'
         self.detect_method = [
                 'haar_cascade', # https://drive.google.com/open?id=14KF-LmE2QPzoxZHa_iDnPef8Wt25FmEj
                 'dlib_lm_68',   # https://drive.google.com/open?id=1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2
                 'dlib_lm_194'   # https://drive.google.com/open?id=1KJRSVoNwfAsnrBc5BH8QHKg7YgUD2pqC
             ]
-        self.haar_cascade = empty_class() # empty class to inject the attributes in to
+        self.haar_cascade = spawner_class() # spawns empty class to inject the attributes in to
         self.haar_cascade.all_haar_sources = ['haarcascade_files.zip','14KF-LmE2QPzoxZHa_iDnPef8Wt25FmEj']
         self.haar_cascade.frontal_cat_sources=[
                 'haarcascade_frontalcatface_extended.xml',
@@ -86,40 +79,40 @@ class get_detector_stuff():
             'haarcascade_lowerbody.xml',
             'haarcascade_upperbody.xml',
             ]
-        self.dlib_landmarks = empty_class() # empty class to inject the attributes in to
+        self.dlib_landmarks = spawner_class() # empty class to inject the attributes in to
         self.dlib_landmarks.detector_sources = {
                 'dlib_lm_68':['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2'],
                 'dlib_lm_194':['shape_predictor_194_face_landmarks.dat','1KJRSVoNwfAsnrBc5BH8QHKg7YgUD2pqC']
             }
 
         # check if already downloaded else download
-        if (not self.parent.if_exists(os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0])) and not self.parent.if_exists(os.path.join(self.detector_models_dir, self.dlib_landmarks.detector_sources[self.detect_method[1]][0]))):
+        if (not Parent.if_exists(os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0])) and not Parent.if_exists(os.path.join(self.detector_models_dir, self.dlib_landmarks.detector_sources[self.detect_method[1]][0]))):
             ''' detector files not in the folder so downloading.... '''
             print('Downloading detector models')
             self.download_stuff()
         else:
             print('Detector files in place!')
             print(self.detector_models_dir)
-        return self.parent.GlobX(self.detector_models_dir,'*.*')
+
+    def __repr__(self):
+        # return the list of detector assets
+        return repr(Parent.GlobX(self.detector_models_dir,'*.*'))
 
 
     def download_stuff(self):
         ''' Download and unzip all detector sources '''
         os.makedirs(self.detector_models_dir, exist_ok = True)
         os.chdir(self.detector_models_dir)
-        # print(dir(self.parent.GdriveD))
+        # print(dir(Parent.GdriveD))
         # download all haar models
-        self.parent.GdriveD.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
-        self.parent.sys_com('unzip ' + os.path.join(self.parent.root, self.haar_cascade.all_haar_sources[0]))
-        os.remove( os.path.join(self.parent.root, self.haar_cascade.all_haar_sources[0]))
+        Parent.GdriveD.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
+        Parent.sys_com('unzip ' + os.path.join(Parent.root, self.haar_cascade.all_haar_sources[0]))
+        os.remove( os.path.join(Parent.root, self.haar_cascade.all_haar_sources[0]))
 
         # download the 2 dlib landmark models
-        self.parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
-        self.parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
+        Parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
+        Parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
         os.chdir(self.root)
-
-    def method(self, arg):
-        super().method(arg)
 
 
 class detect_squares():
@@ -129,7 +122,7 @@ class detect_squares():
     '''
     def __init__(self, parent, img_folder):
         self.img_folder = img_folder
-        self.parent = parent
+
         self.run_square_detect()
 
     def angle_cos(self,p0, p1, p2):
@@ -160,7 +153,7 @@ class detect_squares():
     def run_square_detect(self):
         ''' detect squares in images '''
 
-        for fn in self.parent.GlobX(self.img_folder,'*.*g'):
+        for fn in Parent.GlobX(self.img_folder,'*.*g'):
             img = cv2.imread(fn)
             img_org = img.copy()
             w,h,c = img.shape
@@ -181,19 +174,10 @@ class detect_squares():
             cv2.imwrite(os.path.join(img_file_path, 'img_black_sqrd', img_file_name), img_black)
 
         print('Done')
-        return self.parent.GlobX(img_file_path,'*.*g')
+        return Parent.GlobX(img_file_path,'*.*g')
 
 
-        def detect_cat_faces(self, img_in, img_out):
-
-            # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
-
-            #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
-            face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-            #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_eye.xml
-            eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-
-            cap = cv2.VideoCapture(0)
+    
 
 class Core:
     '''
@@ -291,11 +275,7 @@ class Core:
         
         self.detect_model_locs = get_detector_stuff(self)
 
-        # print(detect_model_locs)
-        ''' ############################################################################################ '''
-        # pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True)
-        ''' ############################################################################################ '''
-    
+
     def __repr__(self):
         return self.path
     
@@ -303,6 +283,21 @@ class Core:
     '''                               sub methodes definitions bellow this line                            '''
     ''' ################################################################################################## '''
     
+        
+    def detect_cat_faces(self, img_in, img_out):
+
+        # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
+
+        #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
+        face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_eye.xml
+        eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+
+        cap = cv2.VideoCapture(0)
+
+
+
+
     def pix2pix(self, dataset_path, images_set_name, epochs=2, loops=2, mode='train', first_run=True, checkpoint=None):
         ''' 
         pix2pix Trainer/Predictor
@@ -386,7 +381,6 @@ class Core:
         
         run_training(self.loops, self.checkpoint_dir, self.first_run, self.checkpoint)
         os.chdir(self.root)
-
 
     # Method discloser
     def ViR(self, mod_lst ):
@@ -680,7 +674,6 @@ class Core:
         
         org_faces_lst = self.GlobX(folder_A, '*.jpg')
         landmarks_lst = self.GlobX(folder_B, '*.jpg')
-        
 
         ''' resize all of them'''
         os.makedirs(folder_A, exist_ok=True)

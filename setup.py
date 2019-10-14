@@ -31,6 +31,8 @@ setup(
         "gputil",
         "psutil",
         "humanize",
+        "preprocessing",
+        "peewee",
         
     ],
 )
