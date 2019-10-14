@@ -31,9 +31,11 @@ setup(
         "gputil",
         "psutil",
         "humanize",
+        "sql-editor",
         "preprocessing",
         "peewee",
-        
+        "minilite",
+        "sqlite-db-tools",
     ],
 )
 
