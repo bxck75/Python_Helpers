@@ -9,7 +9,14 @@ class cli_main():
 	''' init of the low and high helper Cores '''
 	def __init__(self):
 
-
+		def check_init_state():
+			try:
+				os.environ['HELPERS_STATE'] = '0'
+				if sys.argv[1] == 'new':
+					os.environ['HELPERS_STATE'] = '1'
+			except:
+				pass
+			
 		def check_colab_env():
 			'''check on google.colab'''
 			try:

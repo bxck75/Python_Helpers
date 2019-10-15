@@ -186,8 +186,13 @@ class Core:
         lm_file = ['shape_predictor_194_face_landmarks.zip','1fMOT_0f5clPbZXsphZyrGcLXkIhSDl3o']
         HelpCore.GdriveD.GdriveD(lm_file[1],lm_file[0])
         ###
-
     '''
+    try:
+        state_from_environ = int(os.environ['HELPERS_STATE'])
+    except:
+        state_from_environ = 0
+        pass
+
     def __init__(self):
         ''' set root paths '''
         print('[Setting paths]')
@@ -214,11 +219,12 @@ class Core:
         self.DFace =        Dlib_Face
         self.Pix2Pix =      self.pix2pix
 
-
-        ''' run pip, apt installers '''
-        print('[Running pip installer]')
-        self.run_pip_installer()
-        import pywildcard as fnmatch
+        # if installing is already done or environ var is not set
+        if self.state_from_environ == 0: 
+            ''' run pip, apt installers '''
+            print('[Running pip installer]')
+            self.run_pip_installer()
+            import pywildcard as fnmatch
 
         ''' Setting some shortcuts '''
         print('[Shuffle Shit...]')
@@ -246,35 +252,39 @@ class Core:
         print('[Changing dir to root]')
         self.c_d(self.root)
         
-        ''' In_helpers/helpers/ map '''
-        print('[Installing repos]')
-        inst_dir=self.core_dirname
-        
-        ''' cv2 and distro install '''
-        cv_repos = [
-#             'bxck75/opencv_contrib',
-#             'bxck75/opencv', # long install
-            'bxck75/face2face-demo',
-            'bxck75/face-recognition',
-        ]
-        self.install_repos(cv_repos, inst_dir, False, True) 
+        # if installing is already done or environ var is not set
+        if self.state_from_environ == 0:        
+            ''' In_helpers/helpers/ map '''
+            print('[Installing repos]')
+            inst_dir=self.core_dirname
+            
+            ''' cv2 and distro install '''
+            cv_repos = [
+    #             'bxck75/opencv_contrib',
+    #             'bxck75/opencv', # long install
+                'bxck75/face2face-demo',
+                'bxck75/face-recognition',
+            ]
+            self.install_repos(cv_repos, inst_dir, False, True) 
 
-        ''' needed repos '''
-        gdrive_rps=[
-            'bxck75/google-drive-list-shared', 
-            'bxck75/PyDrive',
-            'coleifer/peewee',
-        ]
-        self.install_repos(gdrive_rps, inst_dir, False, True)
-    
-        ''' pix2pix repos '''
-        pix2pix_rps=[
-                'bxck75/piss-ant-pix2pix',
-        ]
-        self.install_repos(pix2pix_rps, inst_dir,False,True)
-        print('[Installing repos Done]')
+            ''' needed repos '''
+            gdrive_rps=[
+                'bxck75/google-drive-list-shared', 
+                'bxck75/PyDrive',
+                'coleifer/peewee',
+            ]
+            self.install_repos(gdrive_rps, inst_dir, False, True)
         
-        self.detect_model_locs = get_detector_stuff(self)
+            ''' pix2pix repos '''
+            pix2pix_rps=[
+                    'bxck75/piss-ant-pix2pix',
+            ]
+            self.install_repos(pix2pix_rps, inst_dir,False,True)
+            print('[Installing repos Done]')
+            
+            self.detect_model_locs = get_detector_stuff(self)
+
+            os.environ['HELPERS_STATE'] = 1 # done installing shit 
 
 
     def __repr__(self):

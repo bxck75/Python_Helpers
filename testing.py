@@ -1,12 +1,5 @@
 from cli_main import *
-try:
-	os.environ['HELPERS_STATE'] = '0'
-	if sys.argv[1] == 'new':
-		os.environ['HELPERS_STATE'] = '1'
-		someVariable = int(os.environ['state'])
-		print(os.environ)	
-except:
-	pass
+
 this_env = str(os.environ).replace('[','').replace(']','').split(',')
 # this_env.sort()
 pprint(this_env)
