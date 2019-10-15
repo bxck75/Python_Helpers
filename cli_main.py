@@ -11,12 +11,11 @@ class cli_main():
 
 		def check_init_state():
 			try:
-				os.environ['HELPERS_STATE'] = '0'
-				if sys.argv[1] == 'new':
-					os.environ['HELPERS_STATE'] = '1'
+				print("[environ helper state] = " + os.environ['HELPERS_STATE'])
+				return True
 			except:
-				pass
-			
+				return False
+
 		def check_colab_env():
 			'''check on google.colab'''
 			try:
@@ -24,9 +23,17 @@ class cli_main():
 			  return True
 			except:
 			  return False
+
 		def get_project_root() -> Path:
 			''' Returns project root folder.'''
 			return Path(__file__).parent.parent
+
+		''' get init state	'''
+		init_state = check_init_state()
+		''' check if the env is colaboratory '''
+		self.colab_env = check_colab_env()
+		''' get the underlaying project root '''
+		self.main_root =  get_project_root()
 
 		''' Set core tools name '''
 		self.high_core = Helpers
@@ -34,13 +41,9 @@ class cli_main():
 		self.high_core.Core() ######init#####
 		''' set default tools name '''
 		self.low_core = Helpers.Core
+		# print(self.high_core.__name__ )
+		# print(self.low_core.__name__)
 
-		# check if the env is colaboratory
-		self.colab_env = check_colab_env()
-		''' get the underlaying project root '''
-		self.main_root =  get_project_root()
-		print(self.high_core.__name__ )
-		print(self.low_core.__name__)
 		def meth_lister(key):
 			''' method lister '''
 			m_list = {

@@ -1,3 +1,5 @@
+try:
+    print(os.environ[''])
 from cli_main import *
 
 this_env = str(os.environ).replace('[','').replace(']','').split(',')
