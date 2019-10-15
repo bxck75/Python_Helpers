@@ -259,10 +259,11 @@ class Core:
         ]
         self.install_repos(cv_repos, inst_dir, False, True) 
 
-        ''' needed googledrive repos '''
+        ''' needed repos '''
         gdrive_rps=[
             'bxck75/google-drive-list-shared', 
-            'bxck75/PyDrive'
+            'bxck75/PyDrive',
+            'coleifer/peewee',
         ]
         self.install_repos(gdrive_rps, inst_dir, False, True)
     
@@ -774,7 +775,7 @@ class Core:
         conn = sqlite3.connect('database.db')
         if not os.path.exists('./dataset'):
             os.makedirs('./dataset')
-        c = conn.cursor()
+        conn.cur = conn.cursor()
         face_cascade = cv2.CascadeClassifier('/content/installed_repos/Python_Helpers/Helpers/haarcascade_frontalface_alt.xml')
         cap = cv2.VideoCapture(0)
         uname = input("Enter your name: ")
