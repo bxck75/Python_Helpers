@@ -1,49 +1,21 @@
-from functools import partial
-from peewee import *
 
-db = PostgresqlDatabase('peewee_test')
+import peewee
+import datetime
 
-class BaseModel(Model):
-    class Meta:
-        database = db
+helpers_db = peewee.SqliteDatabase('helpers.db') # saved in git .sqlite is ignored
 
-class Member(BaseModel):
-    memid = AutoField()  # Auto-incrementing primary key.
-    surname = CharField()
-    firstname = CharField()
-    address = CharField(max_length=300)
-    zipcode = IntegerField()
-    telephone = CharField()
-    recommendedby = ForeignKeyField('self', backref='recommended',
-                                    column_name='recommendedby', null=True)
-    joindate = DateTimeField()
+class ConfigTable(peewee.Model):
+    cfg_id = peewee.AutoField()
+    var = peewee.CharField()
+    val = peewee.CharField()
+    created = peewee.DateField(default=datetime.date.today)
 
     class Meta:
-        table_name = 'members'
+        database = helpers_db
+        db_table = 'config_values'
 
-
-# Conveniently declare decimal fields suitable for storing currency.
-MoneyField = partial(DecimalField, decimal_places=2)
-
-
-class Facility(BaseModel):
-    facid = AutoField()
-    name = CharField()
-    membercost = MoneyField()
-    guestcost = MoneyField()
-    initialoutlay = MoneyField()
-    monthlymaintenance = MoneyField()
-
-    class Meta:
-        table_name = 'facilities'
-
-
-class Booking(BaseModel):
-    bookid = AutoField()
-    facility = ForeignKeyField(Facility, column_name='facid')
-    member = ForeignKeyField(Member, column_name='memid')
-    starttime = DateTimeField()
-    slots = IntegerField()
-
-    class Meta:
-        table_name = 'bookings'
+print(help(ConfigTable.create_table))
+print(dir(ConfigTable.create_table))
+ConfigTable.create_table()
+q = ConfigTable.create(var='system_creator', val='K00B404')
+q.save()
