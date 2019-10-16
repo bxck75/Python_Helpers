@@ -9,13 +9,6 @@ class cli_main():
 	''' init of the low and high helper Cores '''
 	def __init__(self):
 
-		def del_install_check():
-			try:
-				if sys.argv[1] == 'new':
-					os.remove(self.main_root  + '/install.check')
-			except:
-				pass
-
 		def check_colab_env():
 			'''check on google.colab'''
 			try:
@@ -28,12 +21,23 @@ class cli_main():
 			''' Returns project root folder.'''
 			return Path(__file__).parent.parent
 
-		''' see if install is needed '''
-		del_install_check()
 		''' check if the env is colaboratory '''
 		self.colab_env = check_colab_env()
 		''' get the underlaying project root '''
-		self.main_root =  get_project_root()
+		self.main_root =  str(get_project_root())
+
+		def del_install_check():
+			try:
+				if sys.argv[1] == 'new':
+					print(self.main_root  + '/install.check')
+					os.remove(self.main_root + '/Python_Helpers/Helpers/install.check')
+			except:
+				print(self.main_root  + '/Python_Helpers/Helpers/install.check')
+				pass
+
+
+		''' see if install is needed '''
+		del_install_check()
 
 		''' Set core tools name '''
 		self.high_core = Helpers

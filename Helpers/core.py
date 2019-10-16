@@ -112,7 +112,7 @@ class get_detector_stuff():
         # download the 2 dlib landmark models
         Parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
         Parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[2]][1], self.dlib_landmarks.detector_source[self.detect_method[2]][1])
-        os.chdir(self.root)
+        os.chdir(self.git_install_root)
 
 
 class detect_squares():
