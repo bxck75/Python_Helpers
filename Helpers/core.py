@@ -80,7 +80,7 @@ class get_detector_stuff():
             'haarcascade_upperbody.xml',
             ]
         self.dlib_landmarks = spawner_class() # empty class to inject the attributes in to
-        self.dlib_landmarks.detector_sources = {
+        self.dlib_landmarks.detector_source = {
                 'dlib_lm_68':['shape_predictor_68_face_landmarks.dat','1KNfN-ktxbPJMtmdiL-I1WW0IO1B_2EG2'],
                 'dlib_lm_194':['shape_predictor_194_face_landmarks.dat','1KJRSVoNwfAsnrBc5BH8QHKg7YgUD2pqC']
             }
