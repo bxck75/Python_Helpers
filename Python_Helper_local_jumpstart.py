@@ -1,8 +1,7 @@
 import os, sys, inspect
 from pathlib import Path
-# root = sys.argv[1]
+
 root = '/content'
-# os.chdir(root)
 helpers_path = root + '/installed_repos/Python_Helpers'
 os.makedirs(helpers_path , exist_ok=True)
 os.system('sudo rm -r ' + helpers_path) # clear for new pull from git
