@@ -28,8 +28,8 @@ class cli_main():
 			''' Returns project root folder.'''
 			return Path(__file__).parent.parent
 
-		''' get init state	'''
-		init_state = del_install_check()
+		''' see if install is needed '''
+		del_install_check()
 		''' check if the env is colaboratory '''
 		self.colab_env = check_colab_env()
 		''' get the underlaying project root '''
