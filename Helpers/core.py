@@ -86,7 +86,7 @@ class get_detector_stuff():
             }
 
         # check if already downloaded else download
-        if (not Parent.if_exists(os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0])) and not Parent.if_exists(os.path.join(self.detector_models_dir, self.dlib_landmarks.detector_sources[self.detect_method[1]][0]))):
+        if (not Parent.if_exists(os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0])) and not Parent.if_exists(os.path.join(self.detector_models_dir, self.dlib_landmarks.detector_source[self.detect_method[1]][0]))):
             ''' detector files not in the folder so downloading.... '''
             print('[Downloading detector models]')
             self.download_stuff()
