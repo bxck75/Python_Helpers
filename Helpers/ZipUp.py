@@ -3,7 +3,7 @@ try:
     from google.colab import files
     from google.colab import auth
 except:
-    print('Not in a colab env!')
+    print('[Not in a colab env!]')
     
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive

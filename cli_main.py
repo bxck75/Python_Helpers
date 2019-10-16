@@ -64,7 +64,7 @@ class cli_main():
 		self.low_core.meth_lst = meth_lister('Helpers')
 		self.high_core.meth_lst = meth_lister('Core')
 		self.lst_of_methods = meth_lister('all')
-		pprint(self.lst_of_methods)
+		# pprint(self.lst_of_methods)
 
 main = cli_main()
 

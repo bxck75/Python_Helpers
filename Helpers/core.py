@@ -40,7 +40,7 @@ class spawner_class():
     ''' empty class to inject'''
     def __init__(self):
         self.project_root = Path(__file__).parent.parent
-        print(self.project_root)
+        # print(self.project_root)
 
 class get_detector_stuff():
     def __init__(self, parent):
@@ -92,7 +92,7 @@ class get_detector_stuff():
             self.download_stuff()
         else:
             print('Detector files in place!')
-            print(self.detector_models_dir)
+            # print(self.detector_models_dir)
 
     def __repr__(self):
         # return the list of detector assets
@@ -107,7 +107,7 @@ class get_detector_stuff():
         # download all haar models
         Parent.GdriveD.GdriveD(self.haar_cascade.all_haar_sources[1], self.haar_cascade.all_haar_sources[0])
         Parent.sys_com('unzip ' + os.path.join(Parent.root, self.haar_cascade.all_haar_sources[0]))
-        os.remove( os.path.join(Parent.root, self.haar_cascade.all_haar_sources[0]))
+        os.remove( os.path.join(self.detector_models_dir, self.haar_cascade.all_haar_sources[0]))
 
         # download the 2 dlib landmark models
         Parent.GdriveD.GdriveD(self.dlib_landmarks.detector_source[self.detect_method[1]][1], self.dlib_landmarks.detector_source[self.detect_method[1]][0])
@@ -187,11 +187,7 @@ class Core:
         HelpCore.GdriveD.GdriveD(lm_file[1],lm_file[0])
         ###
     '''
-    try:
-        state_from_environ = int(os.environ['HELPERS_STATE'])
-    except:
-        state_from_environ = 0
-        pass
+
 
     def __init__(self):
         ''' set root paths '''
@@ -220,7 +216,7 @@ class Core:
         self.Pix2Pix =      self.pix2pix
 
         # if installing is already done or environ var is not set
-        if self.state_from_environ == 0: 
+        if not self.if_exists(self.core_dirname+'install.check'): 
             ''' run pip, apt installers '''
             print('[Running pip installer]')
             self.run_pip_installer()
@@ -253,7 +249,7 @@ class Core:
         self.c_d(self.root)
         
         # if installing is already done or environ var is not set
-        if self.state_from_environ == 0:        
+        if not self.if_exists(self.core_dirname+'install.check'):    
             ''' In_helpers/helpers/ map '''
             print('[Installing repos]')
             inst_dir=self.core_dirname
@@ -284,8 +280,10 @@ class Core:
             
             self.detect_model_locs = get_detector_stuff(self)
 
-            os.environ['HELPERS_STATE'] = 1 # done installing shit 
-
+            with open(self.core_dirname+'install.check','w') as install_check:
+                install_check.write('Install done')
+            install_check.close()
+            print('[Install check file made]')
 
     def __repr__(self):
         return self.path
@@ -1323,7 +1321,7 @@ class Core:
         '''
         from PIL import Image
         import os,sys,glob
-        # directory=sys.argv[1]
+
         i=int(0)
         for infilename in glob.iglob(directory_in+'/*.*g'):
             im = Image.open(infilename)
