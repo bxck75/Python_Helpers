@@ -214,9 +214,13 @@ class Core:
         self.ICrawL =       ICL.ICL
         self.DFace =        Dlib_Face
         self.Pix2Pix =      self.pix2pix
+        
+        
+        ''' Existence checker '''
+        self.if_exists = os.path.exists
 
         # if installing is already done or environ var is not set
-        if not self.if_exists(self.core_dirname+'install.check'): 
+        if not self.if_exists(self.core_dirname + '/install.check'): 
             ''' run pip, apt installers '''
             print('[Running pip installer]')
             self.run_pip_installer()
@@ -241,15 +245,13 @@ class Core:
         self.c_d = self.cd       
         ''' Change to root folder '''
         self.c_d(self.root)
-        ''' Existence checker '''
-        self.if_exists = os.path.exists
         
         ''' cd  to root '''
         print('[Changing dir to root]')
         self.c_d(self.root)
         
         # if installing is already done or environ var is not set
-        if not self.if_exists(self.core_dirname+'install.check'):    
+        if not self.if_exists(self.core_dirname+'/install.check'):    
             ''' In_helpers/helpers/ map '''
             print('[Installing repos]')
             inst_dir=self.core_dirname
@@ -280,7 +282,7 @@ class Core:
             
             self.detect_model_locs = get_detector_stuff(self)
 
-            with open(self.core_dirname+'install.check','w') as install_check:
+            with open(self.core_dirname+'/install.check','w') as install_check:
                 install_check.write('Install done')
             install_check.close()
             print('[Install check file made]')
@@ -520,7 +522,6 @@ class Core:
         self.custom_pip_list = custom_pip_list
         print("[Custom list installed.]")
         self.core_pip_list = [
-            'colorama',
             'pywildcard',
         ]
         if merge == True:

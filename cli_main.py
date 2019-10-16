@@ -9,12 +9,12 @@ class cli_main():
 	''' init of the low and high helper Cores '''
 	def __init__(self):
 
-		def check_init_state():
+		def del_install_check():
 			try:
-				print("[environ helper state] = " + os.environ['HELPERS_STATE'])
-				return True
+				if sys.argv[1] == 'new':
+					os.remove(self.main_root  + '/install.check')
 			except:
-				return False
+				pass
 
 		def check_colab_env():
 			'''check on google.colab'''
@@ -29,7 +29,7 @@ class cli_main():
 			return Path(__file__).parent.parent
 
 		''' get init state	'''
-		init_state = check_init_state()
+		init_state = del_install_check()
 		''' check if the env is colaboratory '''
 		self.colab_env = check_colab_env()
 		''' get the underlaying project root '''

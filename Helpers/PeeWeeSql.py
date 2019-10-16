@@ -14,8 +14,8 @@ class ConfigTable(peewee.Model):
         database = helpers_db
         db_table = 'config_values'
 
-print(help(ConfigTable.create_table))
-print(dir(ConfigTable.create_table))
+# print(help(ConfigTable.create_table))
+# print(dir(ConfigTable.create_table))
 ConfigTable.create_table()
 q = ConfigTable.create(var='system_creator', val='K00B404')
 q.save()
